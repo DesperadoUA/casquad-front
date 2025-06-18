@@ -1,16 +1,19 @@
 <template>
-	<div class="item_container">
-		<div class="item_wrapper" v-for="(item, index) in posts" :key="index">
-			<SlotScreenshotsItem :src="item.src" :title="title" />
-		</div>
-	</div>
+		<Fancybox :options="{Carousel: {infinite: false}}">
+			<div class="item_container">
+				<a class="item_wrapper" v-for="(item, index) in posts" :key="index" data-fancybox="gallery" :href="item.src">
+					<SlotScreenshotsItem :src="item.src" :title="title" />
+				</a>
+			</div>
+		</Fancybox>
 </template>
 
 <script>
 import SlotScreenshotsItem from '~/components/slot_screenshots/item'
+import Fancybox  from '~/components/fancybox';
 export default {
 	name: 'game_screenshots',
-	components: { SlotScreenshotsItem },
+	components: { SlotScreenshotsItem, Fancybox },
 	data() {
 		return {
 			currentValue: []
@@ -29,7 +32,7 @@ export default {
 				return ''
 			}
 		}
-	}
+	},
 }
 </script>
 
@@ -49,15 +52,17 @@ export default {
 		justify-content: space-between;
 	}
 	.item_wrapper {
-		min-width: 45%;
-		max-width: 45%;
+		width: calc(50% - 10px);
+		max-width: none;
+		min-width: none;
 	}
-}
-@media (min-width: 768px) and (max-width: 1200px) {
 	.item_container {
 		flex-wrap: wrap;
 		justify-content: space-between;
+		gap: 20px;
 	}
+}
+@media (min-width: 768px) and (max-width: 1200px) {
 	.item_wrapper {
 		min-width: 45%;
 		max-width: 45%;

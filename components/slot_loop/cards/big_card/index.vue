@@ -5,7 +5,8 @@
 		</div>
 		<div class="wrapper">
 			<ALink :href="link" :title="`Goes to ${title} page`">
-				<AImg :attributes="{ ...imgSettings, alt: `${title} Logo` }" :src="src" />
+				<!-- <AImg :attributes="{ ...imgSettings, alt: `${title} Logo` }" :src="src" />-->
+				<img :alt="`${title} Logo`" :src="src" width="329px" height="355px" class="object_fit_cover thumbnail"/>
 			</ALink>
 		</div>
 	</article>

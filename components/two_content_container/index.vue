@@ -20,6 +20,7 @@ export default {
 .left {
 	flex-grow: 1;
 	padding-right: 15px;
+	max-width: 875px;
 }
 .right {
 	width: 368px;

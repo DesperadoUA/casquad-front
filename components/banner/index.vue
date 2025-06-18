@@ -38,8 +38,8 @@ export default {
 </script>
 <style scoped>
 .wrapper_thumbnail {
-	width: 822px;
-	height: 333px;
+	width: 100%;
+	height: auto;
 }
 .thumbnail {
 	width: 100%;

@@ -8,7 +8,7 @@
 				:key="index"
 				@click="changeTab(index)"
 			>
-				<AImg :src="item.icon" :attributes="imgSettingsIcon" />
+				<AImg :src="item.icon" :attributes="{...imgSettingsIcon, alt: `icon ${item.title}`}" />
 				{{ item.title }}
 			</button>
 		</div>
@@ -34,7 +34,8 @@ export default {
 			currentTab: 0,
 			imgSettingsIcon: {
 				width: '26',
-				height: '26'
+				height: '26',
+				class: 'tab_content_icon'
 			}
 		}
 	},
@@ -53,6 +54,12 @@ export default {
 	}
 }
 </script>
+<style>
+.tab_content_icon {
+	width: 26px;
+	height: 26px;
+}
+</style>
 <style scoped>
 .tabs {
 	display: flex;

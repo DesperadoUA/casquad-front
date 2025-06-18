@@ -14,8 +14,8 @@ export default {
 		return {
 			options: null,
 			imgSettings: {
-				width: '160px',
-				height: '36px'
+				width: '160',
+				height: '36'
 			}
 		}
 	}

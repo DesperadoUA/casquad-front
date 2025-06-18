@@ -96,6 +96,7 @@ export default {
 }
 .wrapper_menu {
 	margin-top: var(--s);
+	width: 100%;
 }
 @media (max-width: 767px) {
 	.header_container {

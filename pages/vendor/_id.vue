@@ -34,6 +34,12 @@
 							</aside>
 						</template>
 					</TwoContentContainer>
+					<div class="video_gallery" v-if="data.body.video.length">
+						<div class="container">
+							<AText tag="div" v-if="data.body.video_title" :attributes="videoTitleSettings">{{ data.body.video_title }}</AText>
+							<VideoGallery :posts="videoListWrapper(data.body.video)" />
+						</div>
+					</div>
 					<div class="section_title_wrapper">
 						<AText tag="div" :attributes="mainContainerTitle">{{ t('AVAILABLE_THESE_CASINOS') }}</AText>
 					</div>
@@ -66,6 +72,7 @@ import CasinoLoop from '~/components/casino_loop'
 import SlotLoop from '~/components/slot_loop'
 import Banner from '~/components/banner/'
 import Gradient from '~/components/gradient'
+import VideoGallery from '~/components/video_gallery'
 export default {
 	name: 'single-vendor',
 	data: () => {
@@ -92,6 +99,12 @@ export default {
 				color: 'cairo',
 				size: 'x-large'
 			},
+			videoTitleSettings: {
+				size: 'x-large',
+				color: 'cairo',
+				weight: 'bold',
+				class: 'video_title'
+			},
 		}
 	},
 	components: {
@@ -101,7 +114,8 @@ export default {
 		CasinoLoop,
 		SlotLoop,
 		Banner,
-		Gradient
+		Gradient,
+		VideoGallery
 	},
 	mixins: [pageTemplate],
 	async asyncData({ route, error }) {
@@ -119,6 +133,19 @@ export default {
 			}
 		} else {
 			error({ statusCode: 404, message: 'Post not found' })
+		}
+	},
+	methods: {
+		videoListWrapper(videoList) {
+			return videoList.map(item => {
+				const {src} = item
+				const [iframe, title] = item.value
+				return {
+					title,
+					iframe,
+					banner: src
+				}
+			})
 		}
 	}
 }
@@ -161,6 +188,13 @@ export default {
     border-radius: 20px;
     padding: 32px 22px;
 	max-width: 820px;
+}
+.video_gallery {
+	padding-top: 0px;
+	padding-bottom: 40px;
+}
+.video_title {
+	margin-bottom: 24px;
 }
 @media (max-width: 767px) {
 	.content_container {

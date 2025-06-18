@@ -1,13 +1,13 @@
 <template>
 	<span class="item">
-		<AImg :attributes="{ ...imgSettings, alt: `${title} Screen` }" :src="src" />
+		<AImg :attributes="{ ...imgSettings, alt: `${title} Video` }" :src="src" />
 	</span>
 </template>
 
 <script>
 import components from '~/mixins/components'
 export default {
-	name: 'game_screenshots_item',
+	name: 'video_item',
 	mixins: [components],
 	data() {
 		return {
@@ -16,7 +16,14 @@ export default {
 				height: '170px',
 				class: 'img'
 			},
-			isShowScreen: false
+            titleSettings: {
+				color: 'cairo',
+				size: 'large',
+				weight: 'bold',
+				transform: 'uppercase',
+				class: 'title',
+                align: 'center',
+			},
 		}
 	},
 	props: {
@@ -33,14 +40,6 @@ export default {
 			}
 		}
 	},
-	methods: {
-		onClickScreenActivate() {
-			this.isShowScreen = true
-		},
-		onClickScreenClose() {
-			this.isShowScreen = false
-		}
-	}
 }
 </script>
 
@@ -49,5 +48,11 @@ export default {
 	max-width: 100%;
 	border-radius: var(--m);
 	cursor: pointer;
+    width: 100%;
+}
+.title {
+    margin-top: 15px;
+    text-decoration: none;
+	display: block;
 }
 </style>

@@ -2,7 +2,7 @@
 	<div class="root" id="provider_list">
 		<div class="wrapper">
 			<AText :attributes="btnSettings" :data-state="isShowAll ? 'open' : 'hide'" data-active="true" @onClick="toggle">{{ t('ALL_PROVIDERS') }}
-				<img src="/img/arrowWhite.svg" width="18px" height="18px" class="arrow" >
+				<img src="/img/arrowWhite.svg" width="18px" height="18px" class="arrow" alt="White arrow">
 			</AText>
 			<ALink
 				v-for="(item, index) in currentValue" :key="index"
@@ -47,7 +47,7 @@ export default {
 			},
 			btnSettings: {
 				class: 'item_btn',
-				color: 'cairo',
+				color: 'colombo',
 				size: 'small',
 				weight: 'regular',
 				decoration: 'none'

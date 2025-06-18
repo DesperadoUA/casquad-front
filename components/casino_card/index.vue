@@ -18,7 +18,7 @@
 					<AText tag="div" :attributes="titleSettings">{{ title }}</AText>
 					<div class="wrapper_characters">
 						<div class="characters_left">
-							<AText tag="div" :attributes="bonusNameSettings">{{ t('WELCOME_PACKAGE') }}</AText>
+							<AText tag="div" :attributes="bonusNameSettings">{{ t('WELCOME_BONUS') }}</AText>
 							<AText tag="div" :attributes="bonusValueSettings">{{ bonus_value }}</AText>
 							<div class="action_wrapper">
 								<div class="btn_wrapper">
@@ -105,7 +105,7 @@ export default {
 				class: 'rating_total_value'
 			},
 			labelSettings: {
-				color: 'cairo',
+				color: 'colombo',
 				size: 'small',
 				bold: 'regular',
 				text_transform: 'uppercase',
@@ -177,6 +177,7 @@ export default {
 	height: 206px;
 	padding: var(--xs);
 	border-radius: var(--m);
+	overflow: hidden;
 }
 .img_wrapper {
 	width: 210px;

@@ -290,6 +290,7 @@ export default {
 .item {
 	width: 820px;
 	height: 206px;
+	overflow: hidden;
 	padding: var(--xs);
 	border-radius: var(--m);
 }
@@ -439,7 +440,7 @@ export default {
 	font-size: 10px;
 	text-transform: uppercase;
 	font-weight: 500;
-	color: var(--cairo);
+	color: var(--colombo);
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -456,6 +457,13 @@ export default {
 .label.best {
 	background: var(--chicago);
 }
+.details_btn {
+		font-size: 14px;
+		color: var(--cairo);
+		cursor: pointer;
+		position: relative;
+		padding-right: 24px;
+	}
 @media (max-width: 767px) {
 	.item {
 		width: 100%;
@@ -501,13 +509,6 @@ export default {
 		justify-content: center;
 		margin-top: 20px;
 		width: 100%;
-	}
-	.details_btn {
-		font-size: 14px;
-		color: var(--cairo);
-		cursor: pointer;
-		position: relative;
-		padding-right: 24px;
 	}
 	.details_btn::after {
 		content: '';

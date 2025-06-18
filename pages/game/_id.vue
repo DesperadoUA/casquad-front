@@ -21,7 +21,7 @@
 			</div>
 			<div class="symbols" v-if="data.body.symbols.length">
 				<div class="container">
-					<AText tag="div" :attributes="symbolTitleSettings">{{ t('SLOT_SYMBOLS') }}</AText>
+					<AText tag="div" :attributes="videoTitleSettings">{{ t('SLOT_SYMBOLS') }}</AText>
 					<SlotSymbols :posts="data.body.symbols" :title="data.body.title" />
 				</div>
 			</div>
@@ -29,6 +29,12 @@
 				<div class="container">
 					<AText tag="div" :attributes="symbolTitleSettings">{{ t('SCREENSHOTS') }}</AText>
 					<SlotScreenshots :posts="data.body.screenshots" :title="data.body.title" />
+				</div>
+			</div>
+			<div class="video_gallery" v-if="data.body.video.length">
+				<div class="container">
+					<AText tag="div" v-if="data.body.video_title" :attributes="symbolTitleSettings">{{ data.body.video_title }}</AText>
+					<VideoGallery :posts="videoListWrapper(data.body.video)" />
 				</div>
 			</div>
 			<div class="container">
@@ -63,6 +69,7 @@ import Faq from '~/components/faq'
 import SlotPopUp from '~/components/slot_popup'
 import Gradient from '~/components/gradient'
 import helper from '~/helpers/helpers'
+import VideoGallery from '~/components/video_gallery'
 export default {
 	name: 'game_single',
 	mixins: [pageTemplate],
@@ -72,7 +79,8 @@ export default {
 		SlotScreenshots,
 		Faq,
 		SlotPopUp,
-		Gradient
+		Gradient,
+		VideoGallery
 	},
 	layout: 'default',
 	data: () => {
@@ -90,7 +98,13 @@ export default {
 				transform: 'uppercase',
 				class: 'title'
 			},
-			isShowDemo: false
+			videoTitleSettings: {
+				size: 'x-large',
+				color: 'cairo',
+				weight: 'bold',
+				class: 'title'
+			},
+			isShowDemo: false,
 		}
 	},
 	async asyncData({ route, error }) {
@@ -116,6 +130,17 @@ export default {
 		},
 		onClickDemoClose() {
 			this.isShowDemo = false
+		},
+		videoListWrapper(videoList) {
+			return videoList.map(item => {
+				const {src} = item
+				const [iframe, title] = item.value
+				return {
+					title,
+					iframe,
+					banner: src
+				}
+			})
 		}
 	}
 }
@@ -127,28 +152,35 @@ export default {
 	padding-top: 165px;
 }
 .container_top_game {
-	padding-bottom: 40px;
+	padding-bottom: 20px;
 }
 .symbols {
 	background: var(--cucuta);
-	padding-top: 50px;
-	padding-bottom: 60px;
+	padding-top: 20px;
+	padding-bottom: 20px;
 }
 .screenshots {
-	padding-top: 50px;
-	padding-bottom: 60px;
+	padding-top: 20px;
+	padding-bottom: 20px;
 }
 .title {
 	margin-bottom: 24px;
 }
+.video_gallery {
+	padding-top: 20px;
+	padding-bottom: 40px;
+}
+.content_container {
+	padding-top: 16px;
+}
 @media (max-width: 767px) {
 	.symbols,
 	.screenshots {
-		padding-top: 30px;
-		padding-bottom: 30px;
+		padding-top: 20px;
+		padding-bottom: 20px;
 	}
 	.container_top_game {
-		padding-bottom: 30px;
+		padding-bottom: 20px;
 	}
 }
 </style>

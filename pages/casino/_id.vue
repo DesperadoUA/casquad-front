@@ -40,7 +40,7 @@
 										v-for="(item, index) in gamesLoop"
 										:key="index"
 										:link="item.permalink"
-										:src="item.thumbnail"
+										:src="item.slider_img"
 										:title="item.title"
 										size="middle"
 									/>
@@ -68,6 +68,12 @@
 						</aside>
 					</template>
 				</TwoContentContainer>
+			</div>
+		</div>
+		<div class="video_gallery" v-if="data.body.video.length">
+			<div class="container">
+				<AText tag="div" v-if="data.body.video_title" :attributes="videoTitleSettings">{{ data.body.video_title }}</AText>
+				<VideoGallery :posts="videoListWrapper(data.body.video)" />
 			</div>
 		</div>
 		<section class="content_wrapper">
@@ -102,6 +108,7 @@ import CasinoLoop from '~/components/casino_loop'
 import Gradient from '~/components/gradient'
 import helper from '~/helpers/helpers'
 import device from '~/mixins/device'
+import VideoGallery from '~/components/video_gallery'
 
 export default {
 	name: 'casino_single',
@@ -115,7 +122,8 @@ export default {
 		TabContent,
 		SlickBonus,
 		CasinoLoop,
-		Gradient
+		Gradient,
+		VideoGallery
 	},
 	layout: 'default',
 	data: () => {
@@ -145,6 +153,12 @@ export default {
 				weight: 'extra-bold',
 				color: 'cairo',
 				size: 'x-large'
+			},
+			videoTitleSettings: {
+				size: 'x-large',
+				color: 'cairo',
+				weight: 'bold',
+				class: 'video_title'
 			},
 		}
 	},
@@ -181,6 +195,19 @@ export default {
 			}
 		} else {
 			error({ statusCode: 404, message: 'Post not found' })
+		}
+	},
+	methods: {
+		videoListWrapper(videoList) {
+			return videoList.map(item => {
+				const {src} = item
+				const [iframe, title] = item.value
+				return {
+					title,
+					iframe,
+					banner: src
+				}
+			})
 		}
 	}
 }
@@ -233,7 +260,17 @@ export default {
 }
 .content_wrapper {
 	background: rgba(8, 5, 26, 1);
-	padding: 0px 0px 40px 0px;
+	padding: 20px 0px 40px 0px;
+}
+.video_gallery {
+	padding-top: 20px;
+	padding-bottom: 40px;
+}
+.video_title {
+	margin-bottom: 24px;
+}
+.main_container {
+	padding-bottom: 20px;
 }
 @media (max-width: 767px) {
 	.title {

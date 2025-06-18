@@ -25,8 +25,9 @@ export default {
 	data() {
 		return {
 			imgSettings: {
-				width: '160px',
-				height: '36px'
+				width: '160',
+				height: '36',
+				class: 'footer_logo_img'
 			},
 			imgSocialSettings: {
 				width: '24px',
@@ -40,6 +41,9 @@ export default {
 .footer-logo {
 	display: flex;
 	align-items: center;
+}
+.footer-logo::v-deep .footer_logo_img {
+	height: 160px;
 }
 .footer_social {
 	display: flex;

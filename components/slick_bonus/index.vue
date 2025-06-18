@@ -28,6 +28,7 @@ export default {
 			imgSettings: {
 				width: '35px',
 				height: '35px',
+                alt: 'Gif'
 			},
             btnSettings: {
 				bg: 'calgary',

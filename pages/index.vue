@@ -58,7 +58,7 @@
 							v-for="(item, index) in data.body.news"
 							:key="index"
 							:link="item.permalink"
-							:src="item.thumbnail"
+							:src="item.icon"
 							:title="item.title"
 							:desc="item.create_at.slice(0, 10)"
 						/>
@@ -351,7 +351,8 @@ export default {
 			arrowSettings: {
 				width: '18px',
 				height: '18px',
-				class: 'arrow'
+				class: 'arrow',
+				alt: 'Green Arrow'
 			}
 		}
 	},

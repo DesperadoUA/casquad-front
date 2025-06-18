@@ -16,7 +16,7 @@
 						<div class="aside_post_wrapper" v-for="item in data.body.last_news" :key="item.title">
 							<NewsSliderCard
 								:link="item.permalink"
-								:src="item.thumbnail"
+								:src="item.icon"
 								:title="item.title"
 								:desc="item.create_at.slice(0, 10)"
 							/>

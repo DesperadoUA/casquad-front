@@ -17,7 +17,7 @@
 			</div>
 			<div class="bottom">
 				<LinkWithArrow :link="link" :attributes="linkSettings" :title="`Goes to ${title} page`">
-					{{ t('READ_MORE') }}
+					{{ title }}
 				</LinkWithArrow>
 			</div>
 		</div>
@@ -47,7 +47,8 @@ export default {
 				size: 'medium',
 				color: 'calgary',
 				weight: 'semi-bold',
-				decoration: 'none'
+				decoration: 'none',
+				class: 'read_more'
 			},
 			titleLinkSettings: {
 				size: 'medium',
@@ -101,7 +102,7 @@ export default {
 <style scoped>
 .item {
 	width: 280px;
-	height: 400px;
+	height: 410px;
 	background: rgba(255, 255, 255, 0.1);
 	padding: var(--xs);
 	border-radius: var(--m);
@@ -124,6 +125,15 @@ export default {
 	font-size: 10px;
 	margin-top: var(--m);
 	-webkit-line-clamp: 3;
+    display: inline;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    word-wrap: break-word;
+}
+::v-deep .read_more {
+	-webkit-line-clamp: 2;
     display: inline;
     text-overflow: ellipsis;
     overflow: hidden;

@@ -192,7 +192,8 @@ export default {
 			imgSettingsArrow: {
 				width: '24px',
 				height: '24px',
-				class: 'arrow'
+				class: 'arrow',
+				alt: 'Green arrow'
 			},
 			textProviderItemSettings: {
 				class: 'item_provider',

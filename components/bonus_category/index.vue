@@ -18,7 +18,7 @@
 		<div class="items-more">
 			<div class="btn_wrapper">
 				<ALink :attributes="btnSettings" :href="link" title="Show more">
-					{{ t('SHOW_MORE') }} <AImg :attributes="arrowSettings" src="/img/arrowGreen.svg" />
+					{{ t('SHOW_MORE') }} <AImg :attributes="arrowSettings" src="/img/arrowGreen.svg"/>
 				</ALink>
 			</div>
 		</div>
@@ -70,7 +70,8 @@ export default {
 			arrowSettings: {
 				width: '18px',
 				height: '18px',
-				class: 'arrow'
+				class: 'arrow',
+				alt: "Green arrow"
 			}
 		}
 	}
