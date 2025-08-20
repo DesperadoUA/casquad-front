@@ -19,6 +19,20 @@
 					@onClickDemoActivate="onClickDemoActivate"
 				/>
 			</div>
+            <Breadcrumbs :value="[
+                 {
+                    title: t('BREADCRUMB_MAIN_PAGE'),
+                    permalink: '/'
+                 },
+                 {
+                     title: t('BREADCRUMB_SLOTS_TITLE_PAGE'),
+                     permalink: `/${slotsRootSlug}`
+                 },
+                 {
+                    title: data.body.title,
+                    permalink: ''
+                 }
+            ]" />
 			<div class="symbols" v-if="data.body.symbols.length">
 				<div class="container">
 					<AText tag="div" :attributes="videoTitleSettings">{{ t('SLOT_SYMBOLS') }}</AText>
@@ -70,9 +84,13 @@ import SlotPopUp from '~/components/slot_popup'
 import Gradient from '~/components/gradient'
 import helper from '~/helpers/helpers'
 import VideoGallery from '~/components/video_gallery'
+import {SLOTS_ROOT_SLUG} from '~/constants'
+import components from '~/mixins/components'
+import Breadcrumbs from '~/components/breadcrumbs'
+
 export default {
 	name: 'game_single',
-	mixins: [pageTemplate],
+	mixins: [pageTemplate, components],
 	components: {
 		SlotCard,
 		SlotSymbols,
@@ -80,7 +98,8 @@ export default {
 		Faq,
 		SlotPopUp,
 		Gradient,
-		VideoGallery
+		VideoGallery,
+        Breadcrumbs
 	},
 	layout: 'default',
 	data: () => {
@@ -105,7 +124,8 @@ export default {
 				class: 'title'
 			},
 			isShowDemo: false,
-		}
+            slotsRootSlug: SLOTS_ROOT_SLUG
+        }
 	},
 	async asyncData({ route, error }) {
 		if (route.params.id) {

@@ -7,6 +7,16 @@
 					<TwoContentContainer>
 						<template v-slot:left>
 							<AText tag="h1" :attributes="titleSettings">{{ data.body.h1 }}</AText>
+                            <Breadcrumbs :value="[
+                                {
+                                    title: t('BREADCRUMB_MAIN_PAGE'),
+                                    permalink: '/'
+                                },
+                                {
+                                    title: data.body.title,
+                                    permalink: ''
+                                }
+                            ]" />
 							<div class="category_filter_wrapper">
 								<CategoryFilter :value="[{
 								title: 'All',
@@ -62,7 +72,8 @@ import BonusAsideCard from '~/components/bonus_loop/cards/aside_card'
 import Faq from '~/components/faq'
 import CasinoLoop from '~/components/casino_loop'
 import Gradient from '~/components/gradient'
-
+import components from '~/mixins/components'
+import Breadcrumbs from '~/components/breadcrumbs'
 export default {
 	name: 'casino-category',
 	data: () => {
@@ -78,7 +89,9 @@ export default {
 				weight: 'bold',
 				transform: 'uppercase',
 				class: 'title'
-			}
+			},
+
+
 		}
 	},
 	components: {
@@ -87,9 +100,10 @@ export default {
 		Faq,
 		CasinoLoop,
 		CategoryFilter,
-		Gradient
+		Gradient,
+        Breadcrumbs
 	},
-	mixins: [pageTemplate],
+	mixins: [pageTemplate, components],
 	async asyncData({ route, error }) {
 		if (route.params.id) {
 			const request = new DAL_Builder()

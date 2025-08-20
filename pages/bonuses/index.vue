@@ -12,6 +12,16 @@
 			<div class="container">
 				<AText tag="h1" :attributes="titleSettings">{{ data.body.h1 }}</AText>
 			</div>
+            <Breadcrumbs :value="[
+                 {
+                    title: t('BREADCRUMB_MAIN_PAGE'),
+                    permalink: '/'
+                 },
+                 {
+                    title: data.body.title,
+                    permalink: ''
+                 }
+            ]" />
 			<div class="container content_container">
 				<Content :value="data.body.content" />
 			</div>
@@ -32,14 +42,16 @@ import Faq from '~/components/faq'
 import BonusCategory from '~/components/bonus_category'
 import Gradient from '~/components/gradient'
 import helper from '~/helpers/helpers'
-
+import components from '~/mixins/components'
+import Breadcrumbs from '~/components/breadcrumbs'
 export default {
 	name: 'bonuses-page',
-	mixins: [pageTemplate],
+	mixins: [pageTemplate, components],
 	components: {
 		Faq,
 		BonusCategory,
-		Gradient
+		Gradient,
+        Breadcrumbs
 	},
 	layout: 'default',
 	data: () => {

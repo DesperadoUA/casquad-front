@@ -6,6 +6,21 @@
 				<TwoContentContainer>
 					<template v-slot:left>
 						<AText tag="h1" :attributes="titleSettings">{{ data.body.h1 }}</AText>
+                        <Breadcrumbs :value="[
+                                {
+                                    title: t('BREADCRUMB_MAIN_PAGE'),
+                                    permalink: '/'
+                                },
+                                {
+                                    title: t(configCategoryTitle[data.body.label]),
+                                    permalink: `/casinos/${configCategorySlug[data.body.label]}`
+                                },
+                                {
+                                    title: data.body.title,
+                                    permalink: ''
+                                }
+                            ]"
+                        />
 						<div class="left_wrapper">
 							<div class="casino_card_container">
 								<CasinoCard
@@ -109,10 +124,13 @@ import Gradient from '~/components/gradient'
 import helper from '~/helpers/helpers'
 import device from '~/mixins/device'
 import VideoGallery from '~/components/video_gallery'
+import components from '~/mixins/components'
+import Breadcrumbs from '~/components/breadcrumbs'
+import {CASINO_CATEGORY_SLUG} from '~/constants'
 
 export default {
 	name: 'casino_single',
-	mixins: [pageTemplate, device],
+	mixins: [pageTemplate, device, components],
 	components: {
 		BonusAsideCard,
 		TwoContentContainer,
@@ -123,7 +141,8 @@ export default {
 		SlickBonus,
 		CasinoLoop,
 		Gradient,
-		VideoGallery
+		VideoGallery,
+        Breadcrumbs
 	},
 	layout: 'default',
 	data: () => {
@@ -160,6 +179,13 @@ export default {
 				weight: 'bold',
 				class: 'video_title'
 			},
+            configCategoryTitle: {
+                new: 'BREADCRUMB_CATEGORY_CASINO_NEW_PAGE',
+                popular: 'BREADCRUMB_CATEGORY_CASINO_POPULAR_PAGE',
+                trusted: 'BREADCRUMB_CATEGORY_CASINO_TRUSTED_PAGE',
+                best: 'BREADCRUMB_CATEGORY_CASINO_BEST_PAGE'
+            },
+            configCategorySlug: CASINO_CATEGORY_SLUG
 		}
 	},
 	computed: {

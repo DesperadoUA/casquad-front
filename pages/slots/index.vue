@@ -5,6 +5,16 @@
 			<div class="container z-index-3" v-if="data.body.h1">
 				<AText tag="h1" :attributes="titleSettings">{{ data.body.h1 }}</AText>
 			</div>
+            <Breadcrumbs :value="[
+                 {
+                    title: t('BREADCRUMB_MAIN_PAGE'),
+                    permalink: '/'
+                 },
+                 {
+                    title: data.body.title,
+                    permalink: ''
+                 }
+            ]" />
 			<div class="container z-index-3 container_providers">
 				<ProviderFilter :value="data.body.vendors" />
 			</div>
@@ -56,10 +66,12 @@ import Cookies from '~/components/cookies'
 import Gradient from '~/components/gradient'
 import helper from '~/helpers/helpers'
 import device from '~/mixins/device'
+import components from '~/mixins/components'
+import Breadcrumbs from '~/components/breadcrumbs'
 
 export default {
 	name: 'games-page',
-	mixins: [pageTemplate, device],
+	mixins: [pageTemplate, device, components],
 	components: {
 		Faq,
 		BonusCategory,
@@ -68,7 +80,8 @@ export default {
 		SlotLoop,
 		ProviderFilter,
 		Cookies,
-		Gradient
+		Gradient,
+        Breadcrumbs
 	},
 	layout: 'default',
 	data: () => {

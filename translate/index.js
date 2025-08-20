@@ -732,5 +732,45 @@ export default {
 		RU: 'Похожие казино',
 		UA: 'Подібні казино',
 		EN: 'Similar Casinos'
-	}
+	},
+    BREADCRUMB_MAIN_PAGE: {
+        RU: 'Лучшее онлайн-казино',
+        UA: 'Найкраще онлайн-казино',
+        EN: 'Best Online Casino'
+    },
+    BREADCRUMB_BONUS_TITLE_PAGE: {
+        RU: 'Бонусы',
+        UA: 'Бонуси',
+        EN: 'Bonuses'
+    },
+    BREADCRUMB_SLOTS_TITLE_PAGE: {
+        RU: 'Слоты',
+        UA: 'Слоти',
+        EN: 'Slots'
+    },
+    BREADCRUMB_NEWS_TITLE_PAGE: {
+        RU: 'Новости',
+        UA: 'Новини',
+        EN: 'News'
+    },
+    BREADCRUMB_CATEGORY_CASINO_NEW_PAGE: {
+        RU: 'Новые казино',
+        UA: 'Нові казино',
+        EN: 'New Casinos'
+    },
+    BREADCRUMB_CATEGORY_CASINO_POPULAR_PAGE: {
+        RU: 'Популярные казино',
+        UA: 'Популярні казино',
+        EN: 'Popular casinos'
+    },
+    BREADCRUMB_CATEGORY_CASINO_TRUSTED_PAGE: {
+        RU: 'Надежные казино',
+        UA: 'Надійні казино',
+        EN: 'Trusted casinos'
+    },
+    BREADCRUMB_CATEGORY_CASINO_BEST_PAGE: {
+        RU: 'Лучшие казино',
+        UA: 'Найкращі казино',
+        EN: 'Best casinos'
+    },
 }

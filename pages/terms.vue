@@ -5,6 +5,16 @@
 			<div class="container z-index-3">
 				<AText tag="h1" :attributes="titleSettings">{{ data.body.h1 }}</AText>
 			</div>
+            <Breadcrumbs :value="[
+                 {
+                    title: t('BREADCRUMB_MAIN_PAGE'),
+                    permalink: '/'
+                 },
+                 {
+                    title: data.body.title,
+                    permalink: ''
+                 }
+            ]" />
 			<div class="container content_container z-index-3" v-if="data.body.content">
 				<Content :value="data.body.content" />
 			</div>
@@ -19,12 +29,13 @@ import pageTemplate from '~/mixins/pageTemplate'
 import helper from '~/helpers/helpers'
 import device from '~/mixins/device'
 import Gradient from '~/components/gradient'
-
+import Breadcrumbs from '~/components/breadcrumbs'
+import components from '~/mixins/components'
 export default {
 	name: 'terms-page',
-	mixins: [pageTemplate, device],
+	mixins: [pageTemplate, device, components],
 	layout: 'default',
-	components: {Gradient},
+	components: {Gradient, Breadcrumbs},
 	data: () => {
 		return {
 			titleSettings: {

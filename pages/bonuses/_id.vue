@@ -8,6 +8,20 @@
 			<div class="container h1_wrapper">
 				<AText tag="h1" :attributes="titleSettings">{{ data.body.h1 }}</AText>
 			</div>
+            <Breadcrumbs :value="[
+                 {
+                    title: t('BREADCRUMB_MAIN_PAGE'),
+                    permalink: '/'
+                 },
+                 {
+                     title: t('BREADCRUMB_BONUS_TITLE_PAGE'),
+                     permalink: `/${bonusesRootSlug}`
+                 },
+                 {
+                    title: data.body.title,
+                    permalink: ''
+                 }
+            ]" />
 			<div class="container content_container">
 				<Content :value="data.body.content" />
 			</div>
@@ -28,6 +42,9 @@ import pageTemplate from '~/mixins/pageTemplate'
 import Faq from '~/components/faq'
 import BonusLoop from '~/components/bonus_loop'
 import Gradient from '~/components/gradient'
+import components from '~/mixins/components'
+import Breadcrumbs from '~/components/breadcrumbs'
+import {BONUSES_ROOT_SLUG} from '~/constants'
 
 export default {
 	name: 'bonus-category',
@@ -39,15 +56,17 @@ export default {
 				weight: 'bold',
 				transform: 'uppercase',
 				class: 'title'
-			}
+			},
+            bonusesRootSlug: BONUSES_ROOT_SLUG
 		}
 	},
 	components: {
 		Faq,
 		BonusLoop,
-		Gradient
+		Gradient,
+        Breadcrumbs
 	},
-	mixins: [pageTemplate],
+	mixins: [pageTemplate, components],
 	async asyncData({ route, error }) {
 		if (route.params.id) {
 			const request = new DAL_Builder()

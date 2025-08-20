@@ -5,6 +5,21 @@
 			<TwoContentContainer>
 				<template v-slot:left>
 					<AText tag="h1" :attributes="titleSettings">{{ data.body.h1 }}</AText>
+                    <Breadcrumbs :value="[
+                                {
+                                    title: t('BREADCRUMB_MAIN_PAGE'),
+                                    permalink: '/'
+                                },
+                                {
+                                    title: t('BREADCRUMB_BONUS_TITLE_PAGE'),
+                                    permalink: `/${bonusesRootSlug}`
+                                },
+                                {
+                                    title: data.body.title,
+                                    permalink: ''
+                                }
+                            ]"
+                    />
 					<Banner v-if="data.body.banner" :src="data.body.banner" :alt="`${data.body.title}`" />
                     <div class="action_container">
                         <button class="action" @click="refActivate(data.body.casino.ref)">Get Bonus</button>
@@ -51,15 +66,19 @@ import Banner from '~/components/banner/'
 import Gradient from '~/components/gradient'
 import helper from '~/helpers/helpers'
 import ref from '~/mixins/ref'
+import components from '~/mixins/components'
+import Breadcrumbs from '~/components/breadcrumbs'
+import {BONUSES_ROOT_SLUG} from '~/constants'
 export default {
 	name: 'bonus_single',
-	mixins: [ref, pageTemplate],
+	mixins: [ref, pageTemplate, components],
 	components: {
 		TwoContentContainer,
 		Banner,
         BonusAsideCard,
 		SlickBonus,
-		Gradient
+		Gradient,
+        Breadcrumbs
 	},
 	layout: 'default',
 	data: () => {
@@ -75,7 +94,8 @@ export default {
 				size: 'large',
 				weight: 'bold',
 				class: 'sub_title'
-			}
+			},
+            bonusesRootSlug: BONUSES_ROOT_SLUG
 		}
 	},
 	async asyncData({ route, error }) {

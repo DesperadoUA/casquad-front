@@ -5,6 +5,16 @@
 			<div class="container z-index-3">
 				<AText tag="div" :attributes="titleSettings">{{ data.body.h1 }}</AText>
 			</div>
+            <Breadcrumbs :value="[
+                 {
+                    title: t('BREADCRUMB_MAIN_PAGE'),
+                    permalink: '/'
+                 },
+                 {
+                    title: data.body.title,
+                    permalink: ''
+                 }
+            ]" />
 			<div class="container">
 				<NewsLoop :value="data.body.news" />
 			</div>
@@ -28,14 +38,17 @@ import NewsLoop from '~/components/news_loop'
 import Gradient from '~/components/gradient'
 import Faq from '~/components/faq'
 import helper from '~/helpers/helpers'
+import components from '~/mixins/components'
+import Breadcrumbs from '~/components/breadcrumbs'
 
 export default {
 	name: 'news-page',
-	mixins: [pageTemplate],
+	mixins: [pageTemplate, components],
 	components: {
 		Faq,
 		NewsLoop,
-		Gradient
+		Gradient,
+        Breadcrumbs
 	},
 	layout: 'default',
 	data: () => {

@@ -7,6 +7,17 @@
 					<TwoContentContainer>
 						<template v-slot:left>
 							<AText tag="h1" :attributes="titleSettings">{{ data.body.h1 }}</AText>
+                            <Breadcrumbs :value="[
+                                {
+                                    title: t('BREADCRUMB_MAIN_PAGE'),
+                                    permalink: '/'
+                                },
+                                {
+                                    title: data.body.title,
+                                    permalink: ''
+                                }
+                            ]"
+                            />
 							<div class="banner_wrapper" v-if="data.body.banner">
 								<Banner :src="data.body.banner" :alt="`${data.body.title} Logo`" />
 							</div>
@@ -73,6 +84,8 @@ import SlotLoop from '~/components/slot_loop'
 import Banner from '~/components/banner/'
 import Gradient from '~/components/gradient'
 import VideoGallery from '~/components/video_gallery'
+import components from '~/mixins/components'
+import Breadcrumbs from '~/components/breadcrumbs'
 export default {
 	name: 'single-vendor',
 	data: () => {
@@ -115,9 +128,10 @@ export default {
 		SlotLoop,
 		Banner,
 		Gradient,
-		VideoGallery
+		VideoGallery,
+        Breadcrumbs
 	},
-	mixins: [pageTemplate],
+	mixins: [pageTemplate, components],
 	async asyncData({ route, error }) {
 		if (route.params.id) {
 			const request = new DAL_Builder()

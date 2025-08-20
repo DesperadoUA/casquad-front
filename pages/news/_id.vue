@@ -5,6 +5,20 @@
 			<TwoContentContainer>
 				<template v-slot:left>
 					<AText tag="h1" :attributes="titleSettings">{{ data.body.h1 }}</AText>
+                    <Breadcrumbs :value="[
+                         {
+                            title: t('BREADCRUMB_MAIN_PAGE'),
+                            permalink: '/'
+                         },
+                         {
+                             title: t('BREADCRUMB_NEWS_TITLE_PAGE'),
+                             permalink: `/${newsRootSlug}`
+                         },
+                         {
+                            title: data.body.title,
+                            permalink: ''
+                         }
+                    ]" />
 					<Banner :src="data.body.thumbnail" :alt="`${data.body.title} Logo`" />
 					<div class="content_container">
 						<Content :value="data.body.content" />
@@ -72,10 +86,13 @@ import Gradient from '~/components/gradient'
 import CasinoLoop from '~/components/casino_loop'
 import Banner from '~/components/banner/'
 import helper from '~/helpers/helpers'
+import {NEWS_ROOT_SLUG} from '~/constants'
+import components from '~/mixins/components'
+import Breadcrumbs from '~/components/breadcrumbs'
 
 export default {
 	name: 'news_single',
-	mixins: [pageTemplate],
+	mixins: [pageTemplate, components],
 	components: {
 		TwoContentContainer,
 		NewsSliderCard,
@@ -83,7 +100,8 @@ export default {
 		NewsMainCard,
 		Banner,
 		Gradient,
-		CasinoLoop
+		CasinoLoop,
+        Breadcrumbs
 	},
 	layout: 'default',
 	data: () => {
@@ -104,7 +122,8 @@ export default {
 				weight: 'extra-bold',
 				color: 'cairo',
 				size: 'x-large'
-			}
+			},
+            newsRootSlug: NEWS_ROOT_SLUG
 		}
 	},
 	async asyncData({ route, error }) {
