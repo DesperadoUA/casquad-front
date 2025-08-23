@@ -4,18 +4,18 @@
 			<div class="left">
 				<div class="img_wrapper">
 					<AText>
-						<AImg :attributes="{ ...imgSettings, alt: `${title} logo` }" :src="src" @click="refActivate(refLinks)" />
+						<AImg :attributes="{ ...imgSettings, alt: `${title} logo` }" :src="src" @click="refActivate(refLinks, geo)" />
 					</AText>
 				</div>
 			</div>
 			<div class="right">
-				<div @click="refActivate(refLinks)">
+				<div @click="refActivate(refLinks, geo)">
 					<AText :attributes="titleSettings">{{ title }}</AText>
 				</div>
-				<div @click="refActivate(refLinks)">
+				<div @click="refActivate(refLinks, geo)">
 					<AText :attributes="descTextSettings">{{ desc }}</AText>
 				</div>
-				<div @click="refActivate(refLinks)">
+				<div @click="refActivate(refLinks, geo)">
 					<AText :attributes="valueTextSettings">{{ value }}</AText>
 				</div>
 			</div>
@@ -30,9 +30,10 @@
 <script>
 import ref from '~/mixins/ref'
 import components from '~/mixins/components'
+import geo from '~/mixins/geo'
 export default {
 	name: 'bonus_slider_card',
-	mixins: [ref, components],
+	mixins: [ref, components, geo],
 	data: () => {
 		return {
 			imgSettings: {

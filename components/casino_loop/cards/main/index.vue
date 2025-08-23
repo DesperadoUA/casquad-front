@@ -28,7 +28,7 @@
 					>
 					<div class="action_wrapper">
 						<div class="btn_wrapper">
-							<AButton :attributes="btnSettings" :title="`Goes to ${title}`" @onClick="refActivate(refLinks)">{{
+							<AButton :attributes="btnSettings" :title="`Goes to ${title}`" @onClick="refActivate(refLinks, geo)">{{
 								t('GO_TO')
 							}}</AButton>
 						</div>
@@ -104,7 +104,7 @@
 				</div>
 				<div class="action_wrapper">
 					<div class="btn_wrapper">
-						<AButton :attributes="btnSettings" :title="`Goes to ${title}`" @onClick="refActivate(refLinks)">{{
+						<AButton :attributes="btnSettings" :title="`Goes to ${title}`" @onClick="refActivate(refLinks, geo)">{{
 							t('GO_TO')
 						}}</AButton>
 					</div>
@@ -119,9 +119,10 @@
 <script>
 import ref from '~/mixins/ref'
 import components from '~/mixins/components'
+import geo from '~/mixins/geo'
 export default {
 	name: 'casino_main_card',
-	mixins: [components, ref],
+	mixins: [components, ref, geo],
 	data: () => {
 		return {
 			imgSettings: {

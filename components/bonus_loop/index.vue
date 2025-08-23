@@ -10,7 +10,7 @@
 					:value="item.bonus"
 					:min_dep="item.min_deposit"
 					:wager="item.wagering"
-					:refLinks="item.casino.ref"
+                    :refLinks="Array.isArray(item.ref) ? {} : item.ref"
 					:permalink="item.permalink"
 				/>
 			</div>

@@ -1,5 +1,6 @@
 <template>
 	<main class="main_page">
+		{{ data.body.geo }}
 		<Gradient modifier="large" v-if="device !== 'MOB'" />
 		<div class="container banner_wrapper">
 			<div class="ttl_container">
@@ -47,7 +48,7 @@
 							:title="item.title"
 							:desc="item.short_desc"
 							:value="item.bonus"
-							:refLinks="item.casino.ref"
+                            :refLinks="Array.isArray(item.ref) ? {} : item.ref"
 							:permalink="item.permalink"
 						/>
 					</SliderContainer>
@@ -97,7 +98,7 @@
 										:value="item.bonus"
 										:min_dep="item.min_deposit"
 										:wager="item.wagering"
-										:refLinks="item.casino.ref"
+                                        :refLinks="Array.isArray(item.ref) ? {} : item.ref"
 										:permalink="item.permalink"
 									/>
 								</div>
@@ -163,6 +164,7 @@ import helper from '~/helpers/helpers'
 export default {
 	name: 'main-page',
 	mixins: [pageTemplate, device],
+	middleware: ['getHeaders'],
 	components: {
 		Slider,
 		SliderContainer,
@@ -369,8 +371,10 @@ export default {
 		}
 	},
 	async asyncData({ store, route }) {
+		const geo = store.getters['common/getGeo']
 		const request = {
-			url: 'main'
+			url: 'main',
+			geo
 		}
 		const response = await DAL_Page.getData(request)
 		const data = helper.headDataMixin(response.data, route)

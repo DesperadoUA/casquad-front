@@ -2,22 +2,22 @@
 	<article class="item">
 		<div class="wrapper">
 			<div class="left">
-				<div class="img_wrapper" @click="refActivate(refLinks)">
+				<div class="img_wrapper" @click="refActivate(refLinks, geo)">
 					<AText>
 						<AImg :attributes="{ ...imgSettings, alt: `${title} logo` }" :src="src" />
 					</AText>
 				</div>
 			</div>
 			<div class="right">
-				<div @click="refActivate(refLinks)">
-					<AText tag="div" :attributes="titleSettings"> 
+				<div @click="refActivate(refLinks, geo)">
+					<AText tag="div" :attributes="titleSettings">
 						{{ title }}
 					</AText>
 				</div>
-				<div  @click="refActivate(refLinks)">
+				<div  @click="refActivate(refLinks, geo)">
 					<AText tag="div" :attributes="descTextSettings">{{ desc }}</AText>
 				</div>
-				<div  @click="refActivate(refLinks)">
+				<div  @click="refActivate(refLinks, geo)">
 					<AText tag="div" :attributes="valueTextSettings">{{ value }}</AText>
 				</div>
 			</div>
@@ -39,9 +39,10 @@
 <script>
 import ref from '~/mixins/ref'
 import components from '~/mixins/components'
+import geo from '~/mixins/geo'
 export default {
 	name: 'bonus_aside_card',
-	mixins: [ref, components],
+	mixins: [ref, components, geo],
 	data: () => {
 		return {
 			imgSettings: {
@@ -115,12 +116,6 @@ export default {
 			type: String,
 			default() {
 				return '/img/noImages.png'
-			}
-		},
-		refLinks: {
-			type: Array,
-			default() {
-				return []
 			}
 		},
 		permalink: {

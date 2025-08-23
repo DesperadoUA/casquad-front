@@ -26,7 +26,7 @@
 				</div>
 				<div class="action_wrapper">
 					<div class="action_item">
-						<AButton :attributes="btnSettings" @onClick="refActivate(refLinks)">{{ t('GO_TO') }}</AButton>
+						<AButton :attributes="btnSettings" @onClick="refActivate(refLinks, geo)">{{ t('GO_TO') }}</AButton>
 					</div>
 					<div class="action_item">
 						<AButton :attributes="btnDemoSettings" v-if="demo" @onClick="onClickDemoActivate">{{ t('DEMO') }}</AButton>
@@ -49,9 +49,10 @@ import GameCharacters from '~/components/game_characters'
 import Slider from '~/components/slider'
 import ref from '~/mixins/ref'
 import components from '~/mixins/components'
+import geo from '~/mixins/geo'
 export default {
 	name: 'single-game-page',
-	mixins: [components, ref],
+	mixins: [components, ref, geo],
 	components: {
 		GameCharacters,
 		Slider

@@ -1,9 +1,9 @@
 <template>
 	<div class="slick_bonus">
         <div class="bonus">
-            <AImg src="/img/Gift.svg" :attributes="imgSettings" @onClick="refActivate(refLinks)" />
+            <AImg src="/img/Gift.svg" :attributes="imgSettings" @onClick="refActivate(refLinks, geo)" />
         </div>
-        <AButton :attributes="btnSettings" title="Get bonus" @onClick="refActivate(refLinks)">
+        <AButton :attributes="btnSettings" title="Get bonus" @onClick="refActivate(refLinks, geo)">
             {{ t('GET_BONUS') }}
         </AButton>
 	</div>
@@ -13,16 +13,9 @@
 import translateMixin from '~/mixins/translate'
 import refMixin from '~/mixins/ref'
 import components from '~/mixins/components'
+import geo from '~/mixins/geo'
 export default {
 	name: 'app_slick_bonus',
-	props: {
-        refLinks: {
-            type: Array,
-            default() {
-                return []
-            }
-        },
-    },
     data: () => {
 		return {
 			imgSettings: {
@@ -40,7 +33,7 @@ export default {
 			},
 		}
 	},
-	mixins: [refMixin, translateMixin, components],
+	mixins: [refMixin, translateMixin, components, geo],
 }
 </script>
 
@@ -78,7 +71,7 @@ export default {
 @media (min-width: 767px) {
 	.slick_bonus:hover .bonus {
         left: -70px;
-    }  
+    }
     .slick_bonus:hover .action_btn {
         left: -90px;
         transition: 0.7s;

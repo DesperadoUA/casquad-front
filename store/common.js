@@ -1,8 +1,10 @@
+import config from '~/config'
 export const state = () => ({
 	common: {
 		showSearch: false,
 		mobileMenu: false,
-		headers: undefined
+		headers: undefined,
+		geo: config.DEFAULT_GEO
 	}
 })
 export const mutations = {
@@ -14,6 +16,9 @@ export const mutations = {
 	},
 	setHeaders(state, data) {
 		state.common.headers = data
+	},
+	setGeo(state, data) {
+		state.common.geo = config.AVAILABLE_GEO.has(data) ? data : config.DEFAULT_GEO
 	}
 }
 export const actions = {
@@ -25,6 +30,9 @@ export const actions = {
 	},
 	setHeaders({ commit }, data) {
 		commit('setHeaders', data)
+	},
+	setGeo({ commit }, data) {
+		commit('setGeo', data)
 	}
 }
 export const getters = {
@@ -36,5 +44,8 @@ export const getters = {
 	},
 	getHeaders(state) {
 		return state.common.headers
+	},
+	getGeo(state) {
+		return state.common.geo
 	}
 }

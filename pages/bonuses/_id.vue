@@ -67,12 +67,13 @@ export default {
         Breadcrumbs
 	},
 	mixins: [pageTemplate, components],
-	async asyncData({ route, error }) {
+	async asyncData({ route, error, store }) {
 		if (route.params.id) {
 			const request = new DAL_Builder()
+			const geo = store.getters['common/getGeo']
 			const response = await request
 				.postType('bonuses')
-				.url(route.params.id)
+				.url(`${route.params.id}?geo=${geo}`)
 				.get()
 			if (response.data.confirm === 'error') {
 				error({ statusCode: 404, message: 'Post not found' })

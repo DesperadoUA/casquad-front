@@ -15,7 +15,7 @@
 				:min_dep="item.min_dep"
 				:vendors="item.vendors"
 				:rating="item.rating"
-				:refLinks="item.ref"
+				:refLinks="Array.isArray(item.ref) ? {} : item.ref"
 			/>
 		</div>
 		<div class="items-more" v-if="hideBtnShowMore">

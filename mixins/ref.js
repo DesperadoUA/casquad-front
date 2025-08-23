@@ -1,20 +1,15 @@
 export default {
-    props: {
-        refLinks: {
-			type: Array,
+	props: {
+		refLinks: {
+			type: Object,
 			default() {
-				return []
+				return {}
 			}
 		}
-    },
-    methods: {
-		refActivate(arr) {
-            if (arr.length !== 0) {
-                const min = 0
-                const max = arr.length - 1
-                const random = Math.floor(Math.random() * (max - min + 1)) + min
-                window.open(arr[random], '_blank')
-            }
-        }
+	},
+	methods: {
+		refActivate(arr, geo) {
+			if (arr[geo]) window.open(arr[geo], '_blank')
+		}
 	}
 }

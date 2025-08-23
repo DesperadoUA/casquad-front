@@ -2,9 +2,9 @@
 	<div class="lang_selector">
 		<div class="lang_selector_ttl open single">
 			<div class="flag">
-				<AImg :attributes="{ ...imgSettings, alt: 'Flag En' }" src="/img/cnd.webp" />
+				<AImg :attributes="{ ...imgSettings, alt: `Flag ${geo}` }" :src="`/img/geo/${geo}.webp`" />
 			</div>
-			<AText tag="div" :attributes="textSettings">CA</AText>
+			<AText tag="div" :attributes="textSettings">{{geoConfig[geo]}}</AText>
 			<!--
 			<div class="arrow">
 				<AImg :attributes="{ ...imgSettings, alt: 'arrow' }" src="/img/white_arrow.png" />
@@ -35,9 +35,10 @@
 </template>
 <script>
 import components from '~/mixins/components'
+import geo from '~/mixins/geo'
 export default {
 	name: 'lang_selector',
-	mixins: [components],
+	mixins: [components, geo],
 	data() {
 		return {
 			options: null,

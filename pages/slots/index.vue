@@ -96,8 +96,10 @@ export default {
 		}
 	},
 	async asyncData({ store, route }) {
+		const geo = store.getters['common/getGeo']
 		const request = {
-			url: 'slots'
+			url: 'slots',
+			geo
 		}
 		const response = await DAL_Page.getData(request)
 		const data = helper.headDataMixin(response.data, route)

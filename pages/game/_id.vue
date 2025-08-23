@@ -127,12 +127,13 @@ export default {
             slotsRootSlug: SLOTS_ROOT_SLUG
         }
 	},
-	async asyncData({ route, error }) {
+	async asyncData({ route, error, store }) {
 		if (route.params.id) {
+			const geo = store.getters['common/getGeo']
 			const request = new DAL_Builder()
 			const response = await request
 				.postType('game')
-				.url(route.params.id)
+				.url(`${route.params.id}?geo=${geo}`)
 				.get()
 			if (response.data.confirm === 'error') {
 				error({ statusCode: 404, message: 'Post not found' })

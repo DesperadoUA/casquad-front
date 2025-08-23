@@ -22,7 +22,7 @@
 							<AText tag="div" :attributes="bonusValueSettings">{{ bonus_value }}</AText>
 							<div class="action_wrapper">
 								<div class="btn_wrapper">
-									<AButton :attributes="btnSettings" @onClick="refActivate(refLinks)" :title="`Goes to ${title}`">{{
+									<AButton :attributes="btnSettings" @onClick="refActivate(refLinks, geo)" :title="`Goes to ${title}`">{{
 										t('GO_TO')
 									}}</AButton>
 								</div>
@@ -45,9 +45,10 @@
 <script>
 import ref from '~/mixins/ref'
 import components from '~/mixins/components'
+import geo from '~/mixins/geo'
 export default {
 	name: 'casino_card',
-	mixins: [components, ref],
+	mixins: [components, ref, geo],
 	data() {
 		return {
 			imgSettings: {
