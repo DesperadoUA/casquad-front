@@ -206,12 +206,13 @@ export default {
 			return this.data.body.games.slice(0, config[this.device])
 		}
 	},
-	async asyncData({ route, error }) {
+	async asyncData({ route, error, store }) {
 		if (route.params.id) {
 			const request = new DAL_Builder()
+            const geo = store.getters['common/getGeo']
 			const response = await request
 				.postType('casino')
-				.url(route.params.id)
+				.url(`${route.params.id}?geo=${geo}`)
 				.get()
 			if (response.data.confirm === 'error') {
 				error({ statusCode: 404, message: 'Post not found' })

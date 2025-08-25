@@ -98,12 +98,13 @@ export default {
             bonusesRootSlug: BONUSES_ROOT_SLUG
 		}
 	},
-	async asyncData({ route, error }) {
+	async asyncData({ route, error, store }) {
 		if (route.params.id) {
 			const request = new DAL_Builder()
+            const geo = store.getters['common/getGeo']
 			const response = await request
 				.postType('bonus')
-				.url(route.params.id)
+				.url(`${route.params.id}?geo=${geo}`)
 				.get()
 			if (response.data.confirm === 'error') {
 				error({ statusCode: 404, message: 'Post not found' })
