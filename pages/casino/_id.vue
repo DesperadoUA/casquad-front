@@ -67,7 +67,7 @@
 						<aside class="aside">
 							<AText tag="div" :attributes="asideContainerTitle">{{ t('RECOMMENDED_BONUSES') }}</AText>
 							<div class="aside_bonus_container">
-								<div class="aside_bonus_wrapper" v-for="(item, index) in data.body.bonuses" :key="index">
+								<div class="aside_bonus_wrapper" v-for="(item, index) in bonuses" :key="index">
 									<BonusAsideCard
 										:src="item.thumbnail"
 										:title="item.title"
@@ -96,12 +96,12 @@
 				<TabContent :value="tabContent" />
 			</div>
 		</section>
-		<div class="container" v-if="data.body.casinos.length">
+		<div class="container" v-if="casinos.length">
 			<div class="section_title_wrapper">
 				<AText tag="div" :attributes="mainContainerTitle">{{ t('SIMILAR_CASINOS') }}</AText>
 			</div>
 			<div class="similar_casinos">
-				<CasinoLoop :value="data.body.casinos" />
+				<CasinoLoop :value="casinos" />
 			</div>
 		</div>
 		<SlickBonus :refLinks="data.body.ref" />
@@ -127,10 +127,11 @@ import VideoGallery from '~/components/video_gallery'
 import components from '~/mixins/components'
 import Breadcrumbs from '~/components/breadcrumbs'
 import {CASINO_CATEGORY_SLUG} from '~/constants'
+import geo from '~/mixins/geo'
 
 export default {
 	name: 'casino_single',
-	mixins: [pageTemplate, device, components],
+	mixins: [pageTemplate, device, components, geo],
 	components: {
 		BonusAsideCard,
 		TwoContentContainer,
@@ -206,6 +207,18 @@ export default {
 			return this.data.body.games.slice(0, config[this.device])
 		}
 	},
+    watch: {
+        async geo() {
+            const request = new DAL_Builder()
+            const geo = this.$store.getters['common/getGeo']
+            const response = await request
+                .postType('casino')
+                .url(`${this.$route.params.id}?geo=${geo}`)
+                .get()
+            this.casinos = response.data.body.casinos
+            this.bonuses = response.data.body.bonuses
+        }
+    },
 	async asyncData({ route, error, store }) {
 		if (route.params.id) {
 			const request = new DAL_Builder()
@@ -218,7 +231,8 @@ export default {
 				error({ statusCode: 404, message: 'Post not found' })
 			} else {
 				const data = helper.headDataMixin(response.data, route)
-				return { data }
+                const { casinos, bonuses } = response.data.body
+				return { data, casinos, bonuses }
 			}
 		} else {
 			error({ statusCode: 404, message: 'Post not found' })
