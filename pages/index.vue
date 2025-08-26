@@ -399,10 +399,7 @@ export default {
 		}
 		const response = await DAL_Page.getData(request)
 		const data = helper.headDataMixin(response.data, route)
-        const { casino } = response.data.body
-        const { casino_slider } = response.data.body
-        const { bonuses } = response.data.body
-        const { top_bonuses } = response.data.body
+        const { casino, casino_slider, bonuses, top_bonuses } = response.data.body
 		return { data, casino, casino_slider, bonuses, top_bonuses }
 	}
 }

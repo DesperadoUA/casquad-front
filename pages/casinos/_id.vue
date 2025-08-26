@@ -24,13 +24,13 @@
 								thumbnail: ''
 							}].concat(data.body.casino_category)" />
 							</div>
-							<CasinoLoop :value="data.body.posts" />
+							<CasinoLoop :value="posts" />
 						</template>
 						<template v-slot:right>
 							<aside class="aside">
 								<AText tag="div" :attributes="asideContainerTitle">{{ t('RECOMMENDED_BONUSES') }}</AText>
 								<div class="aside_bonus_container">
-									<div class="aside_bonus_wrapper" v-for="item in data.body.top_bonuses" :key="item.title">
+									<div class="aside_bonus_wrapper" v-for="item in top_bonuses" :key="item.title">
 										<BonusAsideCard
 											:link="item.permalink"
 											:src="item.thumbnail"
@@ -74,6 +74,7 @@ import CasinoLoop from '~/components/casino_loop'
 import Gradient from '~/components/gradient'
 import components from '~/mixins/components'
 import Breadcrumbs from '~/components/breadcrumbs'
+import geo from '~/mixins/geo'
 export default {
 	name: 'casino-category',
 	data: () => {
@@ -103,7 +104,19 @@ export default {
 		Gradient,
         Breadcrumbs
 	},
-	mixins: [pageTemplate, components],
+	mixins: [pageTemplate, components, geo],
+    watch: {
+        async geo() {
+            const request = new DAL_Builder()
+            const geo = this.$store.getters['common/getGeo']
+            const response = await request
+                .postType('casinos')
+                .url(`${this.$route.params.id}?geo=${geo}`)
+                .get()
+            this.posts = response.data.body.posts
+            this.top_bonuses = response.data.body.top_bonuses
+        }
+    },
 	async asyncData({ route, error, store }) {
 		if (route.params.id) {
 			const request = new DAL_Builder()
@@ -116,7 +129,8 @@ export default {
 				error({ statusCode: 404, message: 'Post not found' })
 			} else {
 				const data = helper.headDataMixin(response.data, route)
-				return { data }
+                const { posts, top_bonuses } = response.data.body
+				return { data, posts, top_bonuses }
 			}
 		} else {
 			error({ statusCode: 404, message: 'Post not found' })
