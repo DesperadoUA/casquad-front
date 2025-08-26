@@ -5,37 +5,27 @@
 				<AImg :attributes="{ ...imgSettings, alt: `Flag ${geo}` }" :src="`/img/geo/${geo}.webp`" />
 			</div>
 			<AText tag="div" :attributes="textSettings">{{geoConfig[geo]}}</AText>
-			<!--
 			<div class="arrow">
 				<AImg :attributes="{ ...imgSettings, alt: 'arrow' }" src="/img/white_arrow.png" />
 			</div>
-			-->
 		</div>
-		<div class="lang_selector_wrapper" v-if="false">
-			<ALink href="/custom-link" class="lang_item">
+		<div class="lang_selector_wrapper">
+			<div class="lang_item" v-for="item in geoList" :key="item" @click="setGeo(geoConfig[item])">
 				<div class="flag">
-					<AImg :attributes="{ ...imgSettings, alt: 'Flag ua' }" src="/img/flag_ua.png" />
+					<AImg :attributes="{ ...imgSettings, alt: `Flag ${item}` }" :src="`/img/geo/${item}.webp`" />
 				</div>
-				<AText tag="div" :attributes="textSettings">RU</AText>
+				<AText tag="div" :attributes="textSettings">{{item}}</AText>
 				<div class="arrow">
 					<AImg :attributes="{ ...imgSettings, alt: 'arrow' }" src="/img/white_arrow.png" />
 				</div>
-			</ALink>
-			<ALink href="/custom-link" class="lang_item">
-				<div class="flag">
-					<AImg :attributes="{ ...imgSettings, alt: 'Flag ua' }" src="/img/flag_ua.png" />
-				</div>
-				<AText tag="div" :attributes="textSettings">EN</AText>
-				<div class="arrow">
-					<AImg :attributes="{ ...imgSettings, alt: 'arrow' }" src="/img/white_arrow.png" />
-				</div>
-			</ALink>
+			</div>
 		</div>
 	</div>
 </template>
 <script>
 import components from '~/mixins/components'
 import geo from '~/mixins/geo'
+import config from '~/config'
 export default {
 	name: 'lang_selector',
 	mixins: [components, geo],
@@ -53,7 +43,14 @@ export default {
 				class: 'text'
 			}
 		}
-	}
+	},
+    computed: {
+        geoList() {
+            const geo = this.$store.getters['common/getGeo']
+            const availableGeo = config.AVAILABLE_GEO
+            return availableGeo.add('WD')
+        }
+    }
 }
 </script>
 
@@ -66,6 +63,9 @@ export default {
 	background: rgba(16, 13, 36, 0.28);
 	border: 1px solid #5e40b5;
 	cursor: pointer;
+}
+.lang_selector:hover .lang_selector_wrapper{
+    display: flex;
 }
 .lang_selector_wrapper {
 	position: absolute;
@@ -97,13 +97,18 @@ export default {
 	padding: 5px 0px 0px 10px;
 	justify-content: space-between;
 	text-decoration: none;
+    gap: 5px;
 }
 .lang_selector_wrapper .arrow img {
 	transform: rotate(-90deg);
 }
 .single {
-	padding: 11px 10px 11px 10px;
-	gap:10px;
+	gap:5px;
 	justify-content: center;
+}
+@media (max-width: 1200px) {
+    .lang_item {
+        background: var(--cancun);
+    }
 }
 </style>

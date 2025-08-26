@@ -79,7 +79,6 @@
 						btn.disabled = false
 						counter++
 						posts = data.body.posts
-						console.log(posts)
 						renderTemplate(posts, counter)
 						if (!isShowBtn(posts, counter)) btn.remove()
 					})

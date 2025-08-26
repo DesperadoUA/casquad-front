@@ -16,9 +16,10 @@
 						:title="t('ONLINE_CASINO')"
 						link="/casinos/new"
 						:sliderSettings="casinoSliderSettings"
+                        v-if="casino_slider.length"
 					>
 						<CasinoSliderCard
-							v-for="(item, index) in data.body.casino_slider"
+							v-for="(item, index) in casino_slider"
 							:key="index"
 							:link="item.permalink"
 							:src="item.icon"
@@ -40,9 +41,14 @@
 					</SliderContainer>
 				</div>
 				<div class="slider_item" v-if="sliderShow">
-					<SliderContainer icon="bonus" :title="t('BONUSES')" link="/bonuses" :sliderSettings="bonusSliderSettings">
+					<SliderContainer icon="bonus"
+                                     :title="t('BONUSES')"
+                                     link="/bonuses"
+                                     :sliderSettings="bonusSliderSettings"
+                                     v-if="bonuses.length"
+                    >
 						<BonusSliderCard
-							v-for="(item, index) in data.body.bonuses"
+							v-for="(item, index) in bonuses"
 							:key="index"
 							:src="item.thumbnail"
 							:title="item.title"
@@ -84,13 +90,13 @@
 								thumbnail: ''
 							}].concat(data.body.casino_category)" />
 						</div>
-						<CasinoLoop :value="data.body.casino" />
+						<CasinoLoop :value="casino" />
 					</template>
 					<template v-slot:right>
 						<aside class="aside">
 							<AText tag="div" :attributes="asideContainerTitle">{{ t('RECOMMENDED_BONUSES') }}</AText>
 							<div class="aside_bonus_container">
-								<div class="aside_bonus_wrapper" v-for="item in data.body.top_bonuses" :key="item.title">
+								<div class="aside_bonus_wrapper" v-for="item in top_bonuses" :key="item.title">
 									<BonusAsideCard
 										:src="item.thumbnail"
 										:title="item.title"
@@ -160,10 +166,11 @@ import Gradient from '~/components/gradient'
 import pageTemplate from '~/mixins/pageTemplate'
 import device from '~/mixins/device'
 import helper from '~/helpers/helpers'
+import geo from '~/mixins/geo'
 
 export default {
 	name: 'main-page',
-	mixins: [pageTemplate, device],
+	mixins: [pageTemplate, device, geo],
 	middleware: ['getHeaders'],
 	components: {
 		Slider,
@@ -370,6 +377,21 @@ export default {
 			this.showSliders = !this.showSliders
 		}
 	},
+    watch: {
+        async geo(newVal, oldVal) {
+            const geo = this.$store.getters['common/getGeo']
+            const request = {
+                url: 'main',
+                geo
+            }
+            console.log('Change geo')
+            const response = await DAL_Page.getData(request)
+            this.casino = response.data.body.casino
+            this.casino_slider = response.data.body.casino_slider
+            this.bonuses = response.data.body.bonuses
+            this.top_bonuses = response.data.body.top_bonuses
+        }
+    },
 	async asyncData({ store, route }) {
 		const geo = store.getters['common/getGeo']
 		const request = {
@@ -378,7 +400,11 @@ export default {
 		}
 		const response = await DAL_Page.getData(request)
 		const data = helper.headDataMixin(response.data, route)
-		return { data }
+        const { casino } = response.data.body
+        const { casino_slider } = response.data.body
+        const { bonuses } = response.data.body
+        const { top_bonuses } = response.data.body
+		return { data, casino, casino_slider, bonuses, top_bonuses }
 	}
 }
 </script>

@@ -23,4 +23,9 @@ export default {
             return this.$store.getters['common/getGeo']
         }
     },
+    methods: {
+        setGeo(geo) {
+            this.$store.dispatch('common/setGeo', geo)
+        }
+    }
 }

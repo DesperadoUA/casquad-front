@@ -9,6 +9,7 @@ export default {
 	},
 	methods: {
 		refActivate(arr, geo) {
+            console.log(arr, geo)
 			if (arr[geo]) window.open(arr[geo], '_blank')
 		}
 	}
