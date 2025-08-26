@@ -14,8 +14,8 @@
 					:vendor_title="data.body.vendor.length ? data.body.vendor[0].title : ''"
 					:vendor_permalink="data.body.vendor.length ? data.body.vendor[0].permalink : ''"
 					:vendor_icon="data.body.vendor.length ? data.body.vendor[0].icon : ''"
-					:casinos="data.body.casinos"
-					:refLinks="data.body.ref"
+					:casinos="casinos"
+					:refLinks="Array.isArray(data.body.ref) ? {} : data.body.ref"
 					@onClickDemoActivate="onClickDemoActivate"
 				/>
 			</div>
@@ -87,10 +87,11 @@ import VideoGallery from '~/components/video_gallery'
 import {SLOTS_ROOT_SLUG} from '~/constants'
 import components from '~/mixins/components'
 import Breadcrumbs from '~/components/breadcrumbs'
+import geo from '~/mixins/geo'
 
 export default {
 	name: 'game_single',
-	mixins: [pageTemplate, components],
+	mixins: [pageTemplate, components, geo],
 	components: {
 		SlotCard,
 		SlotSymbols,
@@ -127,6 +128,17 @@ export default {
             slotsRootSlug: SLOTS_ROOT_SLUG
         }
 	},
+    watch: {
+        async geo() {
+            const request = new DAL_Builder()
+            const geo = this.$store.getters['common/getGeo']
+            const response = await request
+                .postType('game')
+                .url(`${this.$route.params.id}?geo=${geo}`)
+                .get()
+            this.casinos = response.data.body.casinos
+        }
+    },
 	async asyncData({ route, error, store }) {
 		if (route.params.id) {
 			const geo = store.getters['common/getGeo']
@@ -139,7 +151,8 @@ export default {
 				error({ statusCode: 404, message: 'Post not found' })
 			} else {
 				const data = helper.headDataMixin(response.data, route)
-				return { data }
+                const { casinos } = response.data.body
+				return { data, casinos }
 			}
 		} else {
 			error({ statusCode: 404, message: 'Post not found' })
