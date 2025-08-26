@@ -3,7 +3,7 @@
 		<main class="category_page">
 			<Gradient />
 			<div class="container z-index-3">
-				<BonusLoop :value="data.body.posts" />
+				<BonusLoop :value="posts" />
 			</div>
 			<div class="container h1_wrapper">
 				<AText tag="h1" :attributes="titleSettings">{{ data.body.h1 }}</AText>
@@ -45,6 +45,7 @@ import Gradient from '~/components/gradient'
 import components from '~/mixins/components'
 import Breadcrumbs from '~/components/breadcrumbs'
 import {BONUSES_ROOT_SLUG} from '~/constants'
+import geo from '~/mixins/geo'
 
 export default {
 	name: 'bonus-category',
@@ -66,7 +67,18 @@ export default {
 		Gradient,
         Breadcrumbs
 	},
-	mixins: [pageTemplate, components],
+	mixins: [pageTemplate, components, geo],
+    watch: {
+        async geo() {
+            const request = new DAL_Builder()
+            const geo = this.$store.getters['common/getGeo']
+            const response = await request
+                .postType('bonuses')
+                .url(`${this.$route.params.id}?geo=${geo}`)
+                .get()
+            this.posts = response.data.body.posts
+        }
+    },
 	async asyncData({ route, error, store }) {
 		if (route.params.id) {
 			const request = new DAL_Builder()
@@ -79,7 +91,8 @@ export default {
 				error({ statusCode: 404, message: 'Post not found' })
 			} else {
 				const data = helper.headDataMixin(response.data, route)
-				return { data }
+                const { posts } = response.data.body
+				return { data, posts }
 			}
 		} else {
 			error({ statusCode: 404, message: 'Post not found' })
