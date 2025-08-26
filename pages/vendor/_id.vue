@@ -29,7 +29,7 @@
 							<aside class="aside">
 								<AText tag="div" :attributes="asideContainerTitle">{{ t('RECOMMENDED_BONUSES') }}</AText>
 								<div class="aside_bonus_container">
-									<div class="aside_bonus_wrapper" v-for="item in data.body.top_bonuses" :key="item.title">
+									<div class="aside_bonus_wrapper" v-for="item in top_bonuses" :key="item.title">
 										<BonusAsideCard
 											:permalink="item.permalink"
 											:src="item.thumbnail"
@@ -38,7 +38,7 @@
 											:value="item.bonus"
 											:min_dep="item.min_deposit"
 											:wager="item.wagering"
-											:refLinks="item.casino.ref"
+											:refLinks="Array.isArray(item.ref) ? {} : item.ref"
 										/>
 									</div>
 								</div>
@@ -57,7 +57,7 @@
 					<div class="casino_wrapper">
 						<TwoContentContainer>
 							<template v-slot:left>
-								<CasinoLoop :value="data.body.casinos" />
+								<CasinoLoop :value="casinos" />
 								<div class="container_loop" v-if="data.body.games.length">
 									<AText tag="div" :attributes="titleSlotsSettings"> {{ t('BEST_GAMES_PROVIDER') }} {{ data.body.title }} </AText>
 									<SlotLoop :value="data.body.games" />
@@ -86,6 +86,7 @@ import Gradient from '~/components/gradient'
 import VideoGallery from '~/components/video_gallery'
 import components from '~/mixins/components'
 import Breadcrumbs from '~/components/breadcrumbs'
+import geo from '~/mixins/geo'
 export default {
 	name: 'single-vendor',
 	data: () => {
@@ -131,7 +132,19 @@ export default {
 		VideoGallery,
         Breadcrumbs
 	},
-	mixins: [pageTemplate, components],
+	mixins: [pageTemplate, components, geo],
+    watch: {
+        async geo() {
+            const request = new DAL_Builder()
+            const geo = this.$store.getters['common/getGeo']
+            const response = await request
+                .postType('vendor')
+                .url(`${this.$route.params.id}?geo=${geo}`)
+                .get()
+            this.casinos = response.data.body.casinos
+            this.top_bonuses = response.data.body.top_bonuses
+        }
+    },
 	async asyncData({ route, error, store }) {
 		if (route.params.id) {
 			const request = new DAL_Builder()
@@ -144,7 +157,8 @@ export default {
 				error({ statusCode: 404, message: 'Post not found' })
 			} else {
 				const data = helper.headDataMixin(response.data, route)
-				return { data }
+                const { top_bonuses, casinos } = response.data.body
+				return { data, top_bonuses, casinos }
 			}
 		} else {
 			error({ statusCode: 404, message: 'Post not found' })
