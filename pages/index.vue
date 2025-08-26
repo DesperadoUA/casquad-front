@@ -378,13 +378,12 @@ export default {
 		}
 	},
     watch: {
-        async geo(newVal, oldVal) {
+        async geo() {
             const geo = this.$store.getters['common/getGeo']
             const request = {
                 url: 'main',
                 geo
             }
-            console.log('Change geo')
             const response = await DAL_Page.getData(request)
             this.casino = response.data.body.casino
             this.casino_slider = response.data.body.casino_slider

@@ -4,7 +4,7 @@
 			<Gradient />
 			<div class="container z-index-3">
 				<div class="bonus_category_container">
-					<div class="bonus_category_item" v-for="(item, index) in data.body.bonus_category" :key="index">
+					<div class="bonus_category_item" v-for="(item, index) in bonus_category" :key="index">
 						<BonusCategory :title="item.title" :link="item.permalink" :posts="item.posts" />
 					</div>
 				</div>
@@ -44,9 +44,10 @@ import Gradient from '~/components/gradient'
 import helper from '~/helpers/helpers'
 import components from '~/mixins/components'
 import Breadcrumbs from '~/components/breadcrumbs'
+import geo from '~/mixins/geo'
 export default {
 	name: 'bonuses-page',
-	mixins: [pageTemplate, components],
+	mixins: [pageTemplate, components, geo],
 	components: {
 		Faq,
 		BonusCategory,
@@ -65,6 +66,17 @@ export default {
 			}
 		}
 	},
+    watch: {
+        async geo() {
+            const geo = this.$store.getters['common/getGeo']
+            const request = {
+                url: 'bonuses',
+                geo
+            }
+            const response = await DAL_Page.getData(request)
+            this.bonus_category = response.data.body.bonus_category
+        }
+    },
 	async asyncData({ store, route }) {
 		const geo = store.getters['common/getGeo']
 		const request = {
@@ -73,7 +85,8 @@ export default {
 		}
 		const response = await DAL_Page.getData(request)
 		const data = helper.headDataMixin(response.data, route)
-		return { data }
+        const { bonus_category } = response.data.body
+		return { data, bonus_category }
 	}
 }
 </script>
