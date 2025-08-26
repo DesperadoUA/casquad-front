@@ -35,7 +35,7 @@
 					<AText tag="div" :attributes="subTitleSettings">{{ t('MOST_PROFITABLE_BONUSES') }}</AText>
 					<aside class="aside">
                        <div class="aside_bonus_container">
-								<div class="aside_bonus_wrapper" v-for="item in data.body.bonuses" :key="item.title">
+								<div class="aside_bonus_wrapper" v-for="item in bonuses" :key="item.title">
 									<BonusAsideCard
 										:src="item.thumbnail"
 										:title="item.title"
@@ -69,9 +69,10 @@ import ref from '~/mixins/ref'
 import components from '~/mixins/components'
 import Breadcrumbs from '~/components/breadcrumbs'
 import {BONUSES_ROOT_SLUG} from '~/constants'
+import geo from '~/mixins/geo'
 export default {
 	name: 'bonus_single',
-	mixins: [ref, pageTemplate, components],
+	mixins: [ref, pageTemplate, components, geo],
 	components: {
 		TwoContentContainer,
 		Banner,
@@ -98,6 +99,17 @@ export default {
             bonusesRootSlug: BONUSES_ROOT_SLUG
 		}
 	},
+    watch: {
+        async geo() {
+            const request = new DAL_Builder()
+            const geo = this.$store.getters['common/getGeo']
+            const response = await request
+                .postType('bonus')
+                .url(`${this.$route.params.id}?geo=${geo}`)
+                .get()
+            this.bonuses = response.data.body.bonuses
+        }
+    },
 	async asyncData({ route, error, store }) {
 		if (route.params.id) {
 			const request = new DAL_Builder()
@@ -110,7 +122,8 @@ export default {
 				error({ statusCode: 404, message: 'Post not found' })
 			} else {
 				const data = helper.headDataMixin(response.data, route)
-				return { data }
+                const { bonuses } = response.data.body
+				return { data, bonuses }
 			}
 		} else {
 			error({ statusCode: 404, message: 'Post not found' })
