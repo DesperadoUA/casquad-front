@@ -1,5 +1,5 @@
 <template>
-    <div class="wrapper_thumbnail">
+	<div class="wrapper_thumbnail">
 		<AImg :attributes="{ ...thumbnailSettings, alt: `${alt}` }" :src="src" />
 	</div>
 </template>
@@ -7,9 +7,9 @@
 import AImg from '~/components/ui/atoms/img'
 export default {
 	name: 'banner',
-    components: {
-        AImg
-    },
+	components: {
+		AImg
+	},
 	props: {
 		src: {
 			type: String,
@@ -17,12 +17,12 @@ export default {
 				return ''
 			}
 		},
-        alt: {
+		alt: {
 			type: String,
 			default() {
 				return ''
 			}
-		},
+		}
 	},
 
 	data: () => {
@@ -31,7 +31,7 @@ export default {
 				width: '822px',
 				height: '333px',
 				class: 'thumbnail'
-			},
+			}
 		}
 	}
 }
@@ -53,7 +53,7 @@ export default {
 	}
 }
 @media (min-width: 768px) and (max-width: 1200px) {
-    .wrapper_thumbnail {
+	.wrapper_thumbnail {
 		width: 100%;
 		height: auto;
 	}
