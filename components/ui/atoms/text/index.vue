@@ -23,7 +23,7 @@
 	<h5 v-else-if="tag === 'h5'" :class="currentClasses" @click="onClick">
 		<slot />
 	</h5>
-	<h6 v-else-if="tag === 'h6'" :class="currentClasses" @click="onClick"> 
+	<h6 v-else-if="tag === 'h6'" :class="currentClasses" @click="onClick">
 		<slot />
 	</h6>
 </template>
@@ -89,7 +89,8 @@ export default {
 			'cancun',
 			'cochin',
 			'cardiff',
-			'cleveland'
+			'cleveland',
+			'caracas'
 		]
 		const availableAlign = ['left', 'right', 'center', 'justify']
 		const availableTextTransform = ['uppercase', 'lowercase', 'capitalize', 'none']

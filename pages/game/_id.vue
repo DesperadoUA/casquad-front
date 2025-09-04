@@ -19,20 +19,22 @@
 					@onClickDemoActivate="onClickDemoActivate"
 				/>
 			</div>
-            <Breadcrumbs :value="[
-                 {
-                    title: t('BREADCRUMB_MAIN_PAGE'),
-                    permalink: '/'
-                 },
-                 {
-                     title: t('BREADCRUMB_SLOTS_TITLE_PAGE'),
-                     permalink: `/${slotsRootSlug}`
-                 },
-                 {
-                    title: data.body.title,
-                    permalink: ''
-                 }
-            ]" />
+			<Breadcrumbs
+				:value="[
+					{
+						title: t('BREADCRUMB_MAIN_PAGE'),
+						permalink: '/'
+					},
+					{
+						title: t('BREADCRUMB_SLOTS_TITLE_PAGE'),
+						permalink: `/${slotsRootSlug}`
+					},
+					{
+						title: data.body.title,
+						permalink: ''
+					}
+				]"
+			/>
 			<div class="symbols" v-if="data.body.symbols.length">
 				<div class="container">
 					<AText tag="div" :attributes="videoTitleSettings">{{ t('SLOT_SYMBOLS') }}</AText>
@@ -47,7 +49,9 @@
 			</div>
 			<div class="video_gallery" v-if="data.body.video.length">
 				<div class="container">
-					<AText tag="div" v-if="data.body.video_title" :attributes="symbolTitleSettings">{{ data.body.video_title }}</AText>
+					<AText tag="div" v-if="data.body.video_title" :attributes="symbolTitleSettings">{{
+						data.body.video_title
+					}}</AText>
 					<VideoGallery :posts="videoListWrapper(data.body.video)" />
 				</div>
 			</div>
@@ -62,6 +66,7 @@
 					<Faq :value="data.body.faq" />
 				</div>
 			</div>
+			<Reviews :posts="reviews" post_type="game" :post_id="data.body.id" @changeFilter="changeFilter" />
 			<SlotPopUp
 				v-if="isShowDemo"
 				:src="data.body.iframe"
@@ -84,10 +89,12 @@ import SlotPopUp from '~/components/slot_popup'
 import Gradient from '~/components/gradient'
 import helper from '~/helpers/helpers'
 import VideoGallery from '~/components/video_gallery'
-import {SLOTS_ROOT_SLUG} from '~/constants'
+import { SLOTS_ROOT_SLUG } from '~/constants'
 import components from '~/mixins/components'
 import Breadcrumbs from '~/components/breadcrumbs'
 import geo from '~/mixins/geo'
+import Reviews from '~/components/reviews'
+import DAL_Review from '~/DAL/review'
 
 export default {
 	name: 'game_single',
@@ -100,7 +107,7 @@ export default {
 		SlotPopUp,
 		Gradient,
 		VideoGallery,
-        Breadcrumbs
+		Breadcrumbs
 	},
 	layout: 'default',
 	data: () => {
@@ -125,34 +132,28 @@ export default {
 				class: 'title'
 			},
 			isShowDemo: false,
-            slotsRootSlug: SLOTS_ROOT_SLUG
-        }
+			slotsRootSlug: SLOTS_ROOT_SLUG
+		}
 	},
-    watch: {
-        async geo() {
-            const request = new DAL_Builder()
-            const geo = this.$store.getters['common/getGeo']
-            const response = await request
-                .postType('game')
-                .url(`${this.$route.params.id}?geo=${geo}`)
-                .get()
-            this.casinos = response.data.body.casinos
-        }
-    },
+	watch: {
+		async geo() {
+			const request = new DAL_Builder()
+			const geo = this.$store.getters['common/getGeo']
+			const response = await request.postType('game').url(`${this.$route.params.id}?geo=${geo}`).get()
+			this.casinos = response.data.body.casinos
+		}
+	},
 	async asyncData({ route, error, store }) {
 		if (route.params.id) {
 			const geo = store.getters['common/getGeo']
 			const request = new DAL_Builder()
-			const response = await request
-				.postType('game')
-				.url(`${route.params.id}?geo=${geo}`)
-				.get()
+			const response = await request.postType('game').url(`${route.params.id}?geo=${geo}`).get()
 			if (response.data.confirm === 'error') {
 				error({ statusCode: 404, message: 'Post not found' })
 			} else {
 				const data = helper.headDataMixin(response.data, route)
-                const { casinos } = response.data.body
-				return { data, casinos }
+				const { casinos, reviews, id } = response.data.body
+				return { data, casinos, reviews, id }
 			}
 		} else {
 			error({ statusCode: 404, message: 'Post not found' })
@@ -167,7 +168,7 @@ export default {
 		},
 		videoListWrapper(videoList) {
 			return videoList.map(item => {
-				const {src} = item
+				const { src } = item
 				const [iframe, title] = item.value
 				return {
 					title,
@@ -175,6 +176,28 @@ export default {
 					banner: src
 				}
 			})
+		},
+		async changeFilter(filter) {
+			const config = {
+				new: {
+					sort: 'update_at',
+					order: 'desc'
+				},
+				rating_desc: {
+					sort: 'rating',
+					order: 'desc'
+				},
+				rating_asc: {
+					sort: 'rating',
+					order: 'asc'
+				}
+			}
+			const response = await DAL_Review.getReviews(
+				`game/reviews/${this.id}?sort=${config[filter.key].sort}&order=${config[filter.key].order}`
+			)
+			if (response.data.confirm === 'ok') {
+				this.reviews = response.data.body.posts
+			}
 		}
 	}
 }

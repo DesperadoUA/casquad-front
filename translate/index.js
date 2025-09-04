@@ -715,8 +715,7 @@ export default {
 	COOKIES: {
 		RU: '',
 		UA: '',
-		EN:
-			'By using this website, you agree to our use of cookies to improve the performance of the website and enhance your user experience. More info on our <a href="/privacy-policy">Privacy Policy</a>. You also confirm that you have read the <a href="/terms">T&C</a>, and that you assume all responsibility and consequences by accepting this.'
+		EN: 'By using this website, you agree to our use of cookies to improve the performance of the website and enhance your user experience. More info on our <a href="/privacy-policy">Privacy Policy</a>. You also confirm that you have read the <a href="/terms">T&C</a>, and that you assume all responsibility and consequences by accepting this.'
 	},
 	CONFIRM: {
 		RU: 'Подтвердить',
@@ -733,44 +732,134 @@ export default {
 		UA: 'Подібні казино',
 		EN: 'Similar Casinos'
 	},
-    BREADCRUMB_MAIN_PAGE: {
-        RU: 'Лучшее онлайн-казино',
-        UA: 'Найкраще онлайн-казино',
-        EN: 'Best Online Casino'
-    },
-    BREADCRUMB_BONUS_TITLE_PAGE: {
-        RU: 'Бонусы',
-        UA: 'Бонуси',
-        EN: 'Bonuses'
-    },
-    BREADCRUMB_SLOTS_TITLE_PAGE: {
-        RU: 'Слоты',
-        UA: 'Слоти',
-        EN: 'Slots'
-    },
-    BREADCRUMB_NEWS_TITLE_PAGE: {
-        RU: 'Новости',
-        UA: 'Новини',
-        EN: 'News'
-    },
-    BREADCRUMB_CATEGORY_CASINO_NEW_PAGE: {
-        RU: 'Новые казино',
-        UA: 'Нові казино',
-        EN: 'New Casinos'
-    },
-    BREADCRUMB_CATEGORY_CASINO_POPULAR_PAGE: {
-        RU: 'Популярные казино',
-        UA: 'Популярні казино',
-        EN: 'Popular casinos'
-    },
-    BREADCRUMB_CATEGORY_CASINO_TRUSTED_PAGE: {
-        RU: 'Надежные казино',
-        UA: 'Надійні казино',
-        EN: 'Trusted casinos'
-    },
-    BREADCRUMB_CATEGORY_CASINO_BEST_PAGE: {
-        RU: 'Лучшие казино',
-        UA: 'Найкращі казино',
-        EN: 'Best casinos'
-    },
+	BREADCRUMB_MAIN_PAGE: {
+		RU: 'Лучшее онлайн-казино',
+		UA: 'Найкраще онлайн-казино',
+		EN: 'Best Online Casino'
+	},
+	BREADCRUMB_BONUS_TITLE_PAGE: {
+		RU: 'Бонусы',
+		UA: 'Бонуси',
+		EN: 'Bonuses'
+	},
+	BREADCRUMB_SLOTS_TITLE_PAGE: {
+		RU: 'Слоты',
+		UA: 'Слоти',
+		EN: 'Slots'
+	},
+	BREADCRUMB_NEWS_TITLE_PAGE: {
+		RU: 'Новости',
+		UA: 'Новини',
+		EN: 'News'
+	},
+	BREADCRUMB_CATEGORY_CASINO_NEW_PAGE: {
+		RU: 'Новые казино',
+		UA: 'Нові казино',
+		EN: 'New Casinos'
+	},
+	BREADCRUMB_CATEGORY_CASINO_POPULAR_PAGE: {
+		RU: 'Популярные казино',
+		UA: 'Популярні казино',
+		EN: 'Popular casinos'
+	},
+	BREADCRUMB_CATEGORY_CASINO_TRUSTED_PAGE: {
+		RU: 'Надежные казино',
+		UA: 'Надійні казино',
+		EN: 'Trusted casinos'
+	},
+	BREADCRUMB_CATEGORY_CASINO_BEST_PAGE: {
+		RU: 'Лучшие казино',
+		UA: 'Найкращі казино',
+		EN: 'Best casinos'
+	},
+	PLAYERS_FEEDBACK: {
+		RU: 'Отзывы игроков',
+		UA: 'Відгуки гравців',
+		EN: 'Players Feedback'
+	},
+	NEW: {
+		RU: 'Новые',
+		UA: 'Нові',
+		EN: 'New'
+	},
+	WRITE_REVIEW: {
+		RU: 'Написать отзыв',
+		UA: 'Написати відгук',
+		EN: 'Write a review'
+	},
+	LOWEST_RATING: {
+		RU: 'Низкий рейтинг',
+		UA: 'Низький рейтинг',
+		EN: 'Lowest Rating'
+	},
+	FEEDBACK: {
+		RU: 'Отзывы',
+		UA: 'Відгук',
+		EN: 'feedback'
+	},
+	NAME: {
+		RU: 'Имя',
+		UA: "Ім'я",
+		EN: 'Name'
+	},
+	EMAIL: {
+		RU: 'Email',
+		UA: 'Email',
+		EN: 'Email'
+	},
+	TITLE_REVIEW: {
+		RU: 'Заголовок',
+		UA: 'Заголовок',
+		EN: 'Title (Brief impression)'
+	},
+	DESCRIPTION_REVIEW: {
+		RU: 'Заголовок',
+		UA: 'Заголовок',
+		EN: 'Description'
+	},
+	DESCRIPTION_REVIEW_PLACEHOLDER: {
+		RU: 'Заголовок',
+		UA: 'Заголовок',
+		EN: 'Describe pros/cons, withdrawal experience, etc. (min. 20 characters)'
+	},
+	CANCEL: {
+		RU: 'Отмена',
+		UA: 'Скасування',
+		EN: 'Cancel'
+	},
+	SEND: {
+		RU: 'Отправить',
+		UA: 'Надіслати',
+		EN: 'Send'
+	},
+	ERROR_NAME_LENGTH: {
+		RU: 'Слишком короткое имя. Введите не менее 4 символов.',
+		UA: 'Занадто коротке ім’я. Введіть щонайменше 4 символи.',
+		EN: 'Name is too short. Enter at least 4 characters.'
+	},
+	INVALID_EMAIL: {
+		RU: 'Некорректный адрес электронной почты.',
+		UA: 'Невірна адреса електронної пошти.',
+		EN: 'Invalid email address.'
+	},
+	SHORT_MSG_TEXT: {
+		RU: 'Сообщение не должно быть короче 50 символов.',
+		UA: 'Повідомлення не повинно бути коротшим за 50 символів.',
+		EN: 'Message must be at least 50 characters long.'
+	},
+	EMPTY_TITLE: {
+		RU: 'Поле заголовка не может быть пустым.',
+		UA: 'Поле заголовка не може бути порожнім.',
+		EN: 'Title field cannot be empty.'
+	},
+	SUCCESS_SEND: {
+		RU: 'Ваше сообщение отправлено на модерацию.',
+		UA: 'Ваше повідомлення відправлено на модерацію.',
+		EN: 'Your message has been sent for moderation.'
+	},
+	SHOW_MORE_LOADER: {
+		UA: 'Дивитись більше',
+		RU: 'Смотреть больше',
+		EN: 'Show More'
+	}
 }

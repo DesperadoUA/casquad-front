@@ -39,7 +39,8 @@ export default {
 			'cochin',
 			'cardiff',
 			'cleveland',
-			'chicago'
+			'chicago',
+			'caracas'
 		]
 		const availableBorderRadius = ['xxs', 'xs', 's', 'm', 'l', 'xl']
 		const availableWeight = [

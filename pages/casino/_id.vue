@@ -6,21 +6,22 @@
 				<TwoContentContainer>
 					<template v-slot:left>
 						<AText tag="h1" :attributes="titleSettings">{{ data.body.h1 }}</AText>
-                        <Breadcrumbs :value="[
-                                {
-                                    title: t('BREADCRUMB_MAIN_PAGE'),
-                                    permalink: '/'
-                                },
-                                {
-                                    title: t(configCategoryTitle[data.body.label]),
-                                    permalink: `/casinos/${configCategorySlug[data.body.label]}`
-                                },
-                                {
-                                    title: data.body.title,
-                                    permalink: ''
-                                }
-                            ]"
-                        />
+						<Breadcrumbs
+							:value="[
+								{
+									title: t('BREADCRUMB_MAIN_PAGE'),
+									permalink: '/'
+								},
+								{
+									title: t(configCategoryTitle[data.body.label]),
+									permalink: `/casinos/${configCategorySlug[data.body.label]}`
+								},
+								{
+									title: data.body.title,
+									permalink: ''
+								}
+							]"
+						/>
 						<div class="left_wrapper">
 							<div class="casino_card_container">
 								<CasinoCard
@@ -87,7 +88,9 @@
 		</div>
 		<div class="video_gallery" v-if="data.body.video.length">
 			<div class="container">
-				<AText tag="div" v-if="data.body.video_title" :attributes="videoTitleSettings">{{ data.body.video_title }}</AText>
+				<AText tag="div" v-if="data.body.video_title" :attributes="videoTitleSettings">{{
+					data.body.video_title
+				}}</AText>
 				<VideoGallery :posts="videoListWrapper(data.body.video)" />
 			</div>
 		</div>
@@ -96,6 +99,7 @@
 				<TabContent :value="tabContent" />
 			</div>
 		</section>
+		<Reviews :posts="reviews" post_type="casino" :post_id="data.body.id" @changeFilter="changeFilter" />
 		<div class="container" v-if="casinos.length">
 			<div class="section_title_wrapper">
 				<AText tag="div" :attributes="mainContainerTitle">{{ t('SIMILAR_CASINOS') }}</AText>
@@ -126,8 +130,10 @@ import device from '~/mixins/device'
 import VideoGallery from '~/components/video_gallery'
 import components from '~/mixins/components'
 import Breadcrumbs from '~/components/breadcrumbs'
-import {CASINO_CATEGORY_SLUG} from '~/constants'
+import { CASINO_CATEGORY_SLUG } from '~/constants'
 import geo from '~/mixins/geo'
+import Reviews from '~/components/reviews'
+import DAL_Review from '~/DAL/review'
 
 export default {
 	name: 'casino_single',
@@ -143,7 +149,8 @@ export default {
 		CasinoLoop,
 		Gradient,
 		VideoGallery,
-        Breadcrumbs
+		Breadcrumbs,
+		Reviews
 	},
 	layout: 'default',
 	data: () => {
@@ -180,13 +187,13 @@ export default {
 				weight: 'bold',
 				class: 'video_title'
 			},
-            configCategoryTitle: {
-                new: 'BREADCRUMB_CATEGORY_CASINO_NEW_PAGE',
-                popular: 'BREADCRUMB_CATEGORY_CASINO_POPULAR_PAGE',
-                trusted: 'BREADCRUMB_CATEGORY_CASINO_TRUSTED_PAGE',
-                best: 'BREADCRUMB_CATEGORY_CASINO_BEST_PAGE'
-            },
-            configCategorySlug: CASINO_CATEGORY_SLUG
+			configCategoryTitle: {
+				new: 'BREADCRUMB_CATEGORY_CASINO_NEW_PAGE',
+				popular: 'BREADCRUMB_CATEGORY_CASINO_POPULAR_PAGE',
+				trusted: 'BREADCRUMB_CATEGORY_CASINO_TRUSTED_PAGE',
+				best: 'BREADCRUMB_CATEGORY_CASINO_BEST_PAGE'
+			},
+			configCategorySlug: CASINO_CATEGORY_SLUG
 		}
 	},
 	computed: {
@@ -207,32 +214,26 @@ export default {
 			return this.data.body.games.slice(0, config[this.device])
 		}
 	},
-    watch: {
-        async geo() {
-            const request = new DAL_Builder()
-            const geo = this.$store.getters['common/getGeo']
-            const response = await request
-                .postType('casino')
-                .url(`${this.$route.params.id}?geo=${geo}`)
-                .get()
-            this.casinos = response.data.body.casinos
-            this.bonuses = response.data.body.bonuses
-        }
-    },
+	watch: {
+		async geo() {
+			const request = new DAL_Builder()
+			const geo = this.$store.getters['common/getGeo']
+			const response = await request.postType('casino').url(`${this.$route.params.id}?geo=${geo}`).get()
+			this.casinos = response.data.body.casinos
+			this.bonuses = response.data.body.bonuses
+		}
+	},
 	async asyncData({ route, error, store }) {
 		if (route.params.id) {
 			const request = new DAL_Builder()
-            const geo = store.getters['common/getGeo']
-			const response = await request
-				.postType('casino')
-				.url(`${route.params.id}?geo=${geo}`)
-				.get()
+			const geo = store.getters['common/getGeo']
+			const response = await request.postType('casino').url(`${route.params.id}?geo=${geo}`).get()
 			if (response.data.confirm === 'error') {
 				error({ statusCode: 404, message: 'Post not found' })
 			} else {
 				const data = helper.headDataMixin(response.data, route)
-                const { casinos, bonuses } = response.data.body
-				return { data, casinos, bonuses }
+				const { casinos, bonuses, reviews, id } = response.data.body
+				return { data, casinos, bonuses, reviews, id }
 			}
 		} else {
 			error({ statusCode: 404, message: 'Post not found' })
@@ -241,7 +242,7 @@ export default {
 	methods: {
 		videoListWrapper(videoList) {
 			return videoList.map(item => {
-				const {src} = item
+				const { src } = item
 				const [iframe, title] = item.value
 				return {
 					title,
@@ -249,6 +250,28 @@ export default {
 					banner: src
 				}
 			})
+		},
+		async changeFilter(filter) {
+			const config = {
+				new: {
+					sort: 'update_at',
+					order: 'desc'
+				},
+				rating_desc: {
+					sort: 'rating',
+					order: 'desc'
+				},
+				rating_asc: {
+					sort: 'rating',
+					order: 'asc'
+				}
+			}
+			const response = await DAL_Review.getReviews(
+				`casino/reviews/${this.id}?sort=${config[filter.key].sort}&order=${config[filter.key].order}`
+			)
+			if (response.data.confirm === 'ok') {
+				this.reviews = response.data.body.posts
+			}
 		}
 	}
 }
