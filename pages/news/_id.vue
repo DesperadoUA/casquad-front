@@ -5,20 +5,22 @@
 			<TwoContentContainer>
 				<template v-slot:left>
 					<AText tag="h1" :attributes="titleSettings">{{ data.body.h1 }}</AText>
-                    <Breadcrumbs :value="[
-                         {
-                            title: t('BREADCRUMB_MAIN_PAGE'),
-                            permalink: '/'
-                         },
-                         {
-                             title: t('BREADCRUMB_NEWS_TITLE_PAGE'),
-                             permalink: `/${newsRootSlug}`
-                         },
-                         {
-                            title: data.body.title,
-                            permalink: ''
-                         }
-                    ]" />
+					<Breadcrumbs
+						:value="[
+							{
+								title: t('BREADCRUMB_MAIN_PAGE'),
+								permalink: '/'
+							},
+							{
+								title: t('BREADCRUMB_NEWS_TITLE_PAGE'),
+								permalink: `/${newsRootSlug}`
+							},
+							{
+								title: data.body.title,
+								permalink: ''
+							}
+						]"
+					/>
 					<Banner :src="data.body.thumbnail" :alt="`${data.body.title} Logo`" />
 					<div class="content_container">
 						<Content :value="data.body.content" />
@@ -39,7 +41,7 @@
 				</template>
 			</TwoContentContainer>
 		</div>
-		<section class="similar_casino_wrapper"  v-if="data.body.casinos.length">
+		<section class="similar_casino_wrapper" v-if="data.body.casinos.length">
 			<div class="container">
 				<div class="section_title_wrapper">
 					<AText tag="div" :attributes="mainContainerTitle">{{ t('RECOMMENDED_CASINOS') }}</AText>
@@ -86,7 +88,7 @@ import Gradient from '~/components/gradient'
 import CasinoLoop from '~/components/casino_loop'
 import Banner from '~/components/banner/'
 import helper from '~/helpers/helpers'
-import {NEWS_ROOT_SLUG} from '~/constants'
+import { NEWS_ROOT_SLUG } from '~/constants'
 import components from '~/mixins/components'
 import Breadcrumbs from '~/components/breadcrumbs'
 
@@ -101,7 +103,7 @@ export default {
 		Banner,
 		Gradient,
 		CasinoLoop,
-        Breadcrumbs
+		Breadcrumbs
 	},
 	layout: 'default',
 	data: () => {
@@ -123,16 +125,13 @@ export default {
 				color: 'cairo',
 				size: 'x-large'
 			},
-            newsRootSlug: NEWS_ROOT_SLUG
+			newsRootSlug: NEWS_ROOT_SLUG
 		}
 	},
 	async asyncData({ route, error }) {
 		if (route.params.id) {
 			const request = new DAL_Builder()
-			const response = await request
-				.postType('news')
-				.url(route.params.id)
-				.get()
+			const response = await request.postType('news').url(route.params.id).get()
 			if (response.data.confirm === 'error') {
 				error({ statusCode: 404, message: 'Post not found' })
 			} else {
@@ -181,10 +180,16 @@ export default {
 	padding-top: var(--l);
 	padding-bottom: var(--l);
 }
+.content_container {
+	margin-top: 40px;
+	margin-bottom: 40px;
+}
 @media (max-width: 767px) {
 	.content_container {
-		margin-left: -15px;
-		margin-right: -15px;
+		margin-left: 0;
+		margin-right: 0;
+		width: 100%;
+		margin-top: 20px;
 	}
 	.aside {
 		margin-bottom: 40px;

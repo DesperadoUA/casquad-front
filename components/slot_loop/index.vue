@@ -84,6 +84,7 @@ export default {
 	.slot_loop {
 		justify-content: space-between;
 		padding-bottom: 20px;
+		gap: 10px;
 	}
 }
 @media (min-width: 768px) and (max-width: 1200px) {

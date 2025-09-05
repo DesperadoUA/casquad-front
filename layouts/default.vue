@@ -632,8 +632,9 @@ Common styles*/
 }
 /* Content */
 .content_container {
-	padding-top: 40px;
-	padding-bottom: 20px;
+	padding: 40px 20px 20px 20px;
+	background: #232036;
+	border-radius: var(--m);
 }
 .main_container {
 	padding-bottom: 60px;
@@ -641,9 +642,14 @@ Common styles*/
 #cookies a {
 	color: var(--cairo);
 }
+.cms article {
+}
 @media (max-width: 767px) {
 	.content_container {
 		padding: 20px 0px;
+		margin-left: var(--side-gutters);
+		margin-right: var(--side-gutters);
+		width: calc(100% - var(--side-gutters) - var(--side-gutters));
 	}
 	.main_container {
 		padding-bottom: 40px;

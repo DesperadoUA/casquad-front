@@ -219,4 +219,16 @@ export default {
 	color: var(--calgary);
 	text-align: center;
 }
+@media (max-width: 767px) {
+	.form {
+		margin-top: 30px;
+		margin-bottom: 30px;
+	}
+	.input_row {
+		flex-wrap: wrap;
+	}
+	.input_wrapper {
+		width: 100%;
+	}
+}
 </style>

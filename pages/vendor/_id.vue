@@ -7,17 +7,18 @@
 					<TwoContentContainer>
 						<template v-slot:left>
 							<AText tag="h1" :attributes="titleSettings">{{ data.body.h1 }}</AText>
-                            <Breadcrumbs :value="[
-                                {
-                                    title: t('BREADCRUMB_MAIN_PAGE'),
-                                    permalink: '/'
-                                },
-                                {
-                                    title: data.body.title,
-                                    permalink: ''
-                                }
-                            ]"
-                            />
+							<Breadcrumbs
+								:value="[
+									{
+										title: t('BREADCRUMB_MAIN_PAGE'),
+										permalink: '/'
+									},
+									{
+										title: data.body.title,
+										permalink: ''
+									}
+								]"
+							/>
 							<div class="banner_wrapper" v-if="data.body.banner">
 								<Banner :src="data.body.banner" :alt="`${data.body.title} Logo`" />
 							</div>
@@ -47,11 +48,13 @@
 					</TwoContentContainer>
 					<div class="video_gallery" v-if="data.body.video.length">
 						<div class="container">
-							<AText tag="div" v-if="data.body.video_title" :attributes="videoTitleSettings">{{ data.body.video_title }}</AText>
+							<AText tag="div" v-if="data.body.video_title" :attributes="videoTitleSettings">{{
+								data.body.video_title
+							}}</AText>
 							<VideoGallery :posts="videoListWrapper(data.body.video)" />
 						</div>
 					</div>
-					<div class="section_title_wrapper">
+					<div class="section_title_wrapper available_title">
 						<AText tag="div" :attributes="mainContainerTitle">{{ t('AVAILABLE_THESE_CASINOS') }}</AText>
 					</div>
 					<div class="casino_wrapper">
@@ -59,7 +62,9 @@
 							<template v-slot:left>
 								<CasinoLoop :value="casinos" />
 								<div class="container_loop" v-if="data.body.games.length">
-									<AText tag="div" :attributes="titleSlotsSettings"> {{ t('BEST_GAMES_PROVIDER') }} {{ data.body.title }} </AText>
+									<AText tag="div" :attributes="titleSlotsSettings">
+										{{ t('BEST_GAMES_PROVIDER') }} {{ data.body.title }}
+									</AText>
 									<SlotLoop :value="data.body.games" />
 								</div>
 							</template>
@@ -67,6 +72,7 @@
 					</div>
 				</div>
 			</div>
+			<Reviews :posts="reviews" post_type="vendor" :post_id="data.body.id" @changeFilter="changeFilter" />
 			<Cookies />
 		</main>
 	</div>
@@ -87,6 +93,8 @@ import VideoGallery from '~/components/video_gallery'
 import components from '~/mixins/components'
 import Breadcrumbs from '~/components/breadcrumbs'
 import geo from '~/mixins/geo'
+import Reviews from '~/components/reviews'
+import DAL_Review from '~/DAL/review'
 export default {
 	name: 'single-vendor',
 	data: () => {
@@ -118,7 +126,7 @@ export default {
 				color: 'cairo',
 				weight: 'bold',
 				class: 'video_title'
-			},
+			}
 		}
 	},
 	components: {
@@ -130,35 +138,30 @@ export default {
 		Banner,
 		Gradient,
 		VideoGallery,
-        Breadcrumbs
+		Breadcrumbs,
+		Reviews
 	},
 	mixins: [pageTemplate, components, geo],
-    watch: {
-        async geo() {
-            const request = new DAL_Builder()
-            const geo = this.$store.getters['common/getGeo']
-            const response = await request
-                .postType('vendor')
-                .url(`${this.$route.params.id}?geo=${geo}`)
-                .get()
-            this.casinos = response.data.body.casinos
-            this.top_bonuses = response.data.body.top_bonuses
-        }
-    },
+	watch: {
+		async geo() {
+			const request = new DAL_Builder()
+			const geo = this.$store.getters['common/getGeo']
+			const response = await request.postType('vendor').url(`${this.$route.params.id}?geo=${geo}`).get()
+			this.casinos = response.data.body.casinos
+			this.top_bonuses = response.data.body.top_bonuses
+		}
+	},
 	async asyncData({ route, error, store }) {
 		if (route.params.id) {
 			const request = new DAL_Builder()
 			const geo = store.getters['common/getGeo']
-			const response = await request
-				.postType('vendor')
-				.url(`${route.params.id}?geo=${geo}`)
-				.get()
+			const response = await request.postType('vendor').url(`${route.params.id}?geo=${geo}`).get()
 			if (response.data.confirm === 'error') {
 				error({ statusCode: 404, message: 'Post not found' })
 			} else {
 				const data = helper.headDataMixin(response.data, route)
-                const { top_bonuses, casinos } = response.data.body
-				return { data, top_bonuses, casinos }
+				const { top_bonuses, casinos, reviews, id } = response.data.body
+				return { data, top_bonuses, casinos, reviews, id }
 			}
 		} else {
 			error({ statusCode: 404, message: 'Post not found' })
@@ -167,7 +170,7 @@ export default {
 	methods: {
 		videoListWrapper(videoList) {
 			return videoList.map(item => {
-				const {src} = item
+				const { src } = item
 				const [iframe, title] = item.value
 				return {
 					title,
@@ -175,6 +178,28 @@ export default {
 					banner: src
 				}
 			})
+		},
+		async changeFilter(filter) {
+			const config = {
+				new: {
+					sort: 'update_at',
+					order: 'desc'
+				},
+				rating_desc: {
+					sort: 'rating',
+					order: 'desc'
+				},
+				rating_asc: {
+					sort: 'rating',
+					order: 'asc'
+				}
+			}
+			const response = await DAL_Review.getReviews(
+				`vendor/reviews/${this.id}?sort=${config[filter.key].sort}&order=${config[filter.key].order}`
+			)
+			if (response.data.confirm === 'ok') {
+				this.reviews = response.data.body.posts
+			}
 		}
 	}
 }
@@ -212,10 +237,10 @@ export default {
 }
 .container_loop {
 	border: 1px solid rgba(255, 255, 255, 0.15);
-    background: rgba(27, 24, 49, 1);
-    margin-top: 40px;
-    border-radius: 20px;
-    padding: 32px 22px;
+	background: rgba(27, 24, 49, 1);
+	margin-top: 40px;
+	border-radius: 20px;
+	padding: 32px 22px;
 	max-width: 820px;
 }
 .video_gallery {
@@ -225,10 +250,14 @@ export default {
 .video_title {
 	margin-bottom: 24px;
 }
+.available_title {
+	margin-top: 40px;
+}
 @media (max-width: 767px) {
 	.content_container {
-		margin-left: -15px;
-		margin-right: -15px;
+		margin-left: 0;
+		margin-right: 0;
+		width: 100%;
 	}
 	.aside {
 		margin-top: 20px;
@@ -239,6 +268,12 @@ export default {
 	.casino_wrapper {
 		padding-top: var(--m);
 		padding-bottom: var(--m);
+	}
+	.container_loop {
+		margin-top: 0px;
+	}
+	.available_title {
+		margin-top: 20px;
 	}
 }
 @media (min-width: 768px) and (max-width: 1200px) {

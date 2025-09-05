@@ -26,7 +26,7 @@
 					</div>
 					<div class="total_reviews">&#x2022; {{ posts.length }} {{ t('FEEDBACK') }}</div>
 				</div>
-				<div class="review_loop">
+				<div class="review_loop" v-if="currentPosts.length">
 					<ReviewItem
 						v-for="(item, index) in currentPosts"
 						:key="index"

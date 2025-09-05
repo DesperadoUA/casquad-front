@@ -7,22 +7,30 @@
 					<TwoContentContainer>
 						<template v-slot:left>
 							<AText tag="h1" :attributes="titleSettings">{{ data.body.h1 }}</AText>
-                            <Breadcrumbs :value="[
-                                {
-                                    title: t('BREADCRUMB_MAIN_PAGE'),
-                                    permalink: '/'
-                                },
-                                {
-                                    title: data.body.title,
-                                    permalink: ''
-                                }
-                            ]" />
+							<Breadcrumbs
+								:value="[
+									{
+										title: t('BREADCRUMB_MAIN_PAGE'),
+										permalink: '/'
+									},
+									{
+										title: data.body.title,
+										permalink: ''
+									}
+								]"
+							/>
 							<div class="category_filter_wrapper">
-								<CategoryFilter :value="[{
-								title: 'All',
-								permalink: '/',
-								thumbnail: ''
-							}].concat(data.body.casino_category)" />
+								<CategoryFilter
+									:value="
+										[
+											{
+												title: 'All',
+												permalink: '/',
+												thumbnail: ''
+											}
+										].concat(data.body.casino_category)
+									"
+								/>
 							</div>
 							<CasinoLoop :value="posts" />
 						</template>
@@ -39,7 +47,7 @@
 											:value="item.bonus"
 											:min_dep="item.min_deposit"
 											:wager="item.wagering"
-                                            :refLinks="Array.isArray(item.ref) ? {} : item.ref"
+											:refLinks="Array.isArray(item.ref) ? {} : item.ref"
 											:permalink="item.permalink"
 										/>
 									</div>
@@ -90,9 +98,7 @@ export default {
 				weight: 'bold',
 				transform: 'uppercase',
 				class: 'title'
-			},
-
-
+			}
 		}
 	},
 	components: {
@@ -102,34 +108,28 @@ export default {
 		CasinoLoop,
 		CategoryFilter,
 		Gradient,
-        Breadcrumbs
+		Breadcrumbs
 	},
 	mixins: [pageTemplate, components, geo],
-    watch: {
-        async geo() {
-            const request = new DAL_Builder()
-            const geo = this.$store.getters['common/getGeo']
-            const response = await request
-                .postType('casinos')
-                .url(`${this.$route.params.id}?geo=${geo}`)
-                .get()
-            this.posts = response.data.body.posts
-            this.top_bonuses = response.data.body.top_bonuses
-        }
-    },
+	watch: {
+		async geo() {
+			const request = new DAL_Builder()
+			const geo = this.$store.getters['common/getGeo']
+			const response = await request.postType('casinos').url(`${this.$route.params.id}?geo=${geo}`).get()
+			this.posts = response.data.body.posts
+			this.top_bonuses = response.data.body.top_bonuses
+		}
+	},
 	async asyncData({ route, error, store }) {
 		if (route.params.id) {
 			const request = new DAL_Builder()
 			const geo = store.getters['common/getGeo']
-			const response = await request
-				.postType('casinos')
-				.url(`${route.params.id}?geo=${geo}`)
-				.get()
+			const response = await request.postType('casinos').url(`${route.params.id}?geo=${geo}`).get()
 			if (response.data.confirm === 'error') {
 				error({ statusCode: 404, message: 'Post not found' })
 			} else {
 				const data = helper.headDataMixin(response.data, route)
-                const { posts, top_bonuses } = response.data.body
+				const { posts, top_bonuses } = response.data.body
 				return { data, posts, top_bonuses }
 			}
 		} else {
@@ -158,7 +158,13 @@ export default {
 	flex-wrap: wrap;
 	gap: 15px;
 }
+.content_container {
+	margin-bottom: 40px;
+}
 @media (max-width: 767px) {
+	.content_container {
+		margin-bottom: 20px;
+	}
 	.aside {
 		padding-top: var(--l);
 	}

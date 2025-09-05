@@ -16,7 +16,7 @@
 						:title="t('ONLINE_CASINO')"
 						link="/casinos/new"
 						:sliderSettings="casinoSliderSettings"
-                        v-if="casino_slider.length"
+						v-if="casino_slider.length"
 					>
 						<CasinoSliderCard
 							v-for="(item, index) in casino_slider"
@@ -41,12 +41,13 @@
 					</SliderContainer>
 				</div>
 				<div class="slider_item" v-if="sliderShow">
-					<SliderContainer icon="bonus"
-                                     :title="t('BONUSES')"
-                                     link="/bonuses"
-                                     :sliderSettings="bonusSliderSettings"
-                                     v-if="bonuses.length"
-                    >
+					<SliderContainer
+						icon="bonus"
+						:title="t('BONUSES')"
+						link="/bonuses"
+						:sliderSettings="bonusSliderSettings"
+						v-if="bonuses.length"
+					>
 						<BonusSliderCard
 							v-for="(item, index) in bonuses"
 							:key="index"
@@ -54,7 +55,7 @@
 							:title="item.title"
 							:desc="item.short_desc"
 							:value="item.bonus"
-                            :refLinks="Array.isArray(item.ref) ? {} : item.ref"
+							:refLinks="Array.isArray(item.ref) ? {} : item.ref"
 							:permalink="item.permalink"
 						/>
 					</SliderContainer>
@@ -84,11 +85,17 @@
 					<template v-slot:left>
 						<AText tag="div" :attributes="mainContainerTitle">{{ t('BEST_ONLINE_CASINOS_CANADA') }}</AText>
 						<div class="category_filter_wrapper">
-							<CategoryFilter :value="[{
-								title: 'All',
-								permalink: '/',
-								thumbnail: ''
-							}].concat(data.body.casino_category)" />
+							<CategoryFilter
+								:value="
+									[
+										{
+											title: 'All',
+											permalink: '/',
+											thumbnail: ''
+										}
+									].concat(data.body.casino_category)
+								"
+							/>
 						</div>
 						<CasinoLoop :value="casino" />
 					</template>
@@ -104,7 +111,7 @@
 										:value="item.bonus"
 										:min_dep="item.min_deposit"
 										:wager="item.wagering"
-                                        :refLinks="Array.isArray(item.ref) ? {} : item.ref"
+										:refLinks="Array.isArray(item.ref) ? {} : item.ref"
 										:permalink="item.permalink"
 									/>
 								</div>
@@ -377,20 +384,20 @@ export default {
 			this.showSliders = !this.showSliders
 		}
 	},
-    watch: {
-        async geo() {
-            const geo = this.$store.getters['common/getGeo']
-            const request = {
-                url: 'main',
-                geo
-            }
-            const response = await DAL_Page.getData(request)
-            this.casino = response.data.body.casino
-            this.casino_slider = response.data.body.casino_slider
-            this.bonuses = response.data.body.bonuses
-            this.top_bonuses = response.data.body.top_bonuses
-        }
-    },
+	watch: {
+		async geo() {
+			const geo = this.$store.getters['common/getGeo']
+			const request = {
+				url: 'main',
+				geo
+			}
+			const response = await DAL_Page.getData(request)
+			this.casino = response.data.body.casino
+			this.casino_slider = response.data.body.casino_slider
+			this.bonuses = response.data.body.bonuses
+			this.top_bonuses = response.data.body.top_bonuses
+		}
+	},
 	async asyncData({ store, route }) {
 		const geo = store.getters['common/getGeo']
 		const request = {
@@ -399,7 +406,7 @@ export default {
 		}
 		const response = await DAL_Page.getData(request)
 		const data = helper.headDataMixin(response.data, route)
-        const { casino, casino_slider, bonuses, top_bonuses } = response.data.body
+		const { casino, casino_slider, bonuses, top_bonuses } = response.data.body
 		return { data, casino, casino_slider, bonuses, top_bonuses }
 	}
 }
@@ -468,6 +475,9 @@ export default {
 	position: relative;
 	z-index: 3;
 }
+.content_container {
+	margin-top: 40px;
+}
 @media (max-width: 767px) {
 	.main_page {
 		background: url('/img/hero_img.webp') top center var(--colombo);
@@ -515,6 +525,9 @@ export default {
 	}
 	.main_container {
 		margin-top: 0px;
+	}
+	.content_container {
+		margin-top: 20px;
 	}
 }
 @media (min-width: 768px) and (max-width: 1200px) {

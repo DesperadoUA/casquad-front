@@ -104,7 +104,7 @@ export default {
 		src: {
 			type: String,
 			default() {
-				return '/img/review_author.png'
+				return '/img/user.webp'
 			}
 		},
 		rating: {

@@ -66,7 +66,9 @@
 					<Faq :value="data.body.faq" />
 				</div>
 			</div>
-			<Reviews :posts="reviews" post_type="game" :post_id="data.body.id" @changeFilter="changeFilter" />
+			<div class="review_container">
+				<Reviews :posts="reviews" post_type="game" :post_id="data.body.id" @changeFilter="changeFilter" />
+			</div>
 			<SlotPopUp
 				v-if="isShowDemo"
 				:src="data.body.iframe"
@@ -107,7 +109,8 @@ export default {
 		SlotPopUp,
 		Gradient,
 		VideoGallery,
-		Breadcrumbs
+		Breadcrumbs,
+		Reviews
 	},
 	layout: 'default',
 	data: () => {
@@ -230,6 +233,9 @@ export default {
 .content_container {
 	padding-top: 16px;
 }
+.review_container {
+	margin-top: 40px;
+}
 @media (max-width: 767px) {
 	.symbols,
 	.screenshots {
@@ -238,6 +244,9 @@ export default {
 	}
 	.container_top_game {
 		padding-bottom: 20px;
+	}
+	.review_container {
+		margin-top: 20px;
 	}
 }
 </style>

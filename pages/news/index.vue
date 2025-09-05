@@ -5,16 +5,18 @@
 			<div class="container z-index-3">
 				<AText tag="div" :attributes="titleSettings">{{ data.body.h1 }}</AText>
 			</div>
-            <Breadcrumbs :value="[
-                 {
-                    title: t('BREADCRUMB_MAIN_PAGE'),
-                    permalink: '/'
-                 },
-                 {
-                    title: data.body.title,
-                    permalink: ''
-                 }
-            ]" />
+			<Breadcrumbs
+				:value="[
+					{
+						title: t('BREADCRUMB_MAIN_PAGE'),
+						permalink: '/'
+					},
+					{
+						title: data.body.title,
+						permalink: ''
+					}
+				]"
+			/>
 			<div class="container">
 				<NewsLoop :value="data.body.news" />
 			</div>
@@ -48,7 +50,7 @@ export default {
 		Faq,
 		NewsLoop,
 		Gradient,
-        Breadcrumbs
+		Breadcrumbs
 	},
 	layout: 'default',
 	data: () => {
@@ -87,5 +89,13 @@ export default {
 }
 .title {
 	margin-bottom: var(--m);
+}
+.content_container {
+	margin-top: 40px;
+}
+@media (max-width: 767px) {
+	.content_container {
+		margin-top: 20px;
+	}
 }
 </style>

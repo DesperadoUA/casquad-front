@@ -5,16 +5,18 @@
 			<div class="container z-index-3" v-if="data.body.h1">
 				<AText tag="h1" :attributes="titleSettings">{{ data.body.h1 }}</AText>
 			</div>
-            <Breadcrumbs :value="[
-                 {
-                    title: t('BREADCRUMB_MAIN_PAGE'),
-                    permalink: '/'
-                 },
-                 {
-                    title: data.body.title,
-                    permalink: ''
-                 }
-            ]" />
+			<Breadcrumbs
+				:value="[
+					{
+						title: t('BREADCRUMB_MAIN_PAGE'),
+						permalink: '/'
+					},
+					{
+						title: data.body.title,
+						permalink: ''
+					}
+				]"
+			/>
 			<div class="container z-index-3 container_providers">
 				<ProviderFilter :value="data.body.vendors" />
 			</div>
@@ -81,7 +83,7 @@ export default {
 		ProviderFilter,
 		Cookies,
 		Gradient,
-        Breadcrumbs
+		Breadcrumbs
 	},
 	layout: 'default',
 	data: () => {
@@ -142,7 +144,15 @@ export default {
 .container_providers {
 	padding: var(--s) 0px 21px 0px;
 }
+.content_container {
+	margin-top: 40px;
+	margin-bottom: 40px;
+}
 @media (max-width: 767px) {
+	.content_container {
+		margin-top: 20px;
+		margin-bottom: 20px;
+	}
 	.container_providers {
 		padding-left: 15px;
 	}

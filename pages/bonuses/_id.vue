@@ -8,20 +8,22 @@
 			<div class="container h1_wrapper">
 				<AText tag="h1" :attributes="titleSettings">{{ data.body.h1 }}</AText>
 			</div>
-            <Breadcrumbs :value="[
-                 {
-                    title: t('BREADCRUMB_MAIN_PAGE'),
-                    permalink: '/'
-                 },
-                 {
-                     title: t('BREADCRUMB_BONUS_TITLE_PAGE'),
-                     permalink: `/${bonusesRootSlug}`
-                 },
-                 {
-                    title: data.body.title,
-                    permalink: ''
-                 }
-            ]" />
+			<Breadcrumbs
+				:value="[
+					{
+						title: t('BREADCRUMB_MAIN_PAGE'),
+						permalink: '/'
+					},
+					{
+						title: t('BREADCRUMB_BONUS_TITLE_PAGE'),
+						permalink: `/${bonusesRootSlug}`
+					},
+					{
+						title: data.body.title,
+						permalink: ''
+					}
+				]"
+			/>
 			<div class="container content_container">
 				<Content :value="data.body.content" />
 			</div>
@@ -44,7 +46,7 @@ import BonusLoop from '~/components/bonus_loop'
 import Gradient from '~/components/gradient'
 import components from '~/mixins/components'
 import Breadcrumbs from '~/components/breadcrumbs'
-import {BONUSES_ROOT_SLUG} from '~/constants'
+import { BONUSES_ROOT_SLUG } from '~/constants'
 import geo from '~/mixins/geo'
 
 export default {
@@ -58,40 +60,34 @@ export default {
 				transform: 'uppercase',
 				class: 'title'
 			},
-            bonusesRootSlug: BONUSES_ROOT_SLUG
+			bonusesRootSlug: BONUSES_ROOT_SLUG
 		}
 	},
 	components: {
 		Faq,
 		BonusLoop,
 		Gradient,
-        Breadcrumbs
+		Breadcrumbs
 	},
 	mixins: [pageTemplate, components, geo],
-    watch: {
-        async geo() {
-            const request = new DAL_Builder()
-            const geo = this.$store.getters['common/getGeo']
-            const response = await request
-                .postType('bonuses')
-                .url(`${this.$route.params.id}?geo=${geo}`)
-                .get()
-            this.posts = response.data.body.posts
-        }
-    },
+	watch: {
+		async geo() {
+			const request = new DAL_Builder()
+			const geo = this.$store.getters['common/getGeo']
+			const response = await request.postType('bonuses').url(`${this.$route.params.id}?geo=${geo}`).get()
+			this.posts = response.data.body.posts
+		}
+	},
 	async asyncData({ route, error, store }) {
 		if (route.params.id) {
 			const request = new DAL_Builder()
 			const geo = store.getters['common/getGeo']
-			const response = await request
-				.postType('bonuses')
-				.url(`${route.params.id}?geo=${geo}`)
-				.get()
+			const response = await request.postType('bonuses').url(`${route.params.id}?geo=${geo}`).get()
 			if (response.data.confirm === 'error') {
 				error({ statusCode: 404, message: 'Post not found' })
 			} else {
 				const data = helper.headDataMixin(response.data, route)
-                const { posts } = response.data.body
+				const { posts } = response.data.body
 				return { data, posts }
 			}
 		} else {
@@ -131,5 +127,15 @@ export default {
 }
 .category_page .content_container {
 	padding-top: 10px;
+}
+.content_container {
+	margin-top: 40px;
+	margin-bottom: 40px;
+}
+@media (max-width: 767px) {
+	.content_container {
+		margin-top: 20px;
+		margin-bottom: 20px;
+	}
 }
 </style>
