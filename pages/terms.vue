@@ -3,18 +3,25 @@
 		<main class="games_page">
 			<Gradient />
 			<div class="container z-index-3">
-				<AText tag="h1" :attributes="titleSettings">{{ data.body.h1 }}</AText>
+				<div class="h1_wrapper">
+					<gradientWrapper>
+						<Breadcrumbs
+							:value="[
+								{
+									title: t('BREADCRUMB_MAIN_PAGE'),
+									permalink: '/'
+								},
+								{
+									title: data.body.title,
+									permalink: ''
+								}
+							]"
+						/>
+						<AText tag="h1" :attributes="titleSettings">{{ data.body.h1 }}</AText>
+						<date :value="data.body.update_at.slice(0, 10)" />
+					</gradientWrapper>
+				</div>
 			</div>
-            <Breadcrumbs :value="[
-                 {
-                    title: t('BREADCRUMB_MAIN_PAGE'),
-                    permalink: '/'
-                 },
-                 {
-                    title: data.body.title,
-                    permalink: ''
-                 }
-            ]" />
 			<div class="container content_container z-index-3" v-if="data.body.content">
 				<Content :value="data.body.content" />
 			</div>
@@ -31,11 +38,14 @@ import device from '~/mixins/device'
 import Gradient from '~/components/gradient'
 import Breadcrumbs from '~/components/breadcrumbs'
 import components from '~/mixins/components'
+import gradientWrapper from '~/components/gradient_wrapper'
+import date from '~/components/date'
+
 export default {
 	name: 'terms-page',
 	mixins: [pageTemplate, device, components],
 	layout: 'default',
-	components: {Gradient, Breadcrumbs},
+	components: { Gradient, Breadcrumbs, gradientWrapper, date },
 	data: () => {
 		return {
 			titleSettings: {
@@ -62,5 +72,6 @@ export default {
 	background: var(--colombo);
 	background-repeat: no-repeat;
 	padding-top: 165px;
+	margin-bottom: 40px;
 }
 </style>

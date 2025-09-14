@@ -81,8 +81,8 @@
 				</div>
 			</div>
 			<div class="main_container">
-				<TwoContentContainer>
-					<template v-slot:left>
+				<div class="h1_wrapper">
+					<gradientWrapper>
 						<AText tag="div" :attributes="mainContainerTitle">{{ t('BEST_ONLINE_CASINOS_CANADA') }}</AText>
 						<div class="category_filter_wrapper">
 							<CategoryFilter
@@ -97,25 +97,15 @@
 								"
 							/>
 						</div>
+					</gradientWrapper>
+				</div>
+				<TwoContentContainer>
+					<template v-slot:left>
 						<CasinoLoop :value="casino" />
 					</template>
 					<template v-slot:right>
 						<aside class="aside">
-							<AText tag="div" :attributes="asideContainerTitle">{{ t('RECOMMENDED_BONUSES') }}</AText>
-							<div class="aside_bonus_container">
-								<div class="aside_bonus_wrapper" v-for="item in top_bonuses" :key="item.title">
-									<BonusAsideCard
-										:src="item.thumbnail"
-										:title="item.title"
-										:desc="item.short_desc"
-										:value="item.bonus"
-										:min_dep="item.min_deposit"
-										:wager="item.wagering"
-										:refLinks="Array.isArray(item.ref) ? {} : item.ref"
-										:permalink="item.permalink"
-									/>
-								</div>
-							</div>
+							<AsideBonuses :title="t('RECOMMENDED_BONUSES')" :posts="top_bonuses" />
 						</aside>
 					</template>
 				</TwoContentContainer>
@@ -164,7 +154,6 @@ import BonusSliderCard from '~/components/bonus_loop/cards/slider_card'
 import NewsSliderCard from '~/components/news_loop/cards/slider_card'
 import TwoContentContainer from '~/components/two_content_container/'
 import CategoryFilter from '~/components/category_filter'
-import BonusAsideCard from '~/components/bonus_loop/cards/aside_card'
 import LinkWithArrow from '~/components/ui/atoms/links/link_with_arrow'
 import NewsMainCard from '~/components/news_loop/cards/main'
 import CasinoLoop from '~/components/casino_loop'
@@ -174,6 +163,8 @@ import pageTemplate from '~/mixins/pageTemplate'
 import device from '~/mixins/device'
 import helper from '~/helpers/helpers'
 import geo from '~/mixins/geo'
+import gradientWrapper from '~/components/gradient_wrapper'
+import AsideBonuses from '~/components/aside_bonuses'
 
 export default {
 	name: 'main-page',
@@ -188,12 +179,13 @@ export default {
 		NewsSliderCard,
 		TwoContentContainer,
 		CategoryFilter,
-		BonusAsideCard,
 		LinkWithArrow,
 		NewsMainCard,
 		CasinoLoop,
 		Faq,
-		Gradient
+		Gradient,
+		gradientWrapper,
+		AsideBonuses
 	},
 	layout: 'default',
 	data: () => {
@@ -349,7 +341,8 @@ export default {
 			asideContainerTitle: {
 				weight: 'bold',
 				color: 'cairo',
-				size: 'large'
+				size: 'large',
+				class: 'aside_container_title'
 			},
 			newsLinkSettings: {
 				size: 'medium',
@@ -441,12 +434,6 @@ export default {
 	padding-top: var(--m);
 	padding-bottom: var(--m);
 }
-.aside_bonus_container {
-	margin-top: var(--s);
-	display: flex;
-	flex-wrap: wrap;
-	gap: 15px;
-}
 .section_title_wrapper {
 	display: flex;
 	justify-content: space-between;
@@ -478,7 +465,13 @@ export default {
 .content_container {
 	margin-top: 40px;
 }
+.h1_wrapper ::v-deep .category_filter_wrapper {
+	padding: 0px;
+}
 @media (max-width: 767px) {
+	.h1_wrapper {
+		max-width: 100%;
+	}
 	.main_page {
 		background: url('/img/hero_img.webp') top center var(--colombo);
 		background-repeat: no-repeat;
@@ -493,9 +486,6 @@ export default {
 		flex-grow: 1;
 	}
 	.slider_wrapper {
-		padding-top: 30px;
-	}
-	.aside {
 		padding-top: 30px;
 	}
 	.news_container {
@@ -547,12 +537,6 @@ export default {
 	}
 	.aside {
 		margin-top: 40px;
-	}
-	.aside_bonus_wrapper {
-		width: 48%;
-	}
-	.aside_bonus_container {
-		justify-content: space-between;
 	}
 }
 </style>

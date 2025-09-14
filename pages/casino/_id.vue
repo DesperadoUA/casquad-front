@@ -2,26 +2,31 @@
 	<main class="casino_page">
 		<Gradient />
 		<div class="container z-index-3">
+			<div class="h1_wrapper">
+				<gradientWrapper>
+					<Breadcrumbs
+						:value="[
+							{
+								title: t('BREADCRUMB_MAIN_PAGE'),
+								permalink: '/'
+							},
+							{
+								title: t(configCategoryTitle[data.body.label]),
+								permalink: `/casinos/${configCategorySlug[data.body.label]}`
+							},
+							{
+								title: data.body.title,
+								permalink: ''
+							}
+						]"
+					/>
+					<AText tag="h1" :attributes="titleSettings">{{ data.body.h1 }}</AText>
+					<date :value="data.body.update_at.slice(0, 10)" />
+				</gradientWrapper>
+			</div>
 			<div class="main_container">
 				<TwoContentContainer>
 					<template v-slot:left>
-						<AText tag="h1" :attributes="titleSettings">{{ data.body.h1 }}</AText>
-						<Breadcrumbs
-							:value="[
-								{
-									title: t('BREADCRUMB_MAIN_PAGE'),
-									permalink: '/'
-								},
-								{
-									title: t(configCategoryTitle[data.body.label]),
-									permalink: `/casinos/${configCategorySlug[data.body.label]}`
-								},
-								{
-									title: data.body.title,
-									permalink: ''
-								}
-							]"
-						/>
 						<div class="left_wrapper">
 							<div class="casino_card_container">
 								<CasinoCard
@@ -66,21 +71,7 @@
 					</template>
 					<template v-slot:right>
 						<aside class="aside">
-							<AText tag="div" :attributes="asideContainerTitle">{{ t('RECOMMENDED_BONUSES') }}</AText>
-							<div class="aside_bonus_container">
-								<div class="aside_bonus_wrapper" v-for="(item, index) in bonuses" :key="index">
-									<BonusAsideCard
-										:src="item.thumbnail"
-										:title="item.title"
-										:desc="item.short_desc"
-										:value="item.bonus"
-										:min_dep="item.min_deposit"
-										:wager="item.wagering"
-										:refLinks="Array.isArray(item.ref) ? {} : item.ref"
-										:permalink="item.permalink"
-									/>
-								</div>
-							</div>
+							<AsideBonuses :title="t('RECOMMENDED_BONUSES')" :posts="bonuses" />
 						</aside>
 					</template>
 				</TwoContentContainer>
@@ -134,6 +125,9 @@ import { CASINO_CATEGORY_SLUG } from '~/constants'
 import geo from '~/mixins/geo'
 import Reviews from '~/components/reviews'
 import DAL_Review from '~/DAL/review'
+import gradientWrapper from '~/components/gradient_wrapper'
+import date from '~/components/date'
+import AsideBonuses from '~/components/aside_bonuses'
 
 export default {
 	name: 'casino_single',
@@ -150,7 +144,10 @@ export default {
 		Gradient,
 		VideoGallery,
 		Breadcrumbs,
-		Reviews
+		Reviews,
+		gradientWrapper,
+		date,
+		AsideBonuses
 	},
 	layout: 'default',
 	data: () => {
@@ -282,20 +279,8 @@ export default {
 	background-repeat: no-repeat;
 	padding-top: 165px;
 }
-.title {
-	font-size: 32px;
-}
-.aside {
-	padding-top: 10px;
-}
-.aside_bonus_container {
-	margin-top: 14px;
-	display: flex;
-	flex-wrap: wrap;
-	gap: 15px;
-}
-.casino_card_container {
-	margin-top: var(--l);
+.casino_page .h1_wrapper {
+	margin-bottom: 40px;
 }
 .similar_casinos {
 	padding-bottom: var(--l);
@@ -348,6 +333,9 @@ export default {
 	}
 	.casino_page {
 		padding-top: 150px;
+	}
+	.casino_slot_container {
+		margin-bottom: 40px;
 	}
 	.aside_bonus_wrapper {
 		width: 100%;

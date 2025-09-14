@@ -14,17 +14,17 @@
 						{{ title }}
 					</AText>
 				</div>
-				<div  @click="refActivate(refLinks, geo)">
+				<div @click="refActivate(refLinks, geo)">
 					<AText tag="div" :attributes="descTextSettings">{{ desc }}</AText>
 				</div>
-				<div  @click="refActivate(refLinks, geo)">
+				<div @click="refActivate(refLinks, geo)">
 					<AText tag="div" :attributes="valueTextSettings">{{ value }}</AText>
 				</div>
 			</div>
 			<div class="action">
 				<AText>
 					<nuxt-link :to="permalink" class="permalink">
-						<AImg :attributes="{ ...arrowSettings, alt: 'Arrow Green' }" src="/img/arrowGreen.svg" />
+						<AImg :attributes="{ ...arrowSettings, alt: 'Arrow Green' }" src="/img/arrowWhite.svg" />
 					</nuxt-link>
 				</AText>
 			</div>
@@ -123,8 +123,8 @@ export default {
 			default() {
 				return ''
 			}
-		},
-	},
+		}
+	}
 }
 </script>
 <style scoped>
@@ -181,14 +181,14 @@ export default {
 	border-bottom-right-radius: 14px;
 }
 .permalink {
-	border-radius: 50%;
+	border-radius: var(--s);
 	overflow: hidden;
 	display: flex;
 	width: 28px;
 	height: 28px;
 	align-items: center;
 	justify-content: center;
-	background: #FFFFFF33;
+	background: var(--cleveland);
 	margin-right: 9px;
 }
 .permalink img {
@@ -199,6 +199,11 @@ export default {
 @media (max-width: 767px) {
 	.item {
 		width: 100%;
+	}
+}
+@media (min-width: 768px) and (max-width: 1200px) {
+	.item {
+		width: 48%;
 	}
 }
 </style>

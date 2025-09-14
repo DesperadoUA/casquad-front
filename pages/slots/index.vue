@@ -3,20 +3,25 @@
 		<main class="games_page">
 			<Gradient />
 			<div class="container z-index-3" v-if="data.body.h1">
-				<AText tag="h1" :attributes="titleSettings">{{ data.body.h1 }}</AText>
+				<div class="h1_wrapper">
+					<gradientWrapper>
+						<Breadcrumbs
+							:value="[
+								{
+									title: t('BREADCRUMB_MAIN_PAGE'),
+									permalink: '/'
+								},
+								{
+									title: data.body.title,
+									permalink: ''
+								}
+							]"
+						/>
+						<AText tag="h1" :attributes="titleSettings">{{ data.body.h1 }}</AText>
+						<date :value="data.body.update_at.slice(0, 10)" />
+					</gradientWrapper>
+				</div>
 			</div>
-			<Breadcrumbs
-				:value="[
-					{
-						title: t('BREADCRUMB_MAIN_PAGE'),
-						permalink: '/'
-					},
-					{
-						title: data.body.title,
-						permalink: ''
-					}
-				]"
-			/>
 			<div class="container z-index-3 container_providers">
 				<ProviderFilter :value="data.body.vendors" />
 			</div>
@@ -70,6 +75,8 @@ import helper from '~/helpers/helpers'
 import device from '~/mixins/device'
 import components from '~/mixins/components'
 import Breadcrumbs from '~/components/breadcrumbs'
+import gradientWrapper from '~/components/gradient_wrapper'
+import date from '~/components/date'
 
 export default {
 	name: 'games-page',
@@ -83,7 +90,9 @@ export default {
 		ProviderFilter,
 		Cookies,
 		Gradient,
-		Breadcrumbs
+		Breadcrumbs,
+		gradientWrapper,
+		date
 	},
 	layout: 'default',
 	data: () => {
@@ -121,9 +130,6 @@ export default {
 	background-repeat: no-repeat;
 	padding-top: 165px;
 	overflow: hidden;
-}
-.title {
-	margin-bottom: var(--m);
 }
 .right {
 	display: flex;

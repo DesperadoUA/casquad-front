@@ -2,9 +2,8 @@
 	<main class="news_page">
 		<Gradient />
 		<div class="container z-index-3">
-			<TwoContentContainer>
-				<template v-slot:left>
-					<AText tag="h1" :attributes="titleSettings">{{ data.body.h1 }}</AText>
+			<div class="h1_wrapper">
+				<gradientWrapper>
 					<Breadcrumbs
 						:value="[
 							{
@@ -21,6 +20,12 @@
 							}
 						]"
 					/>
+					<AText tag="h1" :attributes="titleSettings">{{ data.body.h1 }}</AText>
+					<date :value="data.body.update_at.slice(0, 10)" />
+				</gradientWrapper>
+			</div>
+			<TwoContentContainer>
+				<template v-slot:left>
 					<Banner :src="data.body.thumbnail" :alt="`${data.body.title} Logo`" />
 					<div class="content_container">
 						<Content :value="data.body.content" />
@@ -91,6 +96,8 @@ import helper from '~/helpers/helpers'
 import { NEWS_ROOT_SLUG } from '~/constants'
 import components from '~/mixins/components'
 import Breadcrumbs from '~/components/breadcrumbs'
+import gradientWrapper from '~/components/gradient_wrapper'
+import date from '~/components/date'
 
 export default {
 	name: 'news_single',
@@ -103,7 +110,9 @@ export default {
 		Banner,
 		Gradient,
 		CasinoLoop,
-		Breadcrumbs
+		Breadcrumbs,
+		gradientWrapper,
+		date
 	},
 	layout: 'default',
 	data: () => {
@@ -150,12 +159,8 @@ export default {
 	background-repeat: no-repeat;
 	padding-top: 165px;
 }
-.title {
-	margin-bottom: 32px;
-}
 .sub_title {
 	margin-bottom: 16px;
-	margin-top: 60px;
 }
 .thumbnail {
 	width: 100%;

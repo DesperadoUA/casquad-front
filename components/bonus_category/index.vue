@@ -1,24 +1,10 @@
 <template>
 	<div class="root">
-		<AText tag="div" :attributes="titleSettings">{{ title }}</AText>
-		<div class="bonus_loop">
-			<BonusAsideCard
-				v-for="(item, index) in posts"
-				:key="index"
-				:src="item.thumbnail"
-				:title="item.title"
-				:desc="item.short_desc"
-				:value="item.bonus"
-				:min_dep="item.min_deposit"
-				:wager="item.wagering"
-                :refLinks="Array.isArray(item.ref) ? {} : item.ref"
-				:permalink="item.permalink"
-			/>
-		</div>
+		<AsideBonuses :title="title" :posts="posts" />
 		<div class="items-more">
 			<div class="btn_wrapper">
 				<ALink :attributes="btnSettings" :href="link" title="Show more">
-					{{ t('SHOW_MORE') }} <AImg :attributes="arrowSettings" src="/img/arrowGreen.svg"/>
+					{{ t('SHOW_MORE') }} <AImg :attributes="arrowSettings" src="/img/arrowGreen.svg" />
 				</ALink>
 			</div>
 		</div>
@@ -27,6 +13,7 @@
 <script>
 import BonusAsideCard from '~/components/bonus_loop/cards/aside_card'
 import components from '~/mixins/components'
+import AsideBonuses from '~/components/aside_bonuses'
 export default {
 	name: 'bonus_category',
 	mixins: [components],
@@ -51,15 +38,11 @@ export default {
 		}
 	},
 	components: {
-		BonusAsideCard
+		BonusAsideCard,
+		AsideBonuses
 	},
 	data: () => {
 		return {
-			titleSettings: {
-				color: 'cairo',
-				weight: 'bold',
-				class: 'title'
-			},
 			btnSettings: {
 				color: 'cairo',
 				class: 'load_more',
@@ -71,7 +54,7 @@ export default {
 				width: '18px',
 				height: '18px',
 				class: 'arrow',
-				alt: "Green arrow"
+				alt: 'Green arrow'
 			}
 		}
 	}
@@ -81,20 +64,15 @@ export default {
 .root {
 	margin-bottom: 40px;
 }
-.bonus_loop {
-	display: flex;
-	flex-wrap: wrap;
-	gap: 20px;
-}
 .items-more {
 	display: flex;
 	justify-content: center;
 	margin-top: var(--l);
 	height: 52px;
-	width: 356px;
+	width: 100%;
 	max-width: 100%;
 }
-.btn_wrapper {
+.bonus_loop .btn_wrapper {
 	max-width: 272px;
 	width: 272px;
 }
@@ -105,6 +83,13 @@ export default {
 .title {
 	font-size: 18px;
 	margin-bottom: var(--m);
+}
+.bonus_loop ::v-deep .item {
+	width: 100%;
+}
+.btn_wrapper {
+	max-width: 272px;
+	width: 272px;
 }
 @media (max-width: 767px) {
 	.items-more {

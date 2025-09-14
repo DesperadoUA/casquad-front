@@ -3,6 +3,28 @@
 		<main class="game_page">
 			<Gradient />
 			<div class="container container_top_game z-index-3">
+				<div class="h1_wrapper">
+					<gradientWrapper>
+						<Breadcrumbs
+							:value="[
+								{
+									title: t('BREADCRUMB_MAIN_PAGE'),
+									permalink: '/'
+								},
+								{
+									title: t('BREADCRUMB_SLOTS_TITLE_PAGE'),
+									permalink: `/${slotsRootSlug}`
+								},
+								{
+									title: data.body.title,
+									permalink: ''
+								}
+							]"
+						/>
+						<AText tag="h1" :attributes="titleSettings">{{ data.body.h1 }}</AText>
+						<date :value="data.body.update_at.slice(0, 10)" />
+					</gradientWrapper>
+				</div>
 				<SlotCard
 					:title="data.body.title"
 					:src="data.body.thumbnail"
@@ -19,22 +41,6 @@
 					@onClickDemoActivate="onClickDemoActivate"
 				/>
 			</div>
-			<Breadcrumbs
-				:value="[
-					{
-						title: t('BREADCRUMB_MAIN_PAGE'),
-						permalink: '/'
-					},
-					{
-						title: t('BREADCRUMB_SLOTS_TITLE_PAGE'),
-						permalink: `/${slotsRootSlug}`
-					},
-					{
-						title: data.body.title,
-						permalink: ''
-					}
-				]"
-			/>
 			<div class="symbols" v-if="data.body.symbols.length">
 				<div class="container">
 					<AText tag="div" :attributes="videoTitleSettings">{{ t('SLOT_SYMBOLS') }}</AText>
@@ -54,9 +60,6 @@
 					}}</AText>
 					<VideoGallery :posts="videoListWrapper(data.body.video)" />
 				</div>
-			</div>
-			<div class="container">
-				<AText tag="h1" :attributes="titleSettings">{{ data.body.h1 }}</AText>
 			</div>
 			<div class="container content_container" v-if="data.body.content">
 				<Content :value="data.body.content" />
@@ -97,6 +100,8 @@ import Breadcrumbs from '~/components/breadcrumbs'
 import geo from '~/mixins/geo'
 import Reviews from '~/components/reviews'
 import DAL_Review from '~/DAL/review'
+import gradientWrapper from '~/components/gradient_wrapper'
+import date from '~/components/date'
 
 export default {
 	name: 'game_single',
@@ -110,7 +115,9 @@ export default {
 		Gradient,
 		VideoGallery,
 		Breadcrumbs,
-		Reviews
+		Reviews,
+		gradientWrapper,
+		date
 	},
 	layout: 'default',
 	data: () => {
@@ -223,15 +230,13 @@ export default {
 	padding-top: 20px;
 	padding-bottom: 20px;
 }
-.title {
-	margin-bottom: 24px;
-}
 .video_gallery {
 	padding-top: 20px;
 	padding-bottom: 40px;
 }
 .content_container {
 	padding-top: 16px;
+	margin-top: 30px;
 }
 .review_container {
 	margin-top: 40px;

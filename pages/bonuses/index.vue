@@ -3,25 +3,30 @@
 		<main class="bonuses_page">
 			<Gradient />
 			<div class="container z-index-3">
+				<div class="h1_wrapper">
+					<gradientWrapper>
+						<Breadcrumbs
+							:value="[
+								{
+									title: t('BREADCRUMB_MAIN_PAGE'),
+									permalink: '/'
+								},
+								{
+									title: data.body.title,
+									permalink: ''
+								}
+							]"
+						/>
+						<AText tag="h1" :attributes="titleSettings">{{ data.body.h1 }}</AText>
+						<date :value="data.body.update_at.slice(0, 10)" />
+					</gradientWrapper>
+				</div>
 				<div class="bonus_category_container">
 					<div class="bonus_category_item" v-for="(item, index) in bonus_category" :key="index">
 						<BonusCategory :title="item.title" :link="item.permalink" :posts="item.posts" />
 					</div>
 				</div>
 			</div>
-			<div class="container">
-				<AText tag="h1" :attributes="titleSettings">{{ data.body.h1 }}</AText>
-			</div>
-            <Breadcrumbs :value="[
-                 {
-                    title: t('BREADCRUMB_MAIN_PAGE'),
-                    permalink: '/'
-                 },
-                 {
-                    title: data.body.title,
-                    permalink: ''
-                 }
-            ]" />
 			<div class="container content_container">
 				<Content :value="data.body.content" />
 			</div>
@@ -44,7 +49,10 @@ import Gradient from '~/components/gradient'
 import helper from '~/helpers/helpers'
 import components from '~/mixins/components'
 import Breadcrumbs from '~/components/breadcrumbs'
+import gradientWrapper from '~/components/gradient_wrapper/index.vue'
+import date from '~/components/date'
 import geo from '~/mixins/geo'
+
 export default {
 	name: 'bonuses-page',
 	mixins: [pageTemplate, components, geo],
@@ -52,7 +60,9 @@ export default {
 		Faq,
 		BonusCategory,
 		Gradient,
-        Breadcrumbs
+		Breadcrumbs,
+		gradientWrapper,
+		date
 	},
 	layout: 'default',
 	data: () => {
@@ -66,17 +76,17 @@ export default {
 			}
 		}
 	},
-    watch: {
-        async geo() {
-            const geo = this.$store.getters['common/getGeo']
-            const request = {
-                url: 'bonuses',
-                geo
-            }
-            const response = await DAL_Page.getData(request)
-            this.bonus_category = response.data.body.bonus_category
-        }
-    },
+	watch: {
+		async geo() {
+			const geo = this.$store.getters['common/getGeo']
+			const request = {
+				url: 'bonuses',
+				geo
+			}
+			const response = await DAL_Page.getData(request)
+			this.bonus_category = response.data.body.bonus_category
+		}
+	},
 	async asyncData({ store, route }) {
 		const geo = store.getters['common/getGeo']
 		const request = {
@@ -85,7 +95,7 @@ export default {
 		}
 		const response = await DAL_Page.getData(request)
 		const data = helper.headDataMixin(response.data, route)
-        const { bonus_category } = response.data.body
+		const { bonus_category } = response.data.body
 		return { data, bonus_category }
 	}
 }
@@ -101,16 +111,14 @@ export default {
 	justify-content: space-between;
 	margin-top: var(--l);
 }
-.title {
-	margin-bottom: var(--m);
-}
 .bonus_category_container {
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: space-between;
+	gap: 30px;
 }
 .bonus_category_item {
-	width: 32%;
+	width: calc(33% - 30px);
 }
 ::v-deep h1 {
 	margin-bottom: 0px;
@@ -119,16 +127,22 @@ export default {
 	padding-top: 10px;
 }
 @media (max-width: 767px) {
+	.bonus_category_container {
+		gap: 20px;
+	}
 	.bonus_category_item {
 		width: 100%;
 	}
 }
 @media (min-width: 768px) and (max-width: 1200px) {
 	.bonus_category_item {
-		width: 48%;
+		width: 100%;
 	}
 	.bonus_category_container {
 		gap: 12px;
+	}
+	.bonuses_page .content_container {
+		padding: 20px;
 	}
 }
 </style>

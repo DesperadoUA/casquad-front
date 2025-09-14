@@ -65,6 +65,7 @@ export default {
 	--cleveland: #5e40b5;
 	--chicago: #da00ed;
 	--caracas: rgba(255, 255, 255, 0.06);
+	--coruna: #28263d;
 	--xxs: 2px;
 	--xs: 4px;
 	--s: 8px;
@@ -642,7 +643,8 @@ Common styles*/
 #cookies a {
 	color: var(--cairo);
 }
-.cms article {
+.h1_wrapper {
+	margin-bottom: 40px;
 }
 @media (max-width: 767px) {
 	.content_container {

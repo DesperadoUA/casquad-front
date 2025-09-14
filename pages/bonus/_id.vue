@@ -2,8 +2,8 @@
 	<main class="bonus_page">
 		<Gradient />
 		<div class="container z-index-3">
-			<TwoContentContainer>
-				<template v-slot:left>
+			<div class="h1_wrapper">
+				<gradientWrapper>
 					<AText tag="h1" :attributes="titleSettings">{{ data.body.h1 }}</AText>
 					<Breadcrumbs
 						:value="[
@@ -21,6 +21,11 @@
 							}
 						]"
 					/>
+					<date :value="data.body.update_at.slice(0, 10)" />
+				</gradientWrapper>
+			</div>
+			<TwoContentContainer>
+				<template v-slot:left>
 					<Banner v-if="data.body.banner" :src="data.body.banner" :alt="`${data.body.title}`" />
 					<div class="action_container">
 						<button class="action" @click="refActivate(data.body.casino.ref)">Get Bonus</button>
@@ -33,22 +38,8 @@
 					</div>
 				</template>
 				<template v-slot:right>
-					<AText tag="div" :attributes="subTitleSettings">{{ t('MOST_PROFITABLE_BONUSES') }}</AText>
 					<aside class="aside">
-						<div class="aside_bonus_container">
-							<div class="aside_bonus_wrapper" v-for="item in bonuses" :key="item.title">
-								<BonusAsideCard
-									:src="item.thumbnail"
-									:title="item.title"
-									:desc="item.short_desc"
-									:value="item.bonus"
-									:min_dep="item.min_deposit"
-									:wager="item.wagering"
-									:refLinks="item.casino.ref"
-									:permalink="item.permalink"
-								/>
-							</div>
-						</div>
+						<AsideBonuses :title="t('MOST_PROFITABLE_BONUSES')" :posts="bonuses" />
 					</aside>
 				</template>
 			</TwoContentContainer>
@@ -61,7 +52,6 @@
 import DAL_Builder from '~/DAL/builder'
 import pageTemplate from '~/mixins/pageTemplate'
 import TwoContentContainer from '~/components/two_content_container/'
-import BonusAsideCard from '~/components/bonus_loop/cards/aside_card'
 import SlickBonus from '~/components/slick_bonus/'
 import Banner from '~/components/banner/'
 import Gradient from '~/components/gradient'
@@ -70,17 +60,23 @@ import ref from '~/mixins/ref'
 import components from '~/mixins/components'
 import Breadcrumbs from '~/components/breadcrumbs'
 import { BONUSES_ROOT_SLUG } from '~/constants'
+import gradientWrapper from '~/components/gradient_wrapper/index.vue'
+import date from '~/components/date'
 import geo from '~/mixins/geo'
+import AsideBonuses from '~/components/aside_bonuses'
+
 export default {
 	name: 'bonus_single',
 	mixins: [ref, pageTemplate, components, geo],
 	components: {
 		TwoContentContainer,
 		Banner,
-		BonusAsideCard,
 		SlickBonus,
 		Gradient,
-		Breadcrumbs
+		Breadcrumbs,
+		gradientWrapper,
+		date,
+		AsideBonuses
 	},
 	layout: 'default',
 	data: () => {
@@ -132,9 +128,6 @@ export default {
 	background-repeat: no-repeat;
 	padding-top: 165px;
 }
-.title {
-	margin-bottom: 32px;
-}
 .sub_title {
 	margin-bottom: 16px;
 }
@@ -165,11 +158,6 @@ export default {
 	text-transform: uppercase;
 	color: var(--cucuta);
 }
-.aside_bonus_container {
-	display: flex;
-	flex-wrap: wrap;
-	gap: 20px;
-}
 .aside_bonus_wrapper {
 	width: 100%;
 }
@@ -178,9 +166,6 @@ export default {
 		margin-left: 0;
 		margin-right: 0;
 		width: 100%;
-	}
-	.aside_bonus_container {
-		margin-bottom: 20px;
 	}
 }
 @media (min-width: 768px) and (max-width: 1200px) {
@@ -195,9 +180,6 @@ export default {
 	}
 	.aside_post_wrapper {
 		width: 48%;
-	}
-	.aside_bonus_container {
-		justify-content: space-between;
 	}
 }
 </style>

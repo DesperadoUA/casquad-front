@@ -3,27 +3,30 @@
 		<main class="category_page">
 			<Gradient />
 			<div class="container z-index-3">
+				<div class="h1_wrapper">
+					<gradientWrapper>
+						<Breadcrumbs
+							:value="[
+								{
+									title: t('BREADCRUMB_MAIN_PAGE'),
+									permalink: '/'
+								},
+								{
+									title: t('BREADCRUMB_BONUS_TITLE_PAGE'),
+									permalink: `/${bonusesRootSlug}`
+								},
+								{
+									title: data.body.title,
+									permalink: ''
+								}
+							]"
+						/>
+						<AText tag="h1" :attributes="titleSettings">{{ data.body.h1 }}</AText>
+						<date :value="data.body.update_at.slice(0, 10)" />
+					</gradientWrapper>
+				</div>
 				<BonusLoop :value="posts" />
 			</div>
-			<div class="container h1_wrapper">
-				<AText tag="h1" :attributes="titleSettings">{{ data.body.h1 }}</AText>
-			</div>
-			<Breadcrumbs
-				:value="[
-					{
-						title: t('BREADCRUMB_MAIN_PAGE'),
-						permalink: '/'
-					},
-					{
-						title: t('BREADCRUMB_BONUS_TITLE_PAGE'),
-						permalink: `/${bonusesRootSlug}`
-					},
-					{
-						title: data.body.title,
-						permalink: ''
-					}
-				]"
-			/>
 			<div class="container content_container">
 				<Content :value="data.body.content" />
 			</div>
@@ -47,6 +50,8 @@ import Gradient from '~/components/gradient'
 import components from '~/mixins/components'
 import Breadcrumbs from '~/components/breadcrumbs'
 import { BONUSES_ROOT_SLUG } from '~/constants'
+import gradientWrapper from '~/components/gradient_wrapper/index.vue'
+import date from '~/components/date'
 import geo from '~/mixins/geo'
 
 export default {
@@ -57,8 +62,7 @@ export default {
 				color: 'cairo',
 				size: 'x-large',
 				weight: 'bold',
-				transform: 'uppercase',
-				class: 'title'
+				transform: 'uppercase'
 			},
 			bonusesRootSlug: BONUSES_ROOT_SLUG
 		}
@@ -67,7 +71,9 @@ export default {
 		Faq,
 		BonusLoop,
 		Gradient,
-		Breadcrumbs
+		Breadcrumbs,
+		gradientWrapper,
+		date
 	},
 	mixins: [pageTemplate, components, geo],
 	watch: {
@@ -103,27 +109,11 @@ export default {
 	background-repeat: no-repeat;
 	padding-top: 165px;
 }
-.title {
-	margin-bottom: var(--m);
-}
-.category_filter_wrapper {
-	padding-top: var(--m);
-	padding-bottom: var(--m);
-}
-.aside_bonus_container {
-	margin-top: var(--s);
-	display: flex;
-	flex-wrap: wrap;
-	gap: 15px;
-}
 .aside {
 	padding-top: var(--xl);
 }
 ::v-deep h1 {
 	margin-bottom: 0px;
-}
-.h1_wrapper {
-	margin-top: 40px;
 }
 .category_page .content_container {
 	padding-top: 10px;

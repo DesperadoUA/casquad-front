@@ -6,9 +6,9 @@ export default {
 		//EN: 'http://127.0.0.1:8000/api/'
 	},
 	BASE_URL: {
-		RU: 'https://casquads.com',
-		EN: 'https://casquads.com',
-		UA: 'https://casquads.com'
+		RU: 'https://casquad.com',
+		EN: 'https://casquad.com',
+		UA: 'https://casquad.com'
 	},
 	AMP_PREFIX: '/amp',
 	HTML_ATTRS: {

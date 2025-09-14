@@ -3,55 +3,42 @@
 		<main class="category_page">
 			<Gradient />
 			<div class="container z-index-3">
+				<div class="h1_wrapper">
+					<gradientWrapper>
+						<Breadcrumbs
+							:value="[
+								{
+									title: t('BREADCRUMB_MAIN_PAGE'),
+									permalink: '/'
+								},
+								{
+									title: data.body.title,
+									permalink: ''
+								}
+							]"
+						/>
+						<AText tag="h1" :attributes="titleSettings">{{ data.body.h1 }}</AText>
+						<CategoryFilter
+							:value="
+								[
+									{
+										title: 'All',
+										permalink: '/',
+										thumbnail: ''
+									}
+								].concat(data.body.casino_category)
+							"
+						/>
+					</gradientWrapper>
+				</div>
 				<div class="main_container">
 					<TwoContentContainer>
 						<template v-slot:left>
-							<AText tag="h1" :attributes="titleSettings">{{ data.body.h1 }}</AText>
-							<Breadcrumbs
-								:value="[
-									{
-										title: t('BREADCRUMB_MAIN_PAGE'),
-										permalink: '/'
-									},
-									{
-										title: data.body.title,
-										permalink: ''
-									}
-								]"
-							/>
-							<div class="category_filter_wrapper">
-								<CategoryFilter
-									:value="
-										[
-											{
-												title: 'All',
-												permalink: '/',
-												thumbnail: ''
-											}
-										].concat(data.body.casino_category)
-									"
-								/>
-							</div>
 							<CasinoLoop :value="posts" />
 						</template>
 						<template v-slot:right>
 							<aside class="aside">
-								<AText tag="div" :attributes="asideContainerTitle">{{ t('RECOMMENDED_BONUSES') }}</AText>
-								<div class="aside_bonus_container">
-									<div class="aside_bonus_wrapper" v-for="item in top_bonuses" :key="item.title">
-										<BonusAsideCard
-											:link="item.permalink"
-											:src="item.thumbnail"
-											:title="item.title"
-											:desc="item.short_desc"
-											:value="item.bonus"
-											:min_dep="item.min_deposit"
-											:wager="item.wagering"
-											:refLinks="Array.isArray(item.ref) ? {} : item.ref"
-											:permalink="item.permalink"
-										/>
-									</div>
-								</div>
+								<AsideBonuses :title="t('RECOMMENDED_BONUSES')" :posts="top_bonuses" />
 							</aside>
 						</template>
 					</TwoContentContainer>
@@ -76,13 +63,15 @@ import helper from '~/helpers/helpers'
 import pageTemplate from '~/mixins/pageTemplate'
 import TwoContentContainer from '~/components/two_content_container/'
 import CategoryFilter from '~/components/category_filter'
-import BonusAsideCard from '~/components/bonus_loop/cards/aside_card'
 import Faq from '~/components/faq'
 import CasinoLoop from '~/components/casino_loop'
 import Gradient from '~/components/gradient'
 import components from '~/mixins/components'
 import Breadcrumbs from '~/components/breadcrumbs'
+import gradientWrapper from '~/components/gradient_wrapper'
 import geo from '~/mixins/geo'
+import AsideBonuses from '~/components/aside_bonuses'
+
 export default {
 	name: 'casino-category',
 	data: () => {
@@ -90,7 +79,8 @@ export default {
 			asideContainerTitle: {
 				weight: 'bold',
 				color: 'cairo',
-				size: 'large'
+				size: 'large',
+				class: 'aside_container_title'
 			},
 			titleSettings: {
 				color: 'cairo',
@@ -103,12 +93,13 @@ export default {
 	},
 	components: {
 		TwoContentContainer,
-		BonusAsideCard,
 		Faq,
 		CasinoLoop,
 		CategoryFilter,
 		Gradient,
-		Breadcrumbs
+		Breadcrumbs,
+		gradientWrapper,
+		AsideBonuses
 	},
 	mixins: [pageTemplate, components, geo],
 	watch: {
@@ -145,19 +136,6 @@ export default {
 	background-repeat: no-repeat;
 	padding-top: 165px;
 }
-.title {
-	margin-bottom: var(--m);
-}
-.category_filter_wrapper {
-	padding-top: var(--m);
-	padding-bottom: var(--m);
-}
-.aside_bonus_container {
-	margin-top: var(--s);
-	display: flex;
-	flex-wrap: wrap;
-	gap: 15px;
-}
 .content_container {
 	margin-bottom: 40px;
 }
@@ -165,19 +143,11 @@ export default {
 	.content_container {
 		margin-bottom: 20px;
 	}
+	.category_page ::v-deep .casino_loop {
+		padding-bottom: 0px;
+	}
 	.aside {
 		padding-top: var(--l);
-	}
-	.aside_bonus_wrapper {
-		width: 100%;
-	}
-}
-@media (min-width: 768px) and (max-width: 1200px) {
-	.aside_bonus_wrapper {
-		width: 48%;
-	}
-	.aside_bonus_container {
-		justify-content: space-between;
 	}
 }
 </style>

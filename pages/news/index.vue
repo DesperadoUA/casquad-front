@@ -3,20 +3,25 @@
 		<main class="news_page">
 			<Gradient />
 			<div class="container z-index-3">
-				<AText tag="div" :attributes="titleSettings">{{ data.body.h1 }}</AText>
+				<div class="h1_wrapper">
+					<gradientWrapper>
+						<Breadcrumbs
+							:value="[
+								{
+									title: t('BREADCRUMB_MAIN_PAGE'),
+									permalink: '/'
+								},
+								{
+									title: data.body.title,
+									permalink: ''
+								}
+							]"
+						/>
+						<AText tag="h1" :attributes="titleSettings">{{ data.body.h1 }}</AText>
+						<date :value="data.body.update_at.slice(0, 10)" />
+					</gradientWrapper>
+				</div>
 			</div>
-			<Breadcrumbs
-				:value="[
-					{
-						title: t('BREADCRUMB_MAIN_PAGE'),
-						permalink: '/'
-					},
-					{
-						title: data.body.title,
-						permalink: ''
-					}
-				]"
-			/>
 			<div class="container">
 				<NewsLoop :value="data.body.news" />
 			</div>
@@ -42,6 +47,8 @@ import Faq from '~/components/faq'
 import helper from '~/helpers/helpers'
 import components from '~/mixins/components'
 import Breadcrumbs from '~/components/breadcrumbs'
+import gradientWrapper from '~/components/gradient_wrapper'
+import date from '~/components/date'
 
 export default {
 	name: 'news-page',
@@ -50,7 +57,9 @@ export default {
 		Faq,
 		NewsLoop,
 		Gradient,
-		Breadcrumbs
+		Breadcrumbs,
+		gradientWrapper,
+		date
 	},
 	layout: 'default',
 	data: () => {
@@ -86,9 +95,6 @@ export default {
 	display: flex;
 	justify-content: space-between;
 	margin-top: var(--l);
-}
-.title {
-	margin-bottom: var(--m);
 }
 .content_container {
 	margin-top: 40px;
