@@ -42,9 +42,6 @@ export default {
 	display: flex;
 	align-items: center;
 }
-.footer-logo::v-deep .footer_logo_img {
-	height: 160px;
-}
 .footer_social {
 	display: flex;
 	gap: 20px;

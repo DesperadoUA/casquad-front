@@ -47,14 +47,14 @@
 					<SlotSymbols :posts="data.body.symbols" :title="data.body.title" />
 				</div>
 			</div>
-			<div class="screenshots" v-if="data.body.screenshots.length">
-				<div class="container">
+			<div class="container" v-if="data.body.screenshots.length">
+				<div class="screenshots">
 					<AText tag="div" :attributes="symbolTitleSettings">{{ t('SCREENSHOTS') }}</AText>
 					<SlotScreenshots :posts="data.body.screenshots" :title="data.body.title" />
 				</div>
 			</div>
-			<div class="video_gallery" v-if="data.body.video.length">
-				<div class="container">
+			<div class="container" v-if="data.body.video.length">
+				<div class="video_gallery">
 					<AText tag="div" v-if="data.body.video_title" :attributes="symbolTitleSettings">{{
 						data.body.video_title
 					}}</AText>
@@ -217,41 +217,38 @@ export default {
 	background: var(--colombo);
 	background-repeat: no-repeat;
 	padding-top: 165px;
-}
-.container_top_game {
-	padding-bottom: 20px;
+	display: flex;
+	flex-direction: column;
+	gap: var(--gap-components);
 }
 .symbols {
 	background: var(--cucuta);
 	padding-top: 20px;
 	padding-bottom: 20px;
 }
-.screenshots {
-	padding-top: 20px;
-	padding-bottom: 20px;
-}
+.screenshots,
 .video_gallery {
-	padding-top: 20px;
-	padding-bottom: 40px;
+	padding: 20px;
+	border-radius: var(--m);
+	background: #232036;
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
 }
 .content_container {
 	padding-top: 16px;
-	margin-top: 30px;
 }
-.review_container {
-	margin-top: 40px;
+.screenshots .title {
+	line-height: 24px;
+}
+.video_gallery .title {
+	line-height: 32px;
 }
 @media (max-width: 767px) {
 	.symbols,
 	.screenshots {
 		padding-top: 20px;
 		padding-bottom: 20px;
-	}
-	.container_top_game {
-		padding-bottom: 20px;
-	}
-	.review_container {
-		margin-top: 20px;
 	}
 }
 </style>

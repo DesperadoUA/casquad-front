@@ -75,6 +75,7 @@ export default {
 	--container-width: 1230px;
 	--container--cms: 960px;
 	--side-gutters: 0px;
+	--gap-components: 40px;
 
 	/* Fonts */
 	--base-line-height: 1.7;
@@ -82,6 +83,7 @@ export default {
 	@media (max-width: 767px) {
 		--base-font-size: 15px;
 		--side-gutters: 20px;
+		--gap-components: 30px;
 	}
 }
 
@@ -653,6 +655,9 @@ Common styles*/
 		margin-right: var(--side-gutters);
 		width: calc(100% - var(--side-gutters) - var(--side-gutters));
 	}
+	.h1_wrapper {
+		margin-bottom: 30px;
+	}
 	.main_container {
 		padding-bottom: 40px;
 	}
@@ -667,6 +672,7 @@ Common styles*/
 	.content_container .container {
 		margin-left: 0px;
 		margin-right: 0px;
+		padding: 0 20px;
 		max-width: 100%;
 	}
 }

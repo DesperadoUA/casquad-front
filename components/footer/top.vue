@@ -1,13 +1,11 @@
 <template>
-	<div v-bind="containerSettings">
-		<div class="container top-container">
-			<div class="left">
-				<FooterLogo :social="changeSocial" />
-				<FooterMenu :value="changeMenu" />
-			</div>
-			<div class="right">
-				<FooterForm />
-			</div>
+	<div class="container top-container">
+		<div class="left">
+			<FooterLogo :social="changeSocial" />
+			<FooterMenu :value="changeMenu" />
+		</div>
+		<div class="right">
+			<FooterForm />
 		</div>
 	</div>
 </template>
@@ -20,9 +18,6 @@ export default {
 	components: { FooterMenu, FooterLogo, FooterForm },
 	data: () => {
 		return {
-			containerSettings: {
-				class: 'p_m'
-			},
 			footer_menu: null,
 			social: []
 		}
@@ -59,8 +54,8 @@ export default {
 @media (max-width: 767px) {
 	.top-container {
 		flex-wrap: wrap;
-		padding-left: 5px;
-		padding-right: 5px;
+		padding-left: 20px;
+		padding-right: 20px;
 	}
 	.left {
 		width: 100%;
@@ -72,8 +67,8 @@ export default {
 @media (min-width: 768px) and (max-width: 1200px) {
 	.top-container {
 		flex-wrap: wrap;
-		padding-left: 5px;
-		padding-right: 5px;
+		padding-left: 20px;
+		padding-right: 20px;
 		margin-bottom: 15px;
 	}
 	.left {

@@ -15,11 +15,6 @@
 				</ALink>
 				<AText tag="div" :attributes="descTextSettings">{{ desc }}</AText>
 			</div>
-			<div class="bottom">
-				<LinkWithArrow :link="link" :attributes="linkSettings" :title="`Goes to ${title} page`">
-					{{ title }}
-				</LinkWithArrow>
-			</div>
 		</div>
 	</article>
 </template>
@@ -43,16 +38,9 @@ export default {
 				weight: 'regular',
 				class: 'desc'
 			},
-			linkSettings: {
-				size: 'medium',
-				color: 'calgary',
-				weight: 'semi-bold',
-				decoration: 'none',
-				class: 'read_more'
-			},
 			titleLinkSettings: {
 				size: 'medium',
-				color: 'cairo',
+				color: 'calgary',
 				weight: 'semi-bold',
 				decoration: 'none',
 				class: 'title'
@@ -102,7 +90,7 @@ export default {
 <style scoped>
 .item {
 	width: 280px;
-	height: 410px;
+	height: 365px;
 	background: rgba(255, 255, 255, 0.1);
 	padding: var(--xs);
 	border-radius: var(--m);
@@ -125,21 +113,21 @@ export default {
 	font-size: 10px;
 	margin-top: var(--m);
 	-webkit-line-clamp: 3;
-    display: inline;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    word-wrap: break-word;
+	display: inline;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	word-wrap: break-word;
 }
 ::v-deep .read_more {
 	-webkit-line-clamp: 2;
-    display: inline;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    word-wrap: break-word;
+	display: inline;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	word-wrap: break-word;
 }
 .date {
 	font-size: 10px;
@@ -150,16 +138,25 @@ export default {
 }
 .title {
 	-webkit-line-clamp: 3;
-    display: inline;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    word-wrap: break-word;
+	display: inline;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	word-wrap: break-word;
+}
+@media (min-width: 320px) and (max-width: 576px) {
+	.item {
+		width: 100%;
+	}
 }
 @media (max-width: 767px) {
 	.item {
 		flex-shrink: 0;
+		height: auto;
+	}
+	.center {
+		height: auto;
 	}
 }
 @media (min-width: 768px) and (max-width: 1200px) {
