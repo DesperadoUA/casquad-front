@@ -28,13 +28,13 @@
 				<template v-slot:left>
 					<Banner v-if="data.body.banner" :src="data.body.banner" :alt="`${data.body.title}`" />
 					<div class="action_container">
-						<button class="action" @click="refActivate(data.body.casino.ref)">Get Bonus</button>
+						<button class="action" @click="refActivate(data.body.casino.ref, geo)">{{ t('GET_BONUS') }}</button>
 					</div>
 					<div class="content_container">
 						<Content :value="data.body.content" />
 					</div>
 					<div class="action_container">
-						<button class="action" @click="refActivate(data.body.casino.ref)">Get Bonus</button>
+						<button class="action" @click="refActivate(data.body.casino.ref, geo)">{{ t('GET_BONUS') }}</button>
 					</div>
 				</template>
 				<template v-slot:right>

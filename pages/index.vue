@@ -83,7 +83,7 @@
 			<div class="main_container">
 				<div class="h1_wrapper">
 					<gradientWrapper>
-						<AText tag="div" :attributes="mainContainerTitle">{{ t('BEST_ONLINE_CASINOS_CANADA') }}</AText>
+						<AText tag="h2" :attributes="mainContainerTitle">{{ t('BEST_ONLINE_CASINOS') }}</AText>
 						<div class="category_filter_wrapper">
 							<CategoryFilter
 								:value="

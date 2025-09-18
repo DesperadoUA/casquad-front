@@ -29,7 +29,7 @@
 					<div class="action_wrapper">
 						<div class="btn_wrapper">
 							<AButton :attributes="btnSettings" :title="`Goes to ${title}`" @onClick="refActivate(refLinks, geo)">{{
-								t('GO_TO')
+								t('GET_BONUS')
 							}}</AButton>
 						</div>
 						<ALink :href="link" :attributes="readMoreLinkSettings" :title="`Goes to ${title} page`"
@@ -105,7 +105,7 @@
 				<div class="action_wrapper">
 					<div class="btn_wrapper">
 						<AButton :attributes="btnSettings" :title="`Goes to ${title}`" @onClick="refActivate(refLinks, geo)">{{
-							t('GO_TO')
+							t('GET_BONUS')
 						}}</AButton>
 					</div>
 					<ALink :href="link" :attributes="readMoreLinkSettings" :title="`Goes to ${title} page`"
@@ -459,12 +459,12 @@ export default {
 	background: var(--chicago);
 }
 .details_btn {
-		font-size: 14px;
-		color: var(--cairo);
-		cursor: pointer;
-		position: relative;
-		padding-right: 24px;
-	}
+	font-size: 14px;
+	color: var(--cairo);
+	cursor: pointer;
+	position: relative;
+	padding-right: 24px;
+}
 @media (max-width: 767px) {
 	.item {
 		width: 100%;

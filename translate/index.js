@@ -697,6 +697,11 @@ export default {
 		UA: 'Найкращі онлайн казино Канади',
 		EN: "Canada's Best Online Casino Sites"
 	},
+	BEST_ONLINE_CASINOS: {
+		RU: 'Лучшие онлайн казино',
+		UA: 'Найкращі онлайн казино',
+		EN: 'Best Online Casinos'
+	},
 	LATEST_GAMBLING_NEWS: {
 		RU: 'Последние новости об азартных играх в Канаде',
 		UA: 'Останні новини про азартні ігри в Канаді',
