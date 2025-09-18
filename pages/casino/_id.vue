@@ -77,8 +77,8 @@
 				</TwoContentContainer>
 			</div>
 		</div>
-		<div class="video_gallery" v-if="data.body.video.length">
-			<div class="container">
+		<div class="container">
+			<div class="video_gallery" v-if="data.body.video.length">
 				<AText tag="div" v-if="data.body.video_title" :attributes="videoTitleSettings">{{
 					data.body.video_title
 				}}</AText>
@@ -273,11 +273,19 @@ export default {
 	}
 }
 </script>
+<style>
+.casino_page .reviews_wrapper {
+	margin-bottom: 0px;
+}
+</style>
 <style scoped>
 .casino_page {
 	background: url('/img/topBg.webp') top center var(--colombo);
 	background-repeat: no-repeat;
 	padding-top: 165px;
+	display: flex;
+	flex-direction: column;
+	gap: var(--gap-components);
 }
 .casino_page .h1_wrapper {
 	margin-bottom: 40px;
@@ -309,17 +317,22 @@ export default {
 }
 .content_wrapper {
 	background: rgba(8, 5, 26, 1);
-	padding: 20px 0px 40px 0px;
 }
 .video_gallery {
 	padding-top: 20px;
 	padding-bottom: 40px;
 }
-.video_title {
-	margin-bottom: 24px;
-}
 .main_container {
-	padding-bottom: 20px;
+	padding-bottom: 0px;
+}
+.video_gallery {
+	padding: 20px;
+	border-radius: var(--m);
+	background: #232036;
+	display: flex;
+	flex-direction: column;
+	grid-gap: 20px;
+	gap: 20px;
 }
 @media (max-width: 767px) {
 	.title {
