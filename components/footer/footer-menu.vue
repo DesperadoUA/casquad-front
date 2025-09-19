@@ -38,7 +38,7 @@ export default {
 .footer-nav {
 	display: flex;
 	gap: 30px;
-	margin-top: 65px;
+	margin-top: 30px;
 }
 @media (max-width: 767px) {
 	.footer-nav {

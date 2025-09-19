@@ -2,10 +2,12 @@
 	<div class="container top-container">
 		<div class="left">
 			<FooterLogo :social="changeSocial" />
-			<FooterMenu :value="changeMenu" />
 		</div>
 		<div class="right">
 			<FooterForm />
+		</div>
+		<div class="bottom">
+			<FooterMenu :value="changeMenu" />
 		</div>
 	</div>
 </template>
@@ -13,6 +15,7 @@
 import FooterMenu from './footer-menu'
 import FooterLogo from './logo'
 import FooterForm from './footer-form'
+
 export default {
 	name: 'top-footer',
 	components: { FooterMenu, FooterLogo, FooterForm },
@@ -44,6 +47,8 @@ export default {
 .top-container {
 	display: flex;
 	margin-bottom: var(--l);
+	flex-wrap: wrap;
+	align-items: center;
 }
 .left {
 	width: 57%;
@@ -51,11 +56,15 @@ export default {
 .right {
 	width: 43%;
 }
+.bottom {
+	width: 100%;
+}
 @media (max-width: 767px) {
 	.top-container {
 		flex-wrap: wrap;
 		padding-left: 20px;
 		padding-right: 20px;
+		margin-bottom: 0;
 	}
 	.left {
 		width: 100%;
