@@ -866,5 +866,10 @@ export default {
 		UA: 'Дивитись більше',
 		RU: 'Смотреть больше',
 		EN: 'Show More'
+	},
+	HIGHLIGHTS: {
+		UA: 'Highlights',
+		RU: 'Highlights',
+		EN: 'Highlights'
 	}
 }

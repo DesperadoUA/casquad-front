@@ -223,6 +223,9 @@ h6 {
 .text_decoration_none {
 	text-decoration: none;
 }
+.text_size_x-small {
+	font-size: 10px;
+}
 .text_size_small {
 	font-size: 12px;
 }
@@ -535,10 +538,6 @@ h6 {
 /* */
 .faq_container {
 	max-width: 820px;
-	padding-top: 30px;
-	padding-bottom: 30px;
-	padding-left: 0px;
-	padding-right: 0px;
 }
 /*
 Common styles*/
@@ -645,8 +644,14 @@ Common styles*/
 #cookies a {
 	color: var(--cairo);
 }
-.h1_wrapper {
-	margin-bottom: 40px;
+.main-wrapper {
+	background: url('/img/topBg.webp') top center var(--colombo);
+	background-repeat: no-repeat;
+	padding-top: 165px;
+	display: flex;
+	flex-direction: column;
+	gap: var(--gap-components);
+	padding-bottom: 40px;
 }
 @media (max-width: 767px) {
 	.content_container {
@@ -654,9 +659,6 @@ Common styles*/
 		margin-left: var(--side-gutters);
 		margin-right: var(--side-gutters);
 		width: calc(100% - var(--side-gutters) - var(--side-gutters));
-	}
-	.h1_wrapper {
-		margin-bottom: 30px;
 	}
 	.main_container {
 		padding-bottom: 40px;

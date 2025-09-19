@@ -125,6 +125,11 @@ export default {
 .faq_active .faq_close {
 	transform: rotate(45deg) translateY(-50%) translate(2px, -1px) scale(-1);
 }
+.faq_wrapper {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+}
 @media (min-width: 320px) and (max-width: 767px) {
 	.faq_answer {
 		padding: 15px;
