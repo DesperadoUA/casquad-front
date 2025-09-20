@@ -622,6 +622,12 @@ Common styles*/
 		color: #00ea17;
 	}
 }
+.cms div:first-child p {
+	margin-top: 0px;
+}
+.cms div:last-child p {
+	margin-bottom: 0px;
+}
 .load_more {
 	background: rgba(255, 255, 255, 0.1);
 	border-radius: var(--s);
@@ -644,7 +650,7 @@ Common styles*/
 #cookies a {
 	color: var(--cairo);
 }
-.main-wrapper {
+.main_wrapper {
 	background: url('/img/topBg.webp') top center var(--colombo);
 	background-repeat: no-repeat;
 	padding-top: 165px;
@@ -652,6 +658,11 @@ Common styles*/
 	flex-direction: column;
 	gap: var(--gap-components);
 	padding-bottom: 40px;
+}
+.main_gap {
+	display: flex;
+	flex-direction: column;
+	gap: var(--gap-components);
 }
 @media (max-width: 767px) {
 	.content_container {

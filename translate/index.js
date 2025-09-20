@@ -871,5 +871,20 @@ export default {
 		UA: 'Highlights',
 		RU: 'Highlights',
 		EN: 'Highlights'
+	},
+	ABOUT_ME: {
+		UA: 'Про мене',
+		RU: 'Обо мне',
+		EN: 'About Me'
+	},
+	PROFESSIONAL_EXPERIENCE: {
+		UA: 'Професійний досвід',
+		RU: 'Профессиональный опыт',
+		EN: 'Professional experience'
+	},
+	EDUCATION: {
+		UA: 'Освіта',
+		RU: 'Образование',
+		EN: 'Education'
 	}
 }

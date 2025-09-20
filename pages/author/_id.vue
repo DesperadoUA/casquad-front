@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<main class="main-wrapper">
+		<main class="main_wrapper">
 			<Gradient />
 			<div class="container container_top_game z-index-3">
 				<div class="h1_wrapper">
@@ -22,34 +22,24 @@
 					</gradientWrapper>
 				</div>
 			</div>
-			<div class="container">
+			<div class="container main_gap">
 				<AuthorCardTop />
-			</div>
-			<div class="container" v-if="data.body.highlights">
-				<Highlights :title="t('HIGHLIGHTS')" :posts="data.body.highlights" />
-			</div>
-			<div class="container">
-				<AuthorAbout />
-			</div>
-			<div class="container container_experience">
-				<div class="experience_col">
-					<AuthorExperience />
+				<Highlights v-if="data.body.highlights" :title="t('HIGHLIGHTS')" :posts="data.body.highlights" />
+				<AuthorAbout :text="data.body.about" :src="data.body.about_img" />
+				<div class="container_experience">
+					<div v-if="data.body.experience.length" class="experience_col">
+						<AuthorExperience :posts="data.body.experience" :title="t('PROFESSIONAL_EXPERIENCE')" />
+					</div>
+					<div v-if="data.body.education.length" class="experience_col">
+						<AuthorExperience :posts="data.body.education" :title="t('EDUCATION')" />
+					</div>
 				</div>
-				<div class="experience_col">
-					<AuthorExperience />
-				</div>
-			</div>
-			<div class="container">
 				<AuthorOverview />
-			</div>
-			<div class="container">
 				<AuthorOverviewKeys />
-			</div>
-			<div class="container content_container" v-if="data.body.content">
-				<Content :value="data.body.content" />
-			</div>
-			<div class="container" v-if="data.body.faq.length">
-				<Faq :value="data.body.faq" />
+				<div class="content_wrapper">
+					<Content v-if="data.body.content" :value="data.body.content" />
+				</div>
+				<Faq v-if="data.body.faq.length" :value="data.body.faq" />
 			</div>
 			<Cookies />
 		</main>
@@ -126,5 +116,23 @@ export default {
 }
 .experience_col {
 	width: calc(50% - 11px);
+}
+.content_wrapper {
+	padding: 20px;
+	background: #232036;
+	border-radius: var(--m);
+}
+@media (max-width: 1200px) {
+	.content_wrapper {
+		padding: 20px 0;
+	}
+}
+@media (max-width: 1200px) {
+	.container_experience {
+		flex-wrap: wrap;
+	}
+	.experience_col {
+		width: 100%;
+	}
 }
 </style>
