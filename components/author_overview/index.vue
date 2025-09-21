@@ -1,5 +1,5 @@
 <template>
-	<div class="root cms"><p>Author about</p></div>
+	<div class="root cms" v-html="text" />
 </template>
 
 <script>
@@ -8,8 +8,11 @@ import components from '~/mixins/components'
 export default {
 	name: 'author_overview',
 	mixins: [components],
-	data: () => {
-		return {}
+	props: {
+		text: {
+			type: String,
+			default: ''
+		}
 	}
 }
 </script>

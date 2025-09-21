@@ -625,7 +625,7 @@ Common styles*/
 .cms div:first-child p {
 	margin-top: 0px;
 }
-.cms div:last-child p {
+.cms div p:last-child {
 	margin-bottom: 0px;
 }
 .load_more {

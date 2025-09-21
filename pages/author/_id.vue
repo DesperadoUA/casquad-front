@@ -34,8 +34,8 @@
 						<AuthorExperience :posts="data.body.education" :title="t('EDUCATION')" />
 					</div>
 				</div>
-				<AuthorOverview />
-				<AuthorOverviewKeys />
+				<AuthorOverview v-if="data.body.articles_overview" :text="data.body.articles_overview" />
+				<AuthorOverviewKeys v-if="data.body.articles_overview_keys.length" :posts="data.body.articles_overview_keys" />
 				<div class="content_wrapper">
 					<Content v-if="data.body.content" :value="data.body.content" />
 				</div>
