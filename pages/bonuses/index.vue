@@ -1,8 +1,8 @@
 <template>
 	<div>
-		<main class="bonuses_page">
+		<main class="main_wrapper">
 			<Gradient />
-			<div class="container z-index-3">
+			<div class="container z-index-3 main_gap">
 				<div class="h1_wrapper">
 					<gradientWrapper>
 						<Breadcrumbs
@@ -30,7 +30,7 @@
 			<div class="container content_container">
 				<Content :value="data.body.content" />
 			</div>
-			<div class="container">
+			<div class="container" v-if="data.body.faq.length">
 				<div class="faq_container">
 					<Faq :value="data.body.faq" />
 				</div>
@@ -101,16 +101,6 @@ export default {
 }
 </script>
 <style scoped>
-.bonuses_page {
-	background: var(--colombo);
-	background-repeat: no-repeat;
-	padding-top: 165px;
-}
-.news_container {
-	display: flex;
-	justify-content: space-between;
-	margin-top: var(--l);
-}
 .bonus_category_container {
 	display: flex;
 	flex-wrap: wrap;

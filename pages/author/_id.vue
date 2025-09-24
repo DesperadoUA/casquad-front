@@ -23,7 +23,18 @@
 				</div>
 			</div>
 			<div class="container main_gap">
-				<AuthorCardTop />
+				<AuthorCardTop
+					:social="data.body.social"
+					:short_desc="data.body.short_desc"
+					:title="data.body.title"
+					:create_at="data.body.create_at.slice(0, 10)"
+					:position="data.body.position"
+					:advantages="data.body.advantages"
+					:img="data.body.thumbnail"
+					:totalPosts="casinos_total + articles_total || 0"
+					:role="badgeList[data.body.role]"
+					:roleText="data.body.role"
+				/>
 				<Highlights v-if="data.body.highlights" :title="t('HIGHLIGHTS')" :posts="data.body.highlights" />
 				<AuthorAbout :text="data.body.about" :src="data.body.about_img" />
 				<div class="container_experience">
@@ -38,6 +49,22 @@
 				<AuthorOverviewKeys v-if="data.body.articles_overview_keys.length" :posts="data.body.articles_overview_keys" />
 				<div class="content_wrapper">
 					<Content v-if="data.body.content" :value="data.body.content" />
+				</div>
+				<div id="posts" class="main_gap" v-if="casinos.length || articles.length">
+					<AuthorLoop
+						v-if="casinos.length"
+						:title="t('CASINO_REVIEWS')"
+						:posts="casinos"
+						:total="casinos_total"
+						@showMore="showMoreCasino"
+					/>
+					<AuthorLoop
+						v-if="articles.length"
+						:title="t('BLOG_ARTICLES')"
+						:posts="articles"
+						:total="articles_total"
+						@showMore="showMoreArticles"
+					/>
 				</div>
 				<Faq v-if="data.body.faq.length" :value="data.body.faq" />
 			</div>
@@ -61,7 +88,8 @@ import Highlights from '~/components/highlights'
 import AuthorAbout from '~/components/author_about'
 import AuthorExperience from '~/components/author_experience'
 import AuthorOverview from '~/components/author_overview'
-import AuthorOverviewKeys from '~/components/author_overview_keys/index.vue'
+import AuthorOverviewKeys from '~/components/author_overview_keys'
+import AuthorLoop from '~/components/author_loop'
 
 export default {
 	name: 'author_single',
@@ -77,11 +105,22 @@ export default {
 		AuthorAbout,
 		AuthorExperience,
 		AuthorOverview,
-		AuthorOverviewKeys
+		AuthorOverviewKeys,
+		AuthorLoop
 	},
 	layout: 'default',
 	data: () => {
 		return {
+			casinoLoader: 0,
+			articleLoader: 0,
+			limitPosts: 4,
+			blogLoader: 0,
+			badgeList: {
+				['Verified User']: 'verified_user',
+				['Active User']: 'active_user',
+				['Editor-in-Chief']: 'editor_in_chief',
+				['Editor Writer']: 'editor_writer'
+			},
 			titleSettings: {
 				color: 'cairo',
 				size: 'x-large',
@@ -91,7 +130,26 @@ export default {
 			}
 		}
 	},
-
+	methods: {
+		async showMoreCasino() {
+			this.casinoLoader++
+			const request = new DAL_Builder()
+			const response = await request
+				.postType('author/casinos')
+				.url(`${this.$route.params.id}?offset=${this.casinoLoader * this.limitPosts}&limit=${this.limitPosts}`)
+				.get()
+			this.casinos = this.casinos.concat(response.data.body.posts)
+		},
+		async showMoreArticles() {
+			this.articleLoader++
+			const request = new DAL_Builder()
+			const response = await request
+				.postType('author/articles')
+				.url(`${this.$route.params.id}?offset=${this.articleLoader * this.limitPosts}&limit=${this.limitPosts}`)
+				.get()
+			this.articles = this.articles.concat(response.data.body.posts)
+		}
+	},
 	async asyncData({ route, error, store }) {
 		if (route.params.id) {
 			const request = new DAL_Builder()
@@ -100,8 +158,8 @@ export default {
 				error({ statusCode: 404, message: 'Post not found' })
 			} else {
 				const data = helper.headDataMixin(response.data, route)
-				const { casinos, reviews, id } = response.data.body
-				return { data, casinos, reviews, id }
+				const { casinos, reviews, id, casinos_total, articles, articles_total } = response.data.body
+				return { data, casinos, casinos_total, reviews, id, articles, articles_total }
 			}
 		} else {
 			error({ statusCode: 404, message: 'Post not found' })

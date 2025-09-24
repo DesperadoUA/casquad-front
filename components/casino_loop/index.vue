@@ -79,9 +79,6 @@ export default {
 	margin-left: 10px;
 }
 @media (max-width: 767px) {
-	.casino_loop {
-		padding-bottom: 40px;
-	}
 	.items-more {
 		margin-top: 0px;
 		width: 272px;

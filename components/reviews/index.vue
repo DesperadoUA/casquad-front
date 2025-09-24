@@ -191,7 +191,6 @@ export default {
 	border: 1px solid rgba(255, 255, 255, 0.15);
 	padding: 27px 22px;
 	background: var(--cucuta);
-	margin-bottom: 40px;
 }
 .reviews_top {
 	display: flex;

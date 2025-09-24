@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<main class="games_page">
+		<main class="main_wrapper">
 			<Gradient />
 			<div class="container z-index-3" v-if="data.body.h1">
 				<div class="h1_wrapper">
@@ -25,27 +25,29 @@
 			<div class="container z-index-3 container_providers">
 				<ProviderFilter :value="data.body.vendors" />
 			</div>
-			<div class="container z-index-3 container_game_week">
-				<div class="left">
-					<GameBigCard
-						v-if="data.body.game_week.length"
-						:link="data.body.game_week[0].permalink"
-						:src="data.body.game_week[0].thumbnail"
-						:title="data.body.game_week[0].title"
-					/>
+			<div class="container z-index-3">
+				<div class="container_game_week">
+					<div class="left">
+						<GameBigCard
+							v-if="data.body.game_week.length"
+							:link="data.body.game_week[0].permalink"
+							:src="data.body.game_week[0].thumbnail"
+							:title="data.body.game_week[0].title"
+						/>
+					</div>
+					<div class="right">
+						<GameMainCard
+							v-for="(item, index) in gamesWeek"
+							:key="index"
+							:link="item.permalink"
+							:src="item.thumbnail"
+							:title="item.title"
+						/>
+					</div>
 				</div>
-				<div class="right">
-					<GameMainCard
-						v-for="(item, index) in gamesWeek"
-						:key="index"
-						:link="item.permalink"
-						:src="item.thumbnail"
-						:title="item.title"
-					/>
+				<div class="container_loop" v-if="data.body.games.length">
+					<SlotLoop :value="data.body.games" />
 				</div>
-			</div>
-			<div class="container container_loop" v-if="data.body.games.length">
-				<SlotLoop :value="data.body.games" />
 			</div>
 			<div class="container content_container" v-if="data.body.content">
 				<Content :value="data.body.content" />
@@ -146,26 +148,20 @@ export default {
 	margin-top: 12px;
 	padding-left: 0px;
 	padding-right: 0px;
+	width: 100%;
 }
 .container_providers {
-	padding: var(--s) 0px 21px 0px;
-}
-.content_container {
-	margin-top: 40px;
-	margin-bottom: 40px;
+	padding: 0;
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
 }
 @media (max-width: 767px) {
-	.content_container {
-		margin-top: 20px;
-		margin-bottom: 20px;
-	}
 	.container_providers {
 		padding-left: 15px;
 	}
 	.container_game_week {
 		flex-wrap: wrap;
-		padding-left: 15px;
-		padding-right: 15px;
 	}
 	.left {
 		width: 100%;

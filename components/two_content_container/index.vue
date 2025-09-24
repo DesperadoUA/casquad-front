@@ -3,7 +3,7 @@
 		<div class="left">
 			<slot name="left" />
 		</div>
-		<div class="right">
+		<div class="right" v-if="$slots.right">
 			<slot name="right" />
 		</div>
 	</div>
@@ -30,6 +30,7 @@ export default {
 @media (max-width: 767px) {
 	.two_content_container {
 		flex-wrap: wrap;
+		gap: var(--gap-components);
 	}
 	.left {
 		width: 100%;

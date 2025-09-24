@@ -557,7 +557,7 @@ export default {
 	CASINO_REVIEWS: {
 		UA: 'Огляди казино',
 		RU: 'Обзоры казино',
-		EN: 'Casino reviews'
+		EN: 'Casino Reviews'
 	},
 	GO_CASINO_WEBSITE: {
 		UA: 'Перейти на сайт казино',
@@ -886,5 +886,10 @@ export default {
 		UA: 'Освіта',
 		RU: 'Образование',
 		EN: 'Education'
+	},
+	BLOG_ARTICLES: {
+		UA: 'Статті блогу',
+		RU: 'Статьи блога',
+		EN: 'Blog Articles'
 	}
 }

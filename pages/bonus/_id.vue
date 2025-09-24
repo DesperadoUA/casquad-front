@@ -1,7 +1,7 @@
 <template>
-	<main class="bonus_page">
+	<main class="main_wrapper">
 		<Gradient />
-		<div class="container z-index-3">
+		<div class="container z-index-3 main_gap">
 			<div class="h1_wrapper">
 				<gradientWrapper>
 					<AText tag="h1" :attributes="titleSettings">{{ data.body.h1 }}</AText>
@@ -26,15 +26,17 @@
 			</div>
 			<TwoContentContainer>
 				<template v-slot:left>
-					<Banner v-if="data.body.banner" :src="data.body.banner" :alt="`${data.body.title}`" />
-					<div class="action_container">
-						<button class="action" @click="refActivate(data.body.casino.ref, geo)">{{ t('GET_BONUS') }}</button>
-					</div>
-					<div class="content_container">
-						<Content :value="data.body.content" />
-					</div>
-					<div class="action_container">
-						<button class="action" @click="refActivate(data.body.casino.ref, geo)">{{ t('GET_BONUS') }}</button>
+					<div class="main_gap">
+						<Banner v-if="data.body.banner" :src="data.body.banner" :alt="`${data.body.title}`" />
+						<div class="action_container">
+							<button class="action" @click="refActivate(data.body.casino.ref, geo)">{{ t('GET_BONUS') }}</button>
+						</div>
+						<div class="content_container">
+							<Content :value="data.body.content" />
+						</div>
+						<div class="action_container">
+							<button class="action" @click="refActivate(data.body.casino.ref, geo)">{{ t('GET_BONUS') }}</button>
+						</div>
 					</div>
 				</template>
 				<template v-slot:right>
@@ -141,8 +143,6 @@ export default {
 	justify-content: space-between;
 }
 .action_container {
-	padding-top: var(--m);
-	padding-bottom: var(--m);
 	display: flex;
 	justify-content: center;
 }

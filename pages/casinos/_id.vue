@@ -1,8 +1,8 @@
 <template>
 	<div>
-		<main class="category_page">
+		<main class="main_wrapper">
 			<Gradient />
-			<div class="container z-index-3">
+			<div class="container z-index-3 main_gap">
 				<div class="h1_wrapper">
 					<gradientWrapper>
 						<Breadcrumbs
@@ -131,21 +131,7 @@ export default {
 </script>
 
 <style scoped>
-.category_page {
-	background: var(--colombo);
-	background-repeat: no-repeat;
-	padding-top: 165px;
-}
-.content_container {
-	margin-bottom: 40px;
-}
 @media (max-width: 767px) {
-	.content_container {
-		margin-bottom: 20px;
-	}
-	.category_page ::v-deep .casino_loop {
-		padding-bottom: 0px;
-	}
 	.aside {
 		padding-top: var(--l);
 	}

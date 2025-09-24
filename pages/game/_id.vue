@@ -1,8 +1,8 @@
 <template>
 	<div>
-		<main class="game_page">
+		<main class="main_wrapper">
 			<Gradient />
-			<div class="container container_top_game z-index-3">
+			<div class="container container_top_game z-index-3 main_gap">
 				<div class="h1_wrapper">
 					<gradientWrapper>
 						<Breadcrumbs
@@ -213,14 +213,6 @@ export default {
 }
 </script>
 <style scoped>
-.game_page {
-	background: var(--colombo);
-	background-repeat: no-repeat;
-	padding-top: 165px;
-	display: flex;
-	flex-direction: column;
-	gap: var(--gap-components);
-}
 .symbols {
 	background: var(--cucuta);
 	padding-top: 20px;

@@ -1,8 +1,8 @@
 <template>
 	<div>
-		<main class="vendor_page">
+		<main class="main_wrapper">
 			<Gradient />
-			<div class="container z-index-3">
+			<div class="container z-index-3 main_gap">
 				<div class="h1_wrapper">
 					<gradientWrapper>
 						<Breadcrumbs
@@ -21,14 +21,16 @@
 						<date :value="data.body.update_at.slice(0, 10)" />
 					</gradientWrapper>
 				</div>
-				<div class="main_container">
+				<div class="main_container main_gap">
 					<TwoContentContainer>
 						<template v-slot:left>
-							<div class="banner_wrapper" v-if="data.body.banner">
-								<Banner :src="data.body.banner" :alt="`${data.body.title} Logo`" />
-							</div>
-							<div class="content_container">
-								<Content :value="data.body.content" />
+							<div class="main_gap">
+								<div class="banner_wrapper" v-if="data.body.banner">
+									<Banner :src="data.body.banner" :alt="`${data.body.title} Logo`" />
+								</div>
+								<div class="content_container">
+									<Content :value="data.body.content" />
+								</div>
 							</div>
 						</template>
 						<template v-slot:right>
@@ -45,21 +47,25 @@
 							<VideoGallery :posts="videoListWrapper(data.body.video)" />
 						</div>
 					</div>
-					<div class="section_title_wrapper available_title">
-						<AText tag="div" :attributes="mainContainerTitle">{{ t('AVAILABLE_THESE_CASINOS') }}</AText>
-					</div>
-					<div class="casino_wrapper">
-						<TwoContentContainer>
-							<template v-slot:left>
-								<CasinoLoop :value="casinos" />
-								<div class="container_loop" v-if="data.body.games.length">
-									<AText tag="div" :attributes="titleSlotsSettings">
-										{{ t('BEST_GAMES_PROVIDER') }} {{ data.body.title }}
-									</AText>
-									<SlotLoop :value="data.body.games" />
-								</div>
-							</template>
-						</TwoContentContainer>
+					<div>
+						<div class="section_title_wrapper available_title">
+							<AText tag="div" :attributes="mainContainerTitle">{{ t('AVAILABLE_THESE_CASINOS') }}</AText>
+						</div>
+						<div class="casino_wrapper">
+							<TwoContentContainer>
+								<template v-slot:left>
+									<div class="main_gap">
+										<CasinoLoop :value="casinos" />
+										<div class="container_loop" v-if="data.body.games.length">
+											<AText tag="div" :attributes="titleSlotsSettings">
+												{{ t('BEST_GAMES_PROVIDER') }} {{ data.body.title }}
+											</AText>
+											<SlotLoop :value="data.body.games" />
+										</div>
+									</div>
+								</template>
+							</TwoContentContainer>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -204,37 +210,16 @@ export default {
 </script>
 
 <style scoped>
-.vendor_page {
-	background: var(--colombo);
-	background-repeat: no-repeat;
-	padding-top: 165px;
-}
-.slots_title {
-	font-size: 22px;
-	margin-bottom: 30px;
-}
-.casino_wrapper {
-	padding-top: var(--l);
-}
-.banner_wrapper {
-	padding-bottom: var(--m);
-}
 .container_loop {
 	border: 1px solid rgba(255, 255, 255, 0.15);
 	background: rgba(27, 24, 49, 1);
-	margin-top: 40px;
 	border-radius: 20px;
 	padding: 32px 22px;
 	max-width: 820px;
 }
-.video_gallery {
-	padding-top: 40px;
-}
-.video_title {
-	margin-bottom: 24px;
-}
-.available_title {
-	margin-top: 40px;
+.available_title,
+.slots_title {
+	margin-bottom: 20px;
 }
 @media (max-width: 767px) {
 	.content_container {
@@ -242,27 +227,14 @@ export default {
 		margin-right: 0;
 		width: 100%;
 	}
-	.aside {
-		margin-top: 20px;
-	}
 	.aside_bonus_wrapper {
 		width: 100%;
-	}
-	.casino_wrapper {
-		padding-top: var(--m);
-		padding-bottom: var(--m);
 	}
 	.container_loop {
 		margin-top: 0px;
 	}
-	.available_title {
-		margin-top: 20px;
-	}
 }
 @media (min-width: 768px) and (max-width: 1200px) {
-	.aside {
-		margin-top: 20px;
-	}
 	.aside_bonus_wrapper {
 		width: 48%;
 	}

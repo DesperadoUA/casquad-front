@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<main class="news_page">
+		<main class="main_wrapper">
 			<Gradient />
 			<div class="container z-index-3">
 				<div class="h1_wrapper">
@@ -28,7 +28,7 @@
 			<div class="container content_container">
 				<Content :value="data.body.content" />
 			</div>
-			<div class="container">
+			<div class="container" v-if="data.body.faq.length">
 				<div class="faq_container">
 					<Faq :value="data.body.faq" />
 				</div>
@@ -85,23 +85,3 @@ export default {
 	}
 }
 </script>
-<style scoped>
-.news_page {
-	background: var(--colombo);
-	background-repeat: no-repeat;
-	padding-top: 165px;
-}
-.news_container {
-	display: flex;
-	justify-content: space-between;
-	margin-top: var(--l);
-}
-.content_container {
-	margin-top: 40px;
-}
-@media (max-width: 767px) {
-	.content_container {
-		margin-top: 20px;
-	}
-}
-</style>

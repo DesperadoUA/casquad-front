@@ -1,7 +1,7 @@
 <template>
-	<main class="casino_page">
+	<main class="main_wrapper">
 		<Gradient />
-		<div class="container z-index-3">
+		<div class="container z-index-3 main_gap">
 			<div class="h1_wrapper">
 				<gradientWrapper>
 					<Breadcrumbs
@@ -27,7 +27,7 @@
 			<div class="main_container">
 				<TwoContentContainer>
 					<template v-slot:left>
-						<div class="left_wrapper">
+						<div class="left_wrapper main_gap">
 							<div class="casino_card_container">
 								<CasinoCard
 									:src="data.body.thumbnail"
@@ -273,32 +273,11 @@ export default {
 	}
 }
 </script>
-<style>
-.casino_page .reviews_wrapper {
-	margin-bottom: 0px;
-}
-</style>
 <style scoped>
-.casino_page {
-	background: url('/img/topBg.webp') top center var(--colombo);
-	background-repeat: no-repeat;
-	padding-top: 165px;
-	display: flex;
-	flex-direction: column;
-	gap: var(--gap-components);
-}
-.casino_page .h1_wrapper {
-	margin-bottom: 40px;
-}
-.similar_casinos {
-	padding-bottom: var(--l);
-	padding-top: var(--l);
-}
 .casino_characters_container,
 .casino_slot_container {
 	border: 1px solid rgba(255, 255, 255, 0.15);
 	background: rgba(27, 24, 49, 1);
-	margin-top: 40px;
 	border-radius: 20px;
 	padding: 32px 22px;
 }
@@ -343,15 +322,6 @@ export default {
 	}
 	.slot_loop {
 		gap: 10px;
-	}
-	.casino_page {
-		padding-top: 150px;
-	}
-	.casino_slot_container {
-		margin-bottom: 40px;
-	}
-	.aside_bonus_wrapper {
-		width: 100%;
 	}
 }
 @media (min-width: 768px) and (max-width: 1200px) {

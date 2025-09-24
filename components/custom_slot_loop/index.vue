@@ -40,7 +40,7 @@ export default {
 	data() {
 		return {
 			numberPostOnQuery: NumberPostOnQuery,
-            postCurrentPage: 0,
+			postCurrentPage: 0,
 			btnSettings: {
 				color: 'cairo',
 				class: 'load_more',
@@ -54,20 +54,20 @@ export default {
 			}
 		}
 	},
-    computed: {
+	computed: {
 		currentPosts() {
 			return this.value.slice(0, this.numberPostOnQuery * this.currentPage)
 		},
-        hideBtnShowMore() {
-            return this.value.length > this.numberPostOnQuery * this.currentPage
-        },
-        currentPage() {
-            const device = this.device || 'DC'
-            const settingsPage = START_PAGE[device]
-            return this.postCurrentPage + settingsPage
-        }
+		hideBtnShowMore() {
+			return this.value.length > this.numberPostOnQuery * this.currentPage
+		},
+		currentPage() {
+			const device = this.device || 'DC'
+			const settingsPage = START_PAGE[device]
+			return this.postCurrentPage + settingsPage
+		}
 	},
-    methods: {
+	methods: {
 		postShowMore() {
 			this.postCurrentPage += 1
 		}
@@ -103,6 +103,9 @@ export default {
 	.slot_loop {
 		justify-content: space-between;
 		padding-bottom: 20px;
+	}
+	.items-more {
+		margin-top: 0;
 	}
 }
 @media (min-width: 768px) and (max-width: 1200px) {

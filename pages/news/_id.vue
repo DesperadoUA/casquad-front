@@ -1,7 +1,7 @@
 <template>
-	<main class="news_page">
+	<main class="main_wrapper">
 		<Gradient />
-		<div class="container z-index-3">
+		<div class="container z-index-3 main_gap">
 			<div class="h1_wrapper">
 				<gradientWrapper>
 					<Breadcrumbs
@@ -26,9 +26,11 @@
 			</div>
 			<TwoContentContainer>
 				<template v-slot:left>
-					<Banner :src="data.body.thumbnail" :alt="`${data.body.title} Logo`" />
-					<div class="content_container">
-						<Content :value="data.body.content" />
+					<div class="main_gap">
+						<Banner :src="data.body.thumbnail" :alt="`${data.body.title} Logo`" />
+						<div class="content_container">
+							<Content :value="data.body.content" />
+						</div>
 					</div>
 				</template>
 				<template v-slot:right>
@@ -66,15 +68,15 @@
 					<AText tag="div" :attributes="mainContainerTitle">{{ t('LAST_NEWS') }}</AText>
 				</div>
 				<div class="news_container">
-					<NewsMainCard
-						v-for="item in data.body.posts"
-						:key="item.title"
-						:link="item.permalink"
-						:src="item.thumbnail"
-						:title="item.title"
-						:date="item.create_at.slice(0, 10)"
-						:desc="item.short_desc"
-					/>
+					<div class="news_item" v-for="item in data.body.posts" :key="item.title">
+						<NewsMainCard
+							:link="item.permalink"
+							:src="item.thumbnail"
+							:title="item.title"
+							:date="item.create_at.slice(0, 10)"
+							:desc="item.short_desc"
+						/>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -154,11 +156,6 @@ export default {
 }
 </script>
 <style scoped>
-.news_page {
-	background: var(--colombo);
-	background-repeat: no-repeat;
-	padding-top: 165px;
-}
 .sub_title {
 	margin-bottom: 16px;
 }
@@ -181,23 +178,11 @@ export default {
 	justify-content: space-between;
 	margin-top: var(--l);
 }
-.casino_wrapper {
-	padding-top: var(--l);
-	padding-bottom: var(--l);
-}
-.content_container {
-	margin-top: 40px;
-	margin-bottom: 40px;
-}
 @media (max-width: 767px) {
 	.content_container {
 		margin-left: 0;
 		margin-right: 0;
 		width: 100%;
-		margin-top: 20px;
-	}
-	.aside {
-		margin-bottom: 40px;
 	}
 	.news_container {
 		gap: 20px;
@@ -206,10 +191,6 @@ export default {
 	}
 	.news_container .item:last-child {
 		margin-right: 20px;
-	}
-	.casino_wrapper {
-		padding-top: var(--m);
-		padding-bottom: var(--m);
 	}
 }
 @media (min-width: 768px) and (max-width: 1200px) {

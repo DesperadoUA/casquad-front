@@ -61,9 +61,6 @@ export default {
 }
 </script>
 <style scoped>
-.root {
-	margin-bottom: 40px;
-}
 .items-more {
 	display: flex;
 	justify-content: center;

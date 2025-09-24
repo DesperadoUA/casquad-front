@@ -49,7 +49,7 @@ export default {
 				size: 'small',
 				color: 'cairo',
 				weight: 'regular',
-				class: 'date'
+				class: 'text_size_x-small'
 			}
 		}
 	},
@@ -89,11 +89,11 @@ export default {
 </script>
 <style scoped>
 .item {
-	width: 280px;
-	height: 365px;
+	width: 100%;
 	background: rgba(255, 255, 255, 0.1);
 	padding: var(--xs);
 	border-radius: var(--m);
+	height: 100%;
 }
 .img_wrapper {
 	width: 100%;
@@ -107,11 +107,12 @@ export default {
 }
 .center {
 	padding: var(--m) var(--s);
-	height: 190px;
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
 }
 .desc {
 	font-size: 10px;
-	margin-top: var(--m);
 	-webkit-line-clamp: 3;
 	display: inline;
 	text-overflow: ellipsis;
@@ -119,19 +120,6 @@ export default {
 	display: -webkit-box;
 	-webkit-box-orient: vertical;
 	word-wrap: break-word;
-}
-::v-deep .read_more {
-	-webkit-line-clamp: 2;
-	display: inline;
-	text-overflow: ellipsis;
-	overflow: hidden;
-	display: -webkit-box;
-	-webkit-box-orient: vertical;
-	word-wrap: break-word;
-}
-.date {
-	font-size: 10px;
-	margin-top: var(--xs);
 }
 .bottom {
 	padding: 0 var(--s);

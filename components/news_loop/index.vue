@@ -1,15 +1,15 @@
 <template>
 	<div>
 		<div class="news_loop">
-			<NewsMainCard
-				v-for="item in currentPosts"
-				:key="item.title"
-				:link="item.permalink"
-				:src="item.thumbnail"
-				:title="item.title"
-				:date="item.create_at.slice(0, 10)"
-				:desc="item.short_desc"
-			/>
+			<div class="news_item" v-for="item in currentPosts" :key="item.title">
+				<NewsMainCard
+					:link="item.permalink"
+					:src="item.thumbnail"
+					:title="item.title"
+					:date="item.create_at.slice(0, 10)"
+					:desc="item.short_desc"
+				/>
+			</div>
 		</div>
 		<div class="items-more" v-if="hideBtnShowMore">
 			<div class="btn_wrapper">
@@ -59,9 +59,8 @@ export default {
 <style scoped>
 .news_loop {
 	display: flex;
-	gap: 40px var(--m);
+	gap: 20px;
 	flex-wrap: wrap;
-	justify-content: space-between;
 }
 .items-more {
 	display: flex;

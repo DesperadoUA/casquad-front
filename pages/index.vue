@@ -1,6 +1,5 @@
 <template>
-	<main class="main_page">
-		{{ data.body.geo }}
+	<main class="main_page main_wrapper">
 		<Gradient modifier="large" v-if="device !== 'MOB'" />
 		<div class="container banner_wrapper">
 			<div class="ttl_container">
@@ -80,7 +79,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="main_container">
+			<div class="main_container main_gap">
 				<div class="h1_wrapper">
 					<gradientWrapper>
 						<AText tag="h2" :attributes="mainContainerTitle">{{ t('BEST_ONLINE_CASINOS') }}</AText>
@@ -120,22 +119,22 @@
 					</LinkWithArrow>
 				</div>
 				<div class="news_container">
-					<NewsMainCard
-						v-for="item in data.body.news.slice(0, 4)"
-						:key="item.title"
-						:link="item.permalink"
-						:src="item.thumbnail"
-						:title="item.title"
-						:date="item.create_at.slice(0, 10)"
-						:desc="item.short_desc"
-					/>
+					<div class="news_item" v-for="item in data.body.news.slice(0, 4)" :key="item.title">
+						<NewsMainCard
+							:link="item.permalink"
+							:src="item.thumbnail"
+							:title="item.title"
+							:date="item.create_at.slice(0, 10)"
+							:desc="item.short_desc"
+						/>
+					</div>
 				</div>
 			</div>
 		</div>
 		<div class="container content_container">
 			<Content :value="data.body.content" />
 		</div>
-		<div class="container">
+		<div v-if="data.body.faq.length" class="container">
 			<div class="faq_container">
 				<Faq :value="data.body.faq" />
 			</div>
@@ -462,9 +461,6 @@ export default {
 	position: relative;
 	z-index: 3;
 }
-.content_container {
-	margin-top: 40px;
-}
 .h1_wrapper ::v-deep .category_filter_wrapper {
 	padding: 0px;
 }
@@ -515,9 +511,6 @@ export default {
 	}
 	.main_container {
 		margin-top: 0px;
-	}
-	.content_container {
-		margin-top: 20px;
 	}
 }
 @media (min-width: 768px) and (max-width: 1200px) {
