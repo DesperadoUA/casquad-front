@@ -31,7 +31,7 @@
 					:position="data.body.position"
 					:advantages="data.body.advantages"
 					:img="data.body.thumbnail"
-					:totalPosts="casinos_total + articles_total || 0"
+					:totalPosts="total_posts || 0"
 					:role="badgeList[data.body.role]"
 					:roleText="data.body.role"
 				/>
@@ -158,8 +158,8 @@ export default {
 				error({ statusCode: 404, message: 'Post not found' })
 			} else {
 				const data = helper.headDataMixin(response.data, route)
-				const { casinos, reviews, id, casinos_total, articles, articles_total } = response.data.body
-				return { data, casinos, casinos_total, reviews, id, articles, articles_total }
+				const { casinos, reviews, id, articles, total_posts, articles_total, casinos_total } = response.data.body
+				return { data, casinos, reviews, id, articles, total_posts, articles_total, casinos_total }
 			}
 		} else {
 			error({ statusCode: 404, message: 'Post not found' })

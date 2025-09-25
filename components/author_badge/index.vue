@@ -1,5 +1,5 @@
 <template>
-	<span class="badge text_size_medium" :class="variant">
+	<span class="badge text_size_medium text_weight_regular" :class="variant">
 		<AImg :attributes="{ ...imgSettings, alt: 'writer icon' }" :src="variants[variant]" /> {{ text }}
 	</span>
 </template>

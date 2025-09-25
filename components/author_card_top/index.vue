@@ -6,7 +6,7 @@
 					<AImg :attributes="{ ...imgSettings, alt: `icon` }" class="border_radius_50" :src="img" />
 				</div>
 				<div class="user_meta">
-					<div class="user_name text_size_large text_color_cairo text_weight_bold">
+					<div class="user_name text_size_x-large text_color_cairo text_weight_bold">
 						{{ title }} <AuthorBadge :variant="role" :text="roleText" />
 					</div>
 					<div class="user_position text_size_small text_color_cordoba">

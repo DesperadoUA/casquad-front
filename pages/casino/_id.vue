@@ -77,8 +77,8 @@
 				</TwoContentContainer>
 			</div>
 		</div>
-		<div class="container">
-			<div class="video_gallery" v-if="data.body.video.length">
+		<div class="container" v-if="data.body.video.length">
+			<div class="video_gallery">
 				<AText tag="div" v-if="data.body.video_title" :attributes="videoTitleSettings">{{
 					data.body.video_title
 				}}</AText>
