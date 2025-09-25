@@ -48,6 +48,20 @@
 				</template>
 			</TwoContentContainer>
 		</div>
+		<div class="container" v-if="author_summary && author">
+			<AuthorSummary
+				:social="author.social"
+				:short_desc="author_summary"
+				:title="author.title"
+				:create_at="author.create_at.slice(0, 10)"
+				:position="author.position"
+				:img="author.thumbnail"
+				:totalPosts="author.total_posts || 0"
+				:role="badgeList[author.role]"
+				:roleText="author.role"
+				:permalink="author.permalink"
+			/>
+		</div>
 		<section class="similar_casino_wrapper" v-if="data.body.casinos.length">
 			<div class="container">
 				<div class="section_title_wrapper">
@@ -100,6 +114,8 @@ import components from '~/mixins/components'
 import Breadcrumbs from '~/components/breadcrumbs'
 import gradientWrapper from '~/components/gradient_wrapper'
 import date from '~/components/date'
+import AuthorSummary from '~/components/author_summary'
+import config from '~/config'
 
 export default {
 	name: 'news_single',
@@ -114,7 +130,8 @@ export default {
 		CasinoLoop,
 		Breadcrumbs,
 		gradientWrapper,
-		date
+		date,
+		AuthorSummary
 	},
 	layout: 'default',
 	data: () => {
@@ -136,7 +153,8 @@ export default {
 				color: 'cairo',
 				size: 'x-large'
 			},
-			newsRootSlug: NEWS_ROOT_SLUG
+			newsRootSlug: NEWS_ROOT_SLUG,
+			badgeList: config.AUTHOR_BADGE_LIST
 		}
 	},
 	async asyncData({ route, error }) {
@@ -147,7 +165,9 @@ export default {
 				error({ statusCode: 404, message: 'Post not found' })
 			} else {
 				const data = helper.headDataMixin(response.data, route)
-				return { data }
+				const { author_summary, authors } = response.data.body
+				const [author] = authors
+				return { data, author_summary, author }
 			}
 		} else {
 			error({ statusCode: 404, message: 'Post not found' })

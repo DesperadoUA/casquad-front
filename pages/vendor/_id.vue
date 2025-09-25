@@ -69,6 +69,20 @@
 					</div>
 				</div>
 			</div>
+			<div class="container" v-if="author_summary && author">
+				<AuthorSummary
+					:social="author.social"
+					:short_desc="author_summary"
+					:title="author.title"
+					:create_at="author.create_at.slice(0, 10)"
+					:position="author.position"
+					:img="author.thumbnail"
+					:totalPosts="author.total_posts || 0"
+					:role="badgeList[author.role]"
+					:roleText="author.role"
+					:permalink="author.permalink"
+				/>
+			</div>
 			<Reviews :posts="reviews" post_type="vendor" :post_id="data.body.id" @changeFilter="changeFilter" />
 			<Cookies />
 		</main>
@@ -95,6 +109,8 @@ import DAL_Review from '~/DAL/review'
 import gradientWrapper from '~/components/gradient_wrapper'
 import date from '~/components/date'
 import AsideBonuses from '~/components/aside_bonuses'
+import AuthorSummary from '~/components/author_summary'
+import config from '~/config'
 
 export default {
 	name: 'single-vendor',
@@ -127,7 +143,8 @@ export default {
 				color: 'cairo',
 				weight: 'bold',
 				class: 'video_title'
-			}
+			},
+			badgeList: config.AUTHOR_BADGE_LIST
 		}
 	},
 	components: {
@@ -143,7 +160,8 @@ export default {
 		Reviews,
 		gradientWrapper,
 		date,
-		AsideBonuses
+		AsideBonuses,
+		AuthorSummary
 	},
 	mixins: [pageTemplate, components, geo],
 	watch: {
@@ -164,8 +182,9 @@ export default {
 				error({ statusCode: 404, message: 'Post not found' })
 			} else {
 				const data = helper.headDataMixin(response.data, route)
-				const { top_bonuses, casinos, reviews, id } = response.data.body
-				return { data, top_bonuses, casinos, reviews, id }
+				const { top_bonuses, casinos, reviews, id, author_summary, authors } = response.data.body
+				const [author] = authors
+				return { data, top_bonuses, casinos, reviews, id, author_summary, author }
 			}
 		} else {
 			error({ statusCode: 404, message: 'Post not found' })

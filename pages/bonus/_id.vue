@@ -45,6 +45,19 @@
 					</aside>
 				</template>
 			</TwoContentContainer>
+			<AuthorSummary
+				v-if="author_summary && author"
+				:social="author.social"
+				:short_desc="author_summary"
+				:title="author.title"
+				:create_at="author.create_at.slice(0, 10)"
+				:position="author.position"
+				:img="author.thumbnail"
+				:totalPosts="author.total_posts || 0"
+				:role="badgeList[author.role]"
+				:roleText="author.role"
+				:permalink="author.permalink"
+			/>
 		</div>
 		<SlickBonus :refLinks="data.body.casino.ref" />
 		<Cookies />
@@ -66,6 +79,8 @@ import gradientWrapper from '~/components/gradient_wrapper/index.vue'
 import date from '~/components/date'
 import geo from '~/mixins/geo'
 import AsideBonuses from '~/components/aside_bonuses'
+import AuthorSummary from '~/components/author_summary'
+import config from '~/config'
 
 export default {
 	name: 'bonus_single',
@@ -78,7 +93,8 @@ export default {
 		Breadcrumbs,
 		gradientWrapper,
 		date,
-		AsideBonuses
+		AsideBonuses,
+		AuthorSummary
 	},
 	layout: 'default',
 	data: () => {
@@ -95,7 +111,8 @@ export default {
 				weight: 'bold',
 				class: 'sub_title'
 			},
-			bonusesRootSlug: BONUSES_ROOT_SLUG
+			bonusesRootSlug: BONUSES_ROOT_SLUG,
+			badgeList: config.AUTHOR_BADGE_LIST
 		}
 	},
 	watch: {
@@ -115,8 +132,9 @@ export default {
 				error({ statusCode: 404, message: 'Post not found' })
 			} else {
 				const data = helper.headDataMixin(response.data, route)
-				const { bonuses } = response.data.body
-				return { data, bonuses }
+				const { bonuses, author_summary, authors } = response.data.body
+				const [author] = authors
+				return { data, bonuses, author_summary, author }
 			}
 		} else {
 			error({ statusCode: 404, message: 'Post not found' })

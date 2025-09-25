@@ -64,6 +64,20 @@
 			<div class="container content_container" v-if="data.body.content">
 				<Content :value="data.body.content" />
 			</div>
+			<div class="container" v-if="author_summary && author">
+				<AuthorSummary
+					:social="author.social"
+					:short_desc="author_summary"
+					:title="author.title"
+					:create_at="author.create_at.slice(0, 10)"
+					:position="author.position"
+					:img="author.thumbnail"
+					:totalPosts="author.total_posts || 0"
+					:role="badgeList[author.role]"
+					:roleText="author.role"
+					:permalink="author.permalink"
+				/>
+			</div>
 			<div class="container" v-if="data.body.faq.length">
 				<div class="faq_container">
 					<Faq :value="data.body.faq" />
@@ -102,6 +116,8 @@ import Reviews from '~/components/reviews'
 import DAL_Review from '~/DAL/review'
 import gradientWrapper from '~/components/gradient_wrapper'
 import date from '~/components/date'
+import AuthorSummary from '~/components/author_summary'
+import config from '~/config'
 
 export default {
 	name: 'game_single',
@@ -117,7 +133,8 @@ export default {
 		Breadcrumbs,
 		Reviews,
 		gradientWrapper,
-		date
+		date,
+		AuthorSummary
 	},
 	layout: 'default',
 	data: () => {
@@ -142,7 +159,8 @@ export default {
 				class: 'title'
 			},
 			isShowDemo: false,
-			slotsRootSlug: SLOTS_ROOT_SLUG
+			slotsRootSlug: SLOTS_ROOT_SLUG,
+			badgeList: config.AUTHOR_BADGE_LIST
 		}
 	},
 	watch: {
@@ -162,8 +180,9 @@ export default {
 				error({ statusCode: 404, message: 'Post not found' })
 			} else {
 				const data = helper.headDataMixin(response.data, route)
-				const { casinos, reviews, id } = response.data.body
-				return { data, casinos, reviews, id }
+				const { casinos, reviews, id, author_summary, authors } = response.data.body
+				const [author] = authors
+				return { data, casinos, reviews, id, author_summary, author }
 			}
 		} else {
 			error({ statusCode: 404, message: 'Post not found' })

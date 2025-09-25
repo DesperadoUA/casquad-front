@@ -90,6 +90,7 @@ import AuthorExperience from '~/components/author_experience'
 import AuthorOverview from '~/components/author_overview'
 import AuthorOverviewKeys from '~/components/author_overview_keys'
 import AuthorLoop from '~/components/author_loop'
+import config from '~/config'
 
 export default {
 	name: 'author_single',
@@ -115,12 +116,7 @@ export default {
 			articleLoader: 0,
 			limitPosts: 4,
 			blogLoader: 0,
-			badgeList: {
-				['Verified User']: 'verified_user',
-				['Active User']: 'active_user',
-				['Editor-in-Chief']: 'editor_in_chief',
-				['Editor Writer']: 'editor_writer'
-			},
+			badgeList: config.AUTHOR_BADGE_LIST,
 			titleSettings: {
 				color: 'cairo',
 				size: 'x-large',

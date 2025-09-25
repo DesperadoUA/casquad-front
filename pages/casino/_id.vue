@@ -90,6 +90,20 @@
 				<TabContent :value="tabContent" />
 			</div>
 		</section>
+		<div v-if="author_summary && author" class="container">
+			<AuthorSummary
+				:social="author.social"
+				:short_desc="author_summary"
+				:title="author.title"
+				:create_at="author.create_at.slice(0, 10)"
+				:position="author.position"
+				:img="author.thumbnail"
+				:totalPosts="author.total_posts || 0"
+				:role="badgeList[author.role]"
+				:roleText="author.role"
+				:permalink="author.permalink"
+			/>
+		</div>
 		<Reviews :posts="reviews" post_type="casino" :post_id="data.body.id" @changeFilter="changeFilter" />
 		<div class="container" v-if="casinos.length">
 			<div class="section_title_wrapper">
@@ -128,6 +142,8 @@ import DAL_Review from '~/DAL/review'
 import gradientWrapper from '~/components/gradient_wrapper'
 import date from '~/components/date'
 import AsideBonuses from '~/components/aside_bonuses'
+import AuthorSummary from '~/components/author_summary'
+import config from '~/config'
 
 export default {
 	name: 'casino_single',
@@ -147,7 +163,8 @@ export default {
 		Reviews,
 		gradientWrapper,
 		date,
-		AsideBonuses
+		AsideBonuses,
+		AuthorSummary
 	},
 	layout: 'default',
 	data: () => {
@@ -190,7 +207,8 @@ export default {
 				trusted: 'BREADCRUMB_CATEGORY_CASINO_TRUSTED_PAGE',
 				best: 'BREADCRUMB_CATEGORY_CASINO_BEST_PAGE'
 			},
-			configCategorySlug: CASINO_CATEGORY_SLUG
+			configCategorySlug: CASINO_CATEGORY_SLUG,
+			badgeList: config.AUTHOR_BADGE_LIST
 		}
 	},
 	computed: {
@@ -229,8 +247,9 @@ export default {
 				error({ statusCode: 404, message: 'Post not found' })
 			} else {
 				const data = helper.headDataMixin(response.data, route)
-				const { casinos, bonuses, reviews, id } = response.data.body
-				return { data, casinos, bonuses, reviews, id }
+				const { casinos, bonuses, reviews, id, author_summary, authors } = response.data.body
+				const [author] = authors
+				return { data, casinos, bonuses, reviews, id, author_summary, author }
 			}
 		} else {
 			error({ statusCode: 404, message: 'Post not found' })
