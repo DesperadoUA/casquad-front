@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<main class="games_page">
+		<main class="games_page main_wrapper">
 			<Gradient />
 			<div class="container z-index-3">
 				<div class="h1_wrapper">
@@ -67,11 +67,3 @@ export default {
 	}
 }
 </script>
-<style scoped>
-.games_page {
-	background: var(--colombo);
-	background-repeat: no-repeat;
-	padding-top: 165px;
-	margin-bottom: 40px;
-}
-</style>
