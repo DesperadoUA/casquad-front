@@ -82,6 +82,7 @@ export default {
 	--container--cms: 960px;
 	--side-gutters: 0px;
 	--gap-components: 40px;
+	--gap-title: 20px;
 
 	/* Fonts */
 	--base-line-height: 1.7;
@@ -668,6 +669,11 @@ Common styles*/
 	display: flex;
 	flex-direction: column;
 	gap: var(--gap-components);
+}
+.sub_gap {
+	gap: var(--gap-title);
+	display: flex;
+	flex-direction: column;
 }
 .news_item {
 	width: calc(25% - 15px);

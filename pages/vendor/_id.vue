@@ -28,6 +28,18 @@
 								<div class="banner_wrapper" v-if="data.body.banner">
 									<Banner :src="data.body.banner" :alt="`${data.body.title} Logo`" />
 								</div>
+								<div class="container_loop" v-if="data.body.games.length">
+									<AText tag="div" :attributes="titleSlotsSettings">
+										{{ t('BEST_GAMES_PROVIDER') }} {{ data.body.title }}
+									</AText>
+									<SlotLoop :value="data.body.games" />
+								</div>
+								<div v-if="data.body.video.length" class="container sub_gap">
+									<AText tag="div" v-if="data.body.video_title" :attributes="videoTitleSettings">{{
+										data.body.video_title
+									}}</AText>
+									<VideoGallery :posts="videoListWrapper(data.body.video)" />
+								</div>
 								<div class="content_container">
 									<Content :value="data.body.content" />
 								</div>
@@ -39,14 +51,6 @@
 							</aside>
 						</template>
 					</TwoContentContainer>
-					<div class="video_gallery" v-if="data.body.video.length">
-						<div class="container">
-							<AText tag="div" v-if="data.body.video_title" :attributes="videoTitleSettings">{{
-								data.body.video_title
-							}}</AText>
-							<VideoGallery :posts="videoListWrapper(data.body.video)" />
-						</div>
-					</div>
 					<div>
 						<div class="section_title_wrapper available_title">
 							<AText tag="div" :attributes="mainContainerTitle">{{ t('AVAILABLE_THESE_CASINOS') }}</AText>
@@ -56,12 +60,6 @@
 								<template v-slot:left>
 									<div class="main_gap">
 										<CasinoLoop :value="casinos" />
-										<div class="container_loop" v-if="data.body.games.length">
-											<AText tag="div" :attributes="titleSlotsSettings">
-												{{ t('BEST_GAMES_PROVIDER') }} {{ data.body.title }}
-											</AText>
-											<SlotLoop :value="data.body.games" />
-										</div>
 									</div>
 								</template>
 							</TwoContentContainer>
@@ -234,7 +232,7 @@ export default {
 	background: rgba(27, 24, 49, 1);
 	border-radius: 20px;
 	padding: 32px 22px;
-	max-width: 820px;
+	max-width: 100%;
 }
 .available_title,
 .slots_title {
