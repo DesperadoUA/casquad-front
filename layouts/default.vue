@@ -71,6 +71,7 @@ export default {
 	--cali: #054e0c;
 	--curitiba: #2a7f33;
 	--cuzco: #ffd600;
+	--casablanca: #3e395a;
 	--xxs: 2px;
 	--xs: 4px;
 	--s: 8px;

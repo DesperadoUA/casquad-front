@@ -25,6 +25,9 @@
 			<div class="container content_container z-index-3" v-if="data.body.content">
 				<Content :value="data.body.content" />
 			</div>
+			<div class="container" v-if="faq.length">
+				<Faq :value="faq" />
+			</div>
 			<Cookies />
 		</main>
 	</div>
@@ -40,12 +43,13 @@ import Breadcrumbs from '~/components/breadcrumbs'
 import components from '~/mixins/components'
 import gradientWrapper from '~/components/gradient_wrapper'
 import date from '~/components/date'
+import Faq from '~/components/faq'
 
 export default {
 	name: 'terms-page',
 	mixins: [pageTemplate, device, components],
 	layout: 'default',
-	components: { Gradient, Breadcrumbs, gradientWrapper, date },
+	components: { Gradient, Breadcrumbs, gradientWrapper, date, Faq },
 	data: () => {
 		return {
 			titleSettings: {
@@ -63,7 +67,8 @@ export default {
 		}
 		const response = await DAL_Page.getData(request)
 		const data = helper.headDataMixin(response.data, route)
-		return { data }
+		const { content, h1, title, update_at, faq } = data.body
+		return { data, content, h1, title, update_at, faq }
 	}
 }
 </script>

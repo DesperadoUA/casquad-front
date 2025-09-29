@@ -10,7 +10,7 @@
 				:key="index"
 			>
 				<div class="faq_question" @click="activate(item)" :class="{ faq_active: item.status === 'open' }">
-					<span itemprop="name">{{ item.question }}</span>
+					<h3 itemprop="name">{{ item.question }}</h3>
 					<span class="faq_close"></span>
 				</div>
 				<div

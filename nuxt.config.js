@@ -22,10 +22,21 @@ export default {
 			/*{ href: 'https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;800&display=swap', rel: 'stylesheet' }*/
 		],
 		script: [
-			{ hid: 'gtag', src: 'https://www.googletagmanager.com/gtag/js?id=G-XK5G5KT3P8' },
-			{ hid: 'gtm', src: '/js/gtm.js' },
-            { hid: 'analytics', src: 'https://analytics.ahrefs.com/analytics.js',  'data-key': "4Janzt1ko61kpMRlF1OaXw" }
-		]
+			{ hid: 'gtag', src: 'https://www.googletagmanager.com/gtag/js?id=G-HDL45Q41TL' },
+			{ hid: 'analytics', src: 'https://analytics.ahrefs.com/analytics.js', 'data-key': '4Janzt1ko61kpMRlF1OaXw' },
+			{
+				hid: 'gtag-init',
+				innerHTML: `
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-HDL45Q41TL');
+        `
+			}
+		],
+		__dangerouslyDisableSanitizersByTagID: {
+			'gtag-init': ['innerHTML']
+		}
 	},
 	serverMiddleware: ['~/serverMiddleware/redirects'],
 	// Global CSS: https://go.nuxtjs.dev/config-css
@@ -68,10 +79,7 @@ export default {
 		],
 		routes: async () => {
 			const request = new DAL_Builder()
-			const { data } = await request
-				.postType('pages')
-				.url('sitemap')
-				.get()
+			const { data } = await request.postType('pages').url('sitemap').get()
 			return data.body.posts
 		}
 	}

@@ -23,10 +23,16 @@
 				</div>
 			</div>
 			<div class="container content_container z-index-3" v-if="content">
-				<Content :value="data.body.content" />
+				<Content :value="content" />
+			</div>
+			<div class="container content_container z-index-3" v-if="content">
+				<Content :value="content" />
 			</div>
 			<div class="container" v-if="faq.length">
-				<Faq :value="faq" />
+				<div class="main_gap">
+					<h2 class="text_color_cairo">{{ t('FAQ_MINIMUM_DEPOSIT_CASINOS') }}</h2>
+					<Faq :value="faq" />
+				</div>
 			</div>
 			<Cookies />
 		</main>
@@ -46,7 +52,7 @@ import date from '~/components/date'
 import Faq from '~/components/faq'
 
 export default {
-	name: 'privacy-policy-page',
+	name: 'minimum-deposit-casinos-page',
 	mixins: [pageTemplate, device, components],
 	layout: 'default',
 	components: { Gradient, Breadcrumbs, gradientWrapper, date, Faq },
@@ -63,7 +69,7 @@ export default {
 	},
 	async asyncData({ store, route }) {
 		const request = {
-			url: 'privacy-policy'
+			url: 'minimum-deposit-casinos'
 		}
 		const response = await DAL_Page.getData(request)
 		const data = helper.headDataMixin(response.data, route)

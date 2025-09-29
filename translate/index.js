@@ -891,5 +891,10 @@ export default {
 		UA: 'Статті блогу',
 		RU: 'Статьи блога',
 		EN: 'Blog Articles'
+	},
+	FAQ_MINIMUM_DEPOSIT_CASINOS: {
+		UA: 'Найчастіші запитання про казино з мінімальним депозитом',
+		RU: 'Часто задаваемые вопросы о казино с минимальным депозитом',
+		EN: 'FAQs About Minimum Deposit Casinos'
 	}
 }

@@ -47,7 +47,7 @@
 						<div class="providers_icon"></div>
 						<div class="providers_loop">
 							<ALink
-								v-for="(item, index) in vendors.slice(0, 4)"
+								v-for="(item, index) in vendors.slice(0, 3)"
 								:href="item.permalink"
 								:attributes="providerLinkSettings"
 								:title="`Goes to ${item.title} page`"
@@ -79,7 +79,7 @@
 					<div class="providers_icon"></div>
 					<div class="providers_loop">
 						<ALink
-							v-for="(item, index) in vendors.slice(0, 4)"
+							v-for="(item, index) in vendors.slice(0, 3)"
 							:href="item.permalink"
 							:attributes="providerLinkSettings"
 							:title="`Go to ${item.title} page`"
@@ -200,8 +200,8 @@ export default {
 			},
 			providerSettings: {
 				class: 'provider_img',
-				width: '54px',
-				height: '34px'
+				width: '45px',
+				height: '28px'
 			},
 			detailActive: false
 		}
@@ -350,9 +350,11 @@ export default {
 .right_right {
 	flex-grow: 1;
 	padding-left: var(--m);
+	display: flex;
+	gap: 16px;
 }
 .advantages {
-	margin-bottom: 20px;
+	margin-bottom: 15px;
 	position: relative;
 	padding-left: 25px;
 }
@@ -369,12 +371,14 @@ export default {
 }
 .providers {
 	display: flex;
-	justify-content: space-between;
+	flex-direction: column;
+	width: 60px;
+	align-items: center;
 }
 .providers_icon {
-	height: 34px;
+	height: 18px;
 	width: 18px;
-	background: url('/img/providers.svg');
+	background-image: url('/img/providers.svg');
 	background-position: center;
 	background-repeat: no-repeat;
 }
@@ -392,12 +396,11 @@ export default {
 .providers_loop {
 	flex-grow: 1;
 	display: flex;
-	justify-content: space-around;
+	flex-direction: column;
+	gap: 7px;
 }
 .provider_link {
 	display: inline-block;
-	width: 54px;
-	height: 34px;
 }
 .provider_img {
 	width: 100%;
@@ -406,9 +409,11 @@ export default {
 	border-radius: var(--s);
 }
 .advantages_wrapper {
-	height: 123px;
+	height: 100%;
+	width: 100%;
 	overflow: hidden;
-	padding-bottom: 5px;
+	border-right: 1px solid var(--casablanca);
+	padding-right: 5px;
 }
 .rating {
 	position: absolute;
@@ -504,6 +509,11 @@ export default {
 		width: 100%;
 		margin: 0 auto;
 		margin-top: 20px;
+		flex-direction: row;
+	}
+	.provider_img {
+		width: 55px;
+		height: auto;
 	}
 	.details_wrapper {
 		display: flex;
@@ -542,6 +552,10 @@ export default {
 	}
 	.label {
 		width: 85px;
+	}
+	.providers_loop {
+		flex-direction: row;
+		justify-content: space-around;
 	}
 }
 @media (min-width: 768px) and (max-width: 1200px) {
@@ -586,6 +600,15 @@ export default {
 		width: 100%;
 		margin: 0 auto;
 		margin-top: 20px;
+		flex-direction: row;
+	}
+	.provider_img {
+		width: 55px;
+		height: auto;
+	}
+	.providers_loop {
+		flex-direction: row;
+		justify-content: space-around;
 	}
 	.details_wrapper {
 		display: flex;
