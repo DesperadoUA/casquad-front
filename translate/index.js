@@ -700,7 +700,7 @@ export default {
 	BEST_ONLINE_CASINOS: {
 		RU: 'Лучшие онлайн казино',
 		UA: 'Найкращі онлайн казино',
-		EN: 'Best Online Casinos'
+		EN: 'Best Online Casinos That Really Pay'
 	},
 	LATEST_GAMBLING_NEWS: {
 		RU: 'Последние новости об азартных играх в Канаде',
@@ -776,6 +776,11 @@ export default {
 		RU: 'Лучшие казино',
 		UA: 'Найкращі казино',
 		EN: 'Best casinos'
+	},
+	BREADCRUMB_MINIMUM_DEPOSIT_CASINOS_PAGE: {
+		RU: 'Минимальный депозит в казино',
+		UA: 'Казино з мінімальним депозитом',
+		EN: 'Minimum deposit casinos'
 	},
 	PLAYERS_FEEDBACK: {
 		RU: 'Отзывы игроков',

@@ -22,25 +22,14 @@ export default {
 			/*{ href: 'https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;800&display=swap', rel: 'stylesheet' }*/
 		],
 		script: [
-			{ hid: 'gtag', src: 'https://www.googletagmanager.com/gtag/js?id=G-HDL45Q41TL' },
+			{ hid: 'gtag', src: 'https://www.googletagmanager.com/gtag/js?id=G-XK5GKT3P8' },
 			{ hid: 'analytics', src: 'https://analytics.ahrefs.com/analytics.js', 'data-key': '4Janzt1ko61kpMRlF1OaXw' },
-			{
-				hid: 'gtag-init',
-				innerHTML: `
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-          gtag('config', 'G-HDL45Q41TL');
-        `
-			}
-		],
-		__dangerouslyDisableSanitizersByTagID: {
-			'gtag-init': ['innerHTML']
-		}
+			{ hid: 'gtm', src: '/js/gtm.js' }
+		]
 	},
 	serverMiddleware: ['~/serverMiddleware/redirects'],
 	// Global CSS: https://go.nuxtjs.dev/config-css
-	css: [],
+	css: ['~/assets/css/pros-cons.css'],
 
 	// Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
 	plugins: [],

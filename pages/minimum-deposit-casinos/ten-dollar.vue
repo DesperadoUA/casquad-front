@@ -12,6 +12,10 @@
 									permalink: '/'
 								},
 								{
+									title: t('BREADCRUMB_MINIMUM_DEPOSIT_CASINOS_PAGE'),
+									permalink: '/minimum-deposit-casinos'
+								},
+								{
 									title,
 									permalink: ''
 								}
@@ -21,9 +25,6 @@
 						<date :value="update_at.slice(0, 10)" />
 					</gradientWrapper>
 				</div>
-			</div>
-			<div class="container content_container z-index-3" v-if="content">
-				<Content :value="content" />
 			</div>
 			<div class="container content_container z-index-3" v-if="content">
 				<Content :value="content" />
@@ -52,7 +53,7 @@ import date from '~/components/date'
 import Faq from '~/components/faq'
 
 export default {
-	name: 'minimum-deposit-casinos-page',
+	name: 'minimum-deposit-casinos-10-dollar',
 	mixins: [pageTemplate, device, components],
 	layout: 'default',
 	components: { Gradient, Breadcrumbs, gradientWrapper, date, Faq },
@@ -69,7 +70,7 @@ export default {
 	},
 	async asyncData({ store, route }) {
 		const request = {
-			url: 'minimum-deposit-casinos'
+			url: 'minimum-deposit-casinos/ten-dollar'
 		}
 		const response = await DAL_Page.getData(request)
 		const data = helper.headDataMixin(response.data, route)
