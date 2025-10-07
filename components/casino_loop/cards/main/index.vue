@@ -354,7 +354,6 @@ export default {
 	gap: 16px;
 }
 .advantages {
-	margin-bottom: 15px;
 	position: relative;
 	padding-left: 25px;
 }
@@ -414,6 +413,10 @@ export default {
 	overflow: hidden;
 	border-right: 1px solid var(--casablanca);
 	padding-right: 5px;
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	gap: 15px;
 }
 .rating {
 	position: absolute;
@@ -540,9 +543,6 @@ export default {
 		margin-top: 10px;
 		padding-bottom: 0px;
 	}
-	.advantages {
-		margin-bottom: 15px;
-	}
 	.action_wrapper {
 		width: 100%;
 		justify-content: center;
@@ -641,9 +641,6 @@ export default {
 		width: 100%;
 		margin-top: 10px;
 		padding-bottom: 0px;
-	}
-	.advantages {
-		margin-bottom: 15px;
 	}
 	.action_wrapper {
 		width: 100%;
