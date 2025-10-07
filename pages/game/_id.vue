@@ -78,7 +78,8 @@
 					:permalink="author.permalink"
 				/>
 			</div>
-			<div class="container" v-if="data.body.faq.length">
+			<div class="container sub_gap" v-if="data.body.faq.length">
+				<AText v-if="data.body.faq_title" tag="h2" :attributes="videoTitleSettings">{{ data.body.faq_title }}</AText>
 				<div class="faq_container">
 					<Faq :value="data.body.faq" />
 				</div>

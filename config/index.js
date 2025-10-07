@@ -3,7 +3,7 @@ export default {
 		UA: 'https://api.casquads.com/api/',
 		RU: 'https://api.casquads.com/api/',
 		EN: 'https://api.casquads.com/api/'
-		//EN: 'http://127.0.0.1:8000/api/'
+		// EN: 'http://127.0.0.1:8000/api/'
 	},
 	BASE_URL: {
 		RU: 'https://casquad.com',

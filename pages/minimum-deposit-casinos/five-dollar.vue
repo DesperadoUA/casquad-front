@@ -31,7 +31,7 @@
 			</div>
 			<div class="container" v-if="faq.length">
 				<div class="main_gap">
-					<h2 class="text_color_cairo">{{ t('FAQ_MINIMUM_DEPOSIT_CASINOS') }}</h2>
+					<h2 class="text_color_cairo">{{ t('FAQ_MINIMUM_DEPOSIT_CASINOS_FIVE_DOLLAR') }}</h2>
 					<Faq :value="faq" />
 				</div>
 			</div>
