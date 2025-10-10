@@ -1,43 +1,40 @@
 <template>
 	<div>
-		<main class="main_wrapper">
-			<Gradient />
+		<main class="main_wrapper_slots">
+			<Gradient modifier="large" />
 			<div class="container container_top_game z-index-3 main_gap">
 				<div class="h1_wrapper">
 					<gradientWrapper>
-						<Breadcrumbs
-							:value="[
-								{
-									title: t('BREADCRUMB_MAIN_PAGE'),
-									permalink: '/'
-								},
-								{
-									title: t('BREADCRUMB_SLOTS_TITLE_PAGE'),
-									permalink: `/${slotsRootSlug}`
-								},
-								{
-									title: data.body.title,
-									permalink: ''
-								}
-							]"
-						/>
-						<AText tag="h1" :attributes="titleSettings">{{ data.body.h1 }}</AText>
-						<date :value="data.body.update_at.slice(0, 10)" />
+						<div class="breadcrumbs_wrapper">
+							<Breadcrumbs
+								:value="[
+									{
+										title: t('BREADCRUMB_MAIN_PAGE'),
+										permalink: '/'
+									},
+									{
+										title: t('BREADCRUMB_SLOTS_TITLE_PAGE'),
+										permalink: `/${slotsRootSlug}`
+									},
+									{
+										title: data.body.title,
+										permalink: ''
+									}
+								]"
+							/>
+						</div>
 					</gradientWrapper>
 				</div>
 				<SlotCard
 					:title="data.body.title"
 					:src="data.body.thumbnail"
-					:rtp="data.body.rtp"
-					:min_bid="data.body.min_bid"
-					:line="data.body.lines"
-					:scheme="data.body.scheme"
 					:demo="data.body.iframe ? true : false"
-					:vendor_title="data.body.vendor.length ? data.body.vendor[0].title : ''"
-					:vendor_permalink="data.body.vendor.length ? data.body.vendor[0].permalink : ''"
-					:vendor_icon="data.body.vendor.length ? data.body.vendor[0].icon : ''"
-					:casinos="casinos"
+					:h1="data.body.h1"
+					:short_desc="data.body.short_desc"
 					:refLinks="Array.isArray(data.body.ref) ? {} : data.body.ref"
+					:date="data.body.update_at.slice(0, 10)"
+					:author_permalink="data.body.authors.length ? data.body.authors[0].permalink : false"
+					:author_title="data.body.authors.length ? data.body.authors[0].title : false"
 					@onClickDemoActivate="onClickDemoActivate"
 				/>
 			</div>
@@ -255,6 +252,10 @@ export default {
 }
 .video_gallery .title {
 	line-height: 32px;
+}
+.breadcrumbs_wrapper {
+	display: flex;
+	justify-content: center;
 }
 @media (max-width: 767px) {
 	.symbols,

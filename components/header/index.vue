@@ -1,11 +1,8 @@
 <template>
 	<header class="header">
 		<div class="container header_container" v-if="device === 'DC'">
-			<div class="header_left">
-				<Logo />
-			</div>
 			<div class="header_center">
-				<Search />
+				<Logo />
 				<div class="wrapper_menu">
 					<Menu />
 				</div>
@@ -51,7 +48,7 @@ export default {
 	},
 	watch: {
 		'$route.params': {
-			handler: function() {
+			handler: function () {
 				this.menuActive = false
 			},
 			deep: true,
@@ -76,23 +73,19 @@ export default {
 	background: transparent;
 	z-index: 4;
 }
-.header_left,
-.header_right {
-	width: 160px;
-}
 .header_right {
 	display: flex;
 	justify-content: flex-end;
+	position: relative;
 }
 .header_container {
 	display: flex;
-	justify-content: space-between;
+	align-items: center;
 }
 .header_center {
-	flex-grow: 1;
+	margin: 0 auto;
 	display: flex;
-	flex-wrap: wrap;
-	justify-content: center;
+	align-items: center;
 }
 .wrapper_menu {
 	margin-top: var(--s);
