@@ -253,10 +253,6 @@ export default {
 .video_gallery .title {
 	line-height: 32px;
 }
-.breadcrumbs_wrapper {
-	display: flex;
-	justify-content: center;
-}
 @media (max-width: 767px) {
 	.symbols,
 	.screenshots {

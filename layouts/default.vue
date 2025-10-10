@@ -682,6 +682,10 @@ Common styles*/
 .news_item {
 	width: calc(25% - 15px);
 }
+.breadcrumbs_wrapper {
+	display: flex;
+	justify-content: center;
+}
 @media (max-width: 576px) {
 	.news_item {
 		width: 100%;

@@ -941,5 +941,20 @@ export default {
 		UA: 'Найчастіші запитання про платежі в казино',
 		RU: 'Часто задаваемые вопросы о платежах в казино',
 		EN: 'FAQ about Casino Payments'
+	},
+	TOP_RATED_CASINO: {
+		UA: 'НАЙКРАЩЕ РЕЙТИНГОВАНЕ КАЗИНО',
+		RU: 'ЛУЧШЕЕ КАЗИНО',
+		EN: 'TOP RATED CASINO'
+	},
+	PLAY_NOW: {
+		UA: 'Грати зараз',
+		RU: 'Играть сейчас',
+		EN: 'Play Now'
+	},
+	MORE_DETAILS: {
+		UA: 'Більше деталей',
+		RU: 'Подробнее',
+		EN: 'More details'
 	}
 }
