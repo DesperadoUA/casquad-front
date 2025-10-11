@@ -32,7 +32,37 @@
 				:author_permalink="data.body.authors.length ? data.body.authors[0].permalink : ''"
 				:author_title="data.body.authors.length ? data.body.authors[0].title : ''"
 			/>
+			<ContentWrapper v-if="data.body.content_1">
+				<ContentSupport :value="data.body.content_1" />
+			</ContentWrapper>
 			<TopCasinoList v-if="casinos.length" :posts="casinos" />
+			<ContentWrapper v-if="data.body.content_2">
+				<ContentSupport :value="data.body.content_2" />
+			</ContentWrapper>
+			<ContentWrapper v-if="data.body.content_3">
+				<ContentSupport :value="data.body.content_3" />
+			</ContentWrapper>
+			<ContentWrapper v-if="data.body.content_4">
+				<ContentSupport :value="data.body.content_4" />
+			</ContentWrapper>
+			<ContentWrapper v-if="data.body.content_5">
+				<ContentSupport :value="data.body.content_5" />
+			</ContentWrapper>
+			<ContentWrapper v-if="data.body.content_6">
+				<ContentSupport :value="data.body.content_6" />
+			</ContentWrapper>
+			<ContentWrapper v-if="data.body.content_7">
+				<ContentSupport :value="data.body.content_7" />
+			</ContentWrapper>
+			<ContentWrapper v-if="data.body.content_8">
+				<ContentSupport :value="data.body.content_8" />
+			</ContentWrapper>
+			<ContentWrapper v-if="data.body.content_9">
+				<ContentSupport :value="data.body.content_9" />
+			</ContentWrapper>
+			<ContentWrapper v-if="data.body.content_10">
+				<ContentSupport :value="data.body.content_10" />
+			</ContentWrapper>
 			<div class="container" v-if="author_summary && author">
 				<AuthorSummary
 					:social="author.social"
@@ -65,6 +95,8 @@ import AuthorSummary from '~/components/author_summary'
 import config from '~/config'
 import TopCasinoList from '~/components/top_casino_list'
 import ArticleBanner from '~/components/article_banner'
+import ContentSupport from '~/components/content/text_2'
+import ContentWrapper from '~/components/content_wrapper'
 
 export default {
 	name: 'article_single',
@@ -75,7 +107,9 @@ export default {
 		gradientWrapper,
 		AuthorSummary,
 		TopCasinoList,
-		ArticleBanner
+		ArticleBanner,
+		ContentSupport,
+		ContentWrapper
 	},
 	layout: 'default',
 	data: () => {

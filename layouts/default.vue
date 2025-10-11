@@ -686,6 +686,92 @@ Common styles*/
 	display: flex;
 	justify-content: center;
 }
+.table-section {
+	width: 100%;
+	margin: 40px 0;
+}
+.table-title {
+	font-weight: 600;
+	font-size: 20px;
+	color: var(--cairo);
+	margin-bottom: 16px;
+	padding-left: 4px;
+}
+.table-wrapper {
+	width: 100%;
+	overflow-x: auto;
+	border-radius: 8px;
+	box-shadow: 0 0 20px rgba(74, 63, 143, 0.3);
+}
+.custom-table {
+	width: 100%;
+	border-collapse: collapse;
+	color: var(--cairo);
+}
+.custom-table thead {
+	background: var(--cleveland);
+}
+.custom-table th {
+	padding: 16px 20px;
+	text-align: left;
+	font-weight: 600;
+	font-size: 15px;
+	color: var(--cairo);
+	border-right: 1px solid rgba(255, 255, 255, 0.1);
+}
+.custom-table th:last-child {
+	border-right: none;
+}
+.custom-table tbody tr {
+	background: rgba(42, 31, 92, 0.5);
+	border-bottom: 1px solid rgba(74, 63, 143, 0.3);
+	transition: background 0.2s ease;
+}
+.custom-table tbody tr:hover {
+	background: rgba(74, 63, 143, 0.3);
+}
+.custom-table tbody tr:last-child {
+	border-bottom: none;
+}
+.custom-table tbody tr:nth-child(odd) {
+	background-color: var(--coruna);
+}
+
+.custom-table tbody tr:nth-child(even) {
+	background-color: var(--cucuta);
+}
+
+.custom-table tbody tr:hover {
+	transition: background 0.3s;
+}
+.custom-table td {
+	padding: 18px 20px;
+	font-weight: 400;
+	font-size: 14px;
+	line-height: 1.5;
+	color: rgba(255, 255, 255, 0.9);
+	border-right: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.custom-table td:last-child {
+	border-right: none;
+}
+/* Респонсив для планшетов */
+@media (max-width: 1024px) {
+	.table-wrapper {
+		border-radius: 6px;
+	}
+
+	.custom-table th,
+	.custom-table td {
+		padding: 14px 16px;
+		font-size: 13px;
+	}
+
+	.table-title {
+		font-size: 18px;
+	}
+}
 @media (max-width: 576px) {
 	.news_item {
 		width: 100%;
