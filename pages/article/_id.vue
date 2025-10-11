@@ -24,7 +24,15 @@
 					</div>
 				</gradientWrapper>
 			</div>
-			<TopCasinoList :posts="casinos" />
+			<ArticleBanner
+				:src="banner"
+				:h1="h1"
+				:short_desc="short_desc"
+				:date="data.body.update_at.slice(0, 10)"
+				:author_permalink="data.body.authors.length ? data.body.authors[0].permalink : ''"
+				:author_title="data.body.authors.length ? data.body.authors[0].title : ''"
+			/>
+			<TopCasinoList v-if="casinos.length" :posts="casinos" />
 			<div class="container" v-if="author_summary && author">
 				<AuthorSummary
 					:social="author.social"
@@ -56,6 +64,7 @@ import gradientWrapper from '~/components/gradient_wrapper'
 import AuthorSummary from '~/components/author_summary'
 import config from '~/config'
 import TopCasinoList from '~/components/top_casino_list'
+import ArticleBanner from '~/components/article_banner'
 
 export default {
 	name: 'article_single',
@@ -65,7 +74,8 @@ export default {
 		Breadcrumbs,
 		gradientWrapper,
 		AuthorSummary,
-		TopCasinoList
+		TopCasinoList,
+		ArticleBanner
 	},
 	layout: 'default',
 	data: () => {
@@ -82,9 +92,9 @@ export default {
 				error({ statusCode: 404, message: 'Post not found' })
 			} else {
 				const data = helper.headDataMixin(response.data, route)
-				const { author_summary, authors, casinos } = response.data.body
+				const { author_summary, authors, casinos, banner, h1, short_desc } = response.data.body
 				const [author] = authors
-				return { data, author_summary, author, casinos }
+				return { data, author_summary, author, casinos, banner, short_desc, h1 }
 			}
 		} else {
 			error({ statusCode: 404, message: 'Post not found' })
