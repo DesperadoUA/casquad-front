@@ -282,5 +282,8 @@ export default {
 	.logo-container {
 		margin: 30px 0 10px;
 	}
+	.casino-card {
+		max-width: 100%;
+	}
 }
 </style>

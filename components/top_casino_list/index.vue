@@ -1,6 +1,6 @@
 <template>
 	<div class="casino-container">
-		<div class="container casino-grid">
+		<div class="casino-grid">
 			<div class="item" v-for="(post, index) in posts" :key="post.title">
 				<CasinoCard :item="post" :counter="index" />
 			</div>

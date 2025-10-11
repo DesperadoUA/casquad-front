@@ -22,7 +22,7 @@
 						author_title
 					}}</NuxtLink>
 				</div>
-				<div class="separator"></div>
+				<div class="separator" v-if="author_title"></div>
 				<div class="meta_item">
 					<AImg :attributes="{ width: '20', height: '20' }" alt="calendar" src="/img/calendar.webp" />
 					<time class="date text_size_large" :datetime="date">{{ date }}</time>
@@ -38,10 +38,8 @@
 import ref from '~/mixins/ref'
 import components from '~/mixins/components'
 import geo from '~/mixins/geo'
-import AImg from '../ui/atoms/img/index.vue'
 export default {
 	name: 'single-game-page',
-	components: { AImg },
 	mixins: [components, ref, geo],
 	data: () => {
 		return {

@@ -1,6 +1,6 @@
 <template>
 	<section class="root" :style="{ backgroundImage: `url(${src})` }">
-		<h1>{{ h1 }}</h1>
+		<h1 class="heading">{{ h1 }}</h1>
 		<div class="description">{{ short_desc }}</div>
 		<div class="meta">
 			<div class="meta_item author" v-if="author_title">
@@ -9,7 +9,7 @@
 					author_title
 				}}</NuxtLink>
 			</div>
-			<div class="separator"></div>
+			<div class="separator" v-if="author_title"></div>
 			<div class="meta_item">
 				<AImg :attributes="{ width: '20', height: '20' }" alt="calendar" src="/img/calendar.webp" />
 				<time class="date text_size_large" :datetime="date">{{ date }}</time>
@@ -18,11 +18,11 @@
 	</section>
 </template>
 <script>
-import AImg from '../ui/atoms/img/index.vue'
+import components from '~/mixins/components'
 
 export default {
 	name: 'article_banner',
-	components: { AImg },
+	mixins: [components],
 	props: {
 		src: {
 			type: String,
@@ -60,10 +60,14 @@ export default {
 <style scoped>
 .root {
 	aspect-ratio: 21/7;
-	border: 1px solid blue;
+	border-radius: var(--m);
 	background-size: cover;
 	display: flex;
 	flex-direction: column;
+	padding: 25px 20px;
+	justify-content: flex-end;
+	align-items: center;
+	gap: 20px;
 }
 .date {
 	color: var(--cairo);
@@ -76,10 +80,36 @@ export default {
 .meta {
 	display: flex;
 	gap: 10px;
-	margin-top: auto;
+	justify-content: center;
 }
 .separator {
 	width: 1px;
 	background: #888b8e;
+}
+.heading {
+	text-align: center;
+	width: 1000px;
+	max-width: 100%;
+	text-align: center;
+	color: var(--cairo);
+	font-size: 50px;
+	line-height: 100%;
+}
+.description {
+	width: 1000px;
+	max-width: 100%;
+	text-align: center;
+	color: var(--cairo);
+	font-size: 12px;
+}
+@media (max-width: 1024px) {
+	.heading {
+		font-size: 36px;
+	}
+}
+@media (max-width: 568px) {
+	.heading {
+		font-size: 36px;
+	}
 }
 </style>
