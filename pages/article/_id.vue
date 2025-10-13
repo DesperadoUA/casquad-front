@@ -1,5 +1,5 @@
 <template>
-	<main class="main_wrapper_slots">
+	<main class="main_wrapper_slots pb-0">
 		<Gradient modifier="large" />
 		<div class="container z-index-3 main_gap">
 			<div class="h1_wrapper">
@@ -39,9 +39,10 @@
 			<ContentWrapper v-if="data.body.content_2">
 				<ContentSupport :value="data.body.content_2" />
 			</ContentWrapper>
-			<ContentWrapper v-if="data.body.content_3">
+			<div class="main_gap" v-if="data.body.content_3">
 				<ContentSupport :value="data.body.content_3" />
-			</ContentWrapper>
+				<GameSlider :posts="data.body.games" />
+			</div>
 			<ContentWrapper v-if="data.body.content_4">
 				<ContentSupport :value="data.body.content_4" />
 			</ContentWrapper>
@@ -57,13 +58,21 @@
 			<ContentWrapper v-if="data.body.content_8">
 				<ContentSupport :value="data.body.content_8" />
 			</ContentWrapper>
+			<h2 class="text_color_cairo m-0" v-if="data.body.pros_cons_title">{{ data.body.pros_cons_title }}</h2>
+			<ProsCons
+				v-if="data.body.pros.length || data.body.cons.length"
+				:prosList="data.body.pros"
+				:consList="data.body.cons"
+				:prosTitle="data.body.pros_title"
+				:consTitle="data.body.cons_title"
+			/>
 			<ContentWrapper v-if="data.body.content_9">
 				<ContentSupport :value="data.body.content_9" />
 			</ContentWrapper>
 			<ContentWrapper v-if="data.body.content_10">
 				<ContentSupport :value="data.body.content_10" />
 			</ContentWrapper>
-			<div class="container" v-if="author_summary && author">
+			<div v-if="author_summary && author">
 				<AuthorSummary
 					:social="author.social"
 					:short_desc="author_summary"
@@ -77,7 +86,9 @@
 					:permalink="author.permalink"
 				/>
 			</div>
+			<Reviews :posts="reviews" post_type="article" :post_id="data.body.id" @changeFilter="changeFilter" />
 		</div>
+		<LatestNews v-if="data.body.news.length" :posts="data.body.news" :title="t('LAST_NEWS')" />
 		<Cookies />
 	</main>
 </template>
@@ -97,6 +108,10 @@ import TopCasinoList from '~/components/top_casino_list'
 import ArticleBanner from '~/components/article_banner'
 import ContentSupport from '~/components/content/text_2'
 import ContentWrapper from '~/components/content_wrapper'
+import ProsCons from '~/components/pros_cons'
+import GameSlider from '~/components/game_slider'
+import LatestNews from '~/components/latest_news'
+import DAL_Review from '~/DAL/review'
 
 export default {
 	name: 'article_single',
@@ -109,7 +124,10 @@ export default {
 		TopCasinoList,
 		ArticleBanner,
 		ContentSupport,
-		ContentWrapper
+		ContentWrapper,
+		ProsCons,
+		GameSlider,
+		LatestNews
 	},
 	layout: 'default',
 	data: () => {
@@ -126,14 +144,37 @@ export default {
 				error({ statusCode: 404, message: 'Post not found' })
 			} else {
 				const data = helper.headDataMixin(response.data, route)
-				const { author_summary, authors, casinos, banner, h1, short_desc } = response.data.body
+				const { author_summary, authors, casinos, banner, h1, short_desc, reviews } = response.data.body
 				const [author] = authors
-				return { data, author_summary, author, casinos, banner, short_desc, h1 }
+				return { data, author_summary, author, casinos, banner, short_desc, h1, reviews }
 			}
 		} else {
 			error({ statusCode: 404, message: 'Post not found' })
 		}
+	},
+	methods: {
+		async changeFilter(filter) {
+			const config = {
+				new: {
+					sort: 'update_at',
+					order: 'desc'
+				},
+				rating_desc: {
+					sort: 'rating',
+					order: 'desc'
+				},
+				rating_asc: {
+					sort: 'rating',
+					order: 'asc'
+				}
+			}
+			const response = await DAL_Review.getReviews(
+				`article/reviews/${this.id}?sort=${config[filter.key].sort}&order=${config[filter.key].order}`
+			)
+			if (response.data.confirm === 'ok') {
+				this.reviews = response.data.body.posts
+			}
+		}
 	}
 }
 </script>
-<style scoped></style>

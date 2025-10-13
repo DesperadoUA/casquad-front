@@ -1,5 +1,5 @@
 <template>
-	<main class="main_wrapper">
+	<main class="main_wrapper pb-0">
 		<Gradient />
 		<div class="container z-index-3 main_gap">
 			<div class="h1_wrapper">
@@ -76,24 +76,7 @@
 				</div>
 			</div>
 		</section>
-		<div class="news_loop">
-			<div class="container">
-				<div class="section_title_wrapper">
-					<AText tag="div" :attributes="mainContainerTitle">{{ t('LAST_NEWS') }}</AText>
-				</div>
-				<div class="news_container">
-					<div class="news_item" v-for="item in data.body.posts" :key="item.title">
-						<NewsMainCard
-							:link="item.permalink"
-							:src="item.thumbnail"
-							:title="item.title"
-							:date="item.create_at.slice(0, 10)"
-							:desc="item.short_desc"
-						/>
-					</div>
-				</div>
-			</div>
-		</div>
+		<LatestNews v-if="data.body.posts.length" :posts="data.body.posts" :title="t('LAST_NEWS')" />
 		<Cookies />
 	</main>
 </template>
@@ -116,6 +99,7 @@ import gradientWrapper from '~/components/gradient_wrapper'
 import date from '~/components/date'
 import AuthorSummary from '~/components/author_summary'
 import config from '~/config'
+import LatestNews from '~/components/latest_news'
 
 export default {
 	name: 'news_single',
@@ -124,7 +108,7 @@ export default {
 		TwoContentContainer,
 		NewsSliderCard,
 		LinkWithArrow,
-		NewsMainCard,
+		LatestNews,
 		Banner,
 		Gradient,
 		CasinoLoop,
@@ -198,6 +182,9 @@ export default {
 	justify-content: space-between;
 	margin-top: var(--l);
 }
+.aside_post_wrapper ::v-deep .item {
+	padding-right: 0px;
+}
 @media (max-width: 767px) {
 	.content_container {
 		margin-left: 0;
@@ -226,6 +213,7 @@ export default {
 	.aside_post_wrapper {
 		width: 48%;
 	}
+
 	.news_container {
 		overflow-y: scroll;
 		gap: 20px;

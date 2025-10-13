@@ -68,6 +68,7 @@ export default {
 	justify-content: flex-end;
 	align-items: center;
 	gap: 20px;
+	max-width: 100%;
 }
 .date {
 	color: var(--cairo);
@@ -105,6 +106,9 @@ export default {
 @media (max-width: 1024px) {
 	.heading {
 		font-size: 36px;
+	}
+	.root {
+		aspect-ratio: auto;
 	}
 }
 @media (max-width: 568px) {

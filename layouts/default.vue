@@ -114,7 +114,6 @@ body {
 	overflow-x: hidden;
 	max-width: 100%;
 	font-size-adjust: 0.5;
-	font-display: swap;
 	background: var(--colombo);
 }
 img {
@@ -149,11 +148,17 @@ h3,
 h4,
 h5,
 h6 {
-	margin: 0px;
-	padding: 0px;
+	margin: 0;
+	padding: 0;
 }
 .mt-15 {
 	margin-top: 15px;
+}
+.m-0 {
+	margin: 0;
+}
+.pb-0 {
+	padding-bottom: 0 !important;
 }
 .pt-3 {
 	padding-top: 3px !important;
@@ -637,6 +642,53 @@ Common styles*/
 .cms div p:last-child {
 	margin-bottom: 0px;
 }
+.cms .get_file {
+	background: #29263d;
+	padding: 20px;
+	border-left: 9px solid var(--calgary);
+	display: flex;
+	border-top-right-radius: var(--m);
+	border-bottom-right-radius: var(--m);
+	margin-bottom: 15px;
+}
+.cms .get_file p {
+	font-size: 16px;
+	color: var(--cairo);
+	font-weight: bold;
+}
+.cms .get_file_left {
+	flex: 1;
+}
+.cms .get_file_right {
+	min-width: 300px;
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+}
+.cms .get_file_link {
+	display: flex;
+	background: var(--calgary);
+	color: #323234;
+	text-decoration: none;
+	border-radius: var(--s);
+	padding: 5px 10px;
+	min-width: 166px;
+	justify-content: center;
+}
+@media (max-width: 576px) {
+	.cms .get_file {
+		flex-wrap: wrap;
+		gap: 20px;
+	}
+	.cms .get_file_left,
+	.cms .get_file_right {
+		width: 100%;
+		max-width: 100%;
+	}
+	.cms .get_file_right {
+		justify-content: flex-start;
+	}
+}
 .load_more {
 	background: rgba(255, 255, 255, 0.1);
 	border-radius: var(--s);
@@ -756,7 +808,6 @@ Common styles*/
 .custom-table td:last-child {
 	border-right: none;
 }
-/* Респонсив для планшетов */
 @media (max-width: 1024px) {
 	.table-wrapper {
 		border-radius: 6px;

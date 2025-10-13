@@ -956,5 +956,10 @@ export default {
 		UA: 'Більше деталей',
 		RU: 'Подробнее',
 		EN: 'More details'
+	},
+	PLAY_FOR_REAL: {
+		UA: 'Play for Real Mon...',
+		RU: 'Play for Real Mon...',
+		EN: 'Play for Real Mon...'
 	}
 }
