@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<VueSlickCarousel class="sliderContainer" v-bind="settings">
+		<VueSlickCarousel class="sliderContainer" v-bind="settings" @afterChange="onAfterChange" ref="carousel">
 			<slot />
 		</VueSlickCarousel>
 	</div>
@@ -18,7 +18,15 @@ export default {
 	props: {
 		settings: {
 			type: Object,
-			default: {}
+			default: () => ({})
+		}
+	},
+	methods: {
+		onAfterChange(currentSlide) {
+			this.$emit('onChangeSlide', currentSlide)
+		},
+		goTo(index) {
+			this.$refs.carousel.goTo(index)
 		}
 	}
 }

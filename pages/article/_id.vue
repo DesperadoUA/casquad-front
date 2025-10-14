@@ -2,7 +2,7 @@
 	<main class="main_wrapper_slots pb-0">
 		<Gradient modifier="large" />
 		<div class="container z-index-3 main_gap">
-			<div class="h1_wrapper">
+			<div class="h1_wrapper" id="breadcrumbs" :style="{ order: data.body.order_components['breadcrumbs'] }">
 				<gradientWrapper>
 					<div class="breadcrumbs_wrapper">
 						<Breadcrumbs
@@ -25,6 +25,8 @@
 				</gradientWrapper>
 			</div>
 			<ArticleBanner
+				id="banner"
+				:style="{ order: data.body.order_components['banner'] }"
 				:src="banner"
 				:h1="h1"
 				:short_desc="short_desc"
@@ -32,47 +34,113 @@
 				:author_permalink="data.body.authors.length ? data.body.authors[0].permalink : ''"
 				:author_title="data.body.authors.length ? data.body.authors[0].title : ''"
 			/>
-			<ContentWrapper v-if="data.body.content_1">
+			<div
+				class="sticky-tabs"
+				id="nav_menu"
+				v-if="data.body.nav_menu.length"
+				:style="{ order: data.body.order_components['nav_menu'] || 3 }"
+			>
+				<NavMenu :value="data.body.nav_menu" />
+			</div>
+			<ContentWrapper
+				v-if="data.body.content_1"
+				id="content_1"
+				:style="{ order: data.body.order_components['content_1'] }"
+			>
 				<ContentSupport :value="data.body.content_1" />
 			</ContentWrapper>
-			<TopCasinoList v-if="casinos.length" :posts="casinos" />
-			<ContentWrapper v-if="data.body.content_2">
+			<TopCasinoList
+				v-if="casinos.length"
+				id="top_casinos"
+				:posts="casinos"
+				:style="{ order: data.body.order_components['top_casinos'] }"
+			/>
+			<ContentWrapper
+				v-if="data.body.content_2"
+				id="content_2"
+				:style="{ order: data.body.order_components['content_2'] }"
+			>
 				<ContentSupport :value="data.body.content_2" />
 			</ContentWrapper>
-			<div class="main_gap" v-if="data.body.content_3">
+			<div
+				class="main_gap"
+				v-if="data.body.content_3"
+				id="games"
+				:style="{ order: data.body.order_components['games'] }"
+			>
 				<ContentSupport :value="data.body.content_3" />
 				<GameSlider :posts="data.body.games" />
 			</div>
-			<ContentWrapper v-if="data.body.content_4">
+			<ContentWrapper
+				v-if="data.body.content_4"
+				id="content_4"
+				:style="{ order: data.body.order_components['content_4'] }"
+			>
 				<ContentSupport :value="data.body.content_4" />
 			</ContentWrapper>
-			<ContentWrapper v-if="data.body.content_5">
+			<ContentWrapper
+				v-if="data.body.content_5"
+				id="content_5"
+				:style="{ order: data.body.order_components['content_5'] }"
+			>
 				<ContentSupport :value="data.body.content_5" />
 			</ContentWrapper>
-			<ContentWrapper v-if="data.body.content_6">
+			<ContentWrapper
+				v-if="data.body.content_6"
+				id="content_6"
+				:style="{ order: data.body.order_components['content_6'] }"
+			>
 				<ContentSupport :value="data.body.content_6" />
 			</ContentWrapper>
-			<ContentWrapper v-if="data.body.content_7">
+			<ContentWrapper
+				v-if="data.body.content_7"
+				id="content_7"
+				:style="{ order: data.body.order_components['content_7'] }"
+			>
 				<ContentSupport :value="data.body.content_7" />
 			</ContentWrapper>
-			<ContentWrapper v-if="data.body.content_8">
+			<ContentWrapper
+				v-if="data.body.content_8"
+				id="content_8"
+				:style="{ order: data.body.order_components['content_8'] }"
+			>
 				<ContentSupport :value="data.body.content_8" />
 			</ContentWrapper>
-			<h2 class="text_color_cairo m-0" v-if="data.body.pros_cons_title">{{ data.body.pros_cons_title }}</h2>
-			<ProsCons
+			<ContentWrapper
 				v-if="data.body.pros.length || data.body.cons.length"
-				:prosList="data.body.pros"
-				:consList="data.body.cons"
-				:prosTitle="data.body.pros_title"
-				:consTitle="data.body.cons_title"
-			/>
-			<ContentWrapper v-if="data.body.content_9">
+				id="pros_cons"
+				:style="{ order: data.body.order_components['pros_cons'] }"
+				class="sub_gap"
+			>
+				<h2 class="text_color_cairo m-0" v-if="data.body.pros_cons_title">
+					{{ data.body.pros_cons_title }}
+				</h2>
+				<ProsCons
+					:prosList="data.body.pros"
+					:consList="data.body.cons"
+					:prosTitle="data.body.pros_title"
+					:consTitle="data.body.cons_title"
+				/>
+			</ContentWrapper>
+			<ContentWrapper
+				v-if="data.body.content_9"
+				id="content_9"
+				:style="{ order: data.body.order_components['content_9'] }"
+			>
 				<ContentSupport :value="data.body.content_9" />
 			</ContentWrapper>
-			<ContentWrapper v-if="data.body.content_10">
+			<ContentWrapper
+				v-if="data.body.content_10"
+				id="content_10"
+				:style="{ order: data.body.order_components['content_10'] }"
+			>
 				<ContentSupport :value="data.body.content_10" />
 			</ContentWrapper>
-			<div v-if="author_summary && author">
+			<div
+				v-if="author_summary && author"
+				id="author_summary"
+				:style="{ order: data.body.order_components['author_summary'] }"
+			>
 				<AuthorSummary
 					:social="author.social"
 					:short_desc="author_summary"
@@ -86,7 +154,14 @@
 					:permalink="author.permalink"
 				/>
 			</div>
-			<Reviews :posts="reviews" post_type="article" :post_id="data.body.id" @changeFilter="changeFilter" />
+			<Reviews
+				:posts="reviews"
+				:style="{ order: data.body.order_components['reviews'] }"
+				post_type="article"
+				:post_id="data.body.id"
+				@changeFilter="changeFilter"
+				id="reviews"
+			/>
 		</div>
 		<LatestNews v-if="data.body.news.length" :posts="data.body.news" :title="t('LAST_NEWS')" />
 		<Cookies />
@@ -111,6 +186,7 @@ import ContentWrapper from '~/components/content_wrapper'
 import ProsCons from '~/components/pros_cons'
 import GameSlider from '~/components/game_slider'
 import LatestNews from '~/components/latest_news'
+import NavMenu from '~/components/nav_menu'
 import DAL_Review from '~/DAL/review'
 
 export default {
@@ -127,7 +203,8 @@ export default {
 		ContentWrapper,
 		ProsCons,
 		GameSlider,
-		LatestNews
+		LatestNews,
+		NavMenu
 	},
 	layout: 'default',
 	data: () => {
@@ -178,3 +255,11 @@ export default {
 	}
 }
 </script>
+<style scoped>
+.sticky-tabs {
+	position: sticky;
+	top: 0;
+	z-index: 100;
+	background: #0d0d1a;
+}
+</style>
