@@ -83,6 +83,7 @@ export default {
 	--side-gutters: 0px;
 	--gap-components: 40px;
 	--gap-title: 20px;
+	--scroll-margin-top: 100px;
 
 	/* Fonts */
 	--base-line-height: 1.7;

@@ -49,12 +49,9 @@
 			>
 				<ContentSupport :value="data.body.content_1" />
 			</ContentWrapper>
-			<TopCasinoList
-				v-if="casinos.length"
-				id="top_casinos"
-				:posts="casinos"
-				:style="{ order: data.body.order_components['top_casinos'] }"
-			/>
+			<div id="top_casinos" :style="{ order: data.body.order_components['top_casinos'] }">
+				<TopCasinoList v-if="casinos.length" :posts="casinos" />
+			</div>
 			<ContentWrapper
 				v-if="data.body.content_2"
 				id="content_2"
@@ -255,11 +252,15 @@ export default {
 	}
 }
 </script>
+<style>
+.sticky-tabs .slick-track {
+	padding: 10px 0;
+}
+</style>
 <style scoped>
 .sticky-tabs {
 	position: sticky;
 	top: 0;
 	z-index: 100;
-	background: #0d0d1a;
 }
 </style>

@@ -30,7 +30,24 @@ export default {
 	serverMiddleware: ['~/serverMiddleware/redirects'],
 	// Global CSS: https://go.nuxtjs.dev/config-css
 	css: ['~/assets/css/pros-cons.css'],
-
+	router: {
+		scrollBehavior(to, from, savedPosition) {
+			if (to.hash) {
+				const el = document.querySelector(to.hash)
+				if (el) {
+					setTimeout(() => {
+						const offset = 75
+						const top = el.getBoundingClientRect().top + window.pageYOffset - offset
+						window.scrollTo({ top, behavior: 'smooth' })
+					}, 100)
+				}
+			} else if (savedPosition) {
+				return savedPosition
+			} else {
+				return { x: 0, y: 0 }
+			}
+		}
+	},
 	// Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
 	plugins: [],
 
