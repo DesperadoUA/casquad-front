@@ -471,6 +471,7 @@ export default {
 	.main_page {
 		background: url('/img/hero_img.webp') top center var(--colombo);
 		background-repeat: no-repeat;
+		padding-top: 80px;
 	}
 	.main_page_h1 {
 		font-size: 32px;
@@ -492,12 +493,9 @@ export default {
 	.news_container .item:last-child {
 		margin-right: 20px;
 	}
-	.main_page {
-		padding-top: 150px;
-	}
 	.slider_show_more_container {
 		width: 100%;
-		margin-top: 20px;
+		margin-top: 50px;
 		display: flex;
 		justify-content: center;
 	}

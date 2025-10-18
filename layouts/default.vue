@@ -711,9 +711,8 @@ Common styles*/
 }
 .main_wrapper,
 .main_wrapper_slots {
-	background: url('/img/topBg.webp') top center var(--colombo);
 	background-repeat: no-repeat;
-	padding-top: 165px;
+	padding-top: 130px;
 	display: flex;
 	flex-direction: column;
 	gap: var(--gap-components);
@@ -813,13 +812,11 @@ Common styles*/
 	.table-wrapper {
 		border-radius: 6px;
 	}
-
 	.custom-table th,
 	.custom-table td {
 		padding: 14px 16px;
 		font-size: 13px;
 	}
-
 	.table-title {
 		font-size: 18px;
 	}
@@ -831,6 +828,10 @@ Common styles*/
 	}
 	.main_wrapper_slots {
 		padding-top: 130px;
+	}
+	.main_wrapper_slots,
+	.main_wrapper {
+		padding-top: 110px;
 	}
 }
 @media (min-width: 577px) and (max-width: 1200px) {
@@ -859,8 +860,9 @@ Common styles*/
 		padding: 0 20px;
 		max-width: 100%;
 	}
-	.main_wrapper_slots {
-		padding-top: 130px;
+	.main_wrapper_slots,
+	.main_wrapper {
+		padding-top: 120px;
 	}
 }
 </style>

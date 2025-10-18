@@ -16,9 +16,11 @@
 				<Logo />
 				<div class="burger" @click="mobMenuToggle"></div>
 			</div>
+			<!--
 			<div class="header_mob_search_container">
 				<Search />
 			</div>
+			-->
 			<div class="header_mob_menu" :class="{ active: menuActive }">
 				<div class="header_mob_menu_wrapper">
 					<div class="mob_lang_container">
