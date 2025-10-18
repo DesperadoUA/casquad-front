@@ -2,36 +2,41 @@
 	<div>
 		<main class="main_wrapper">
 			<Gradient />
-			<div class="container z-index-3">
+			<div class="container z-index-3 main_gap">
 				<div class="h1_wrapper">
 					<gradientWrapper>
-						<Breadcrumbs
-							:value="[
-								{
-									title: t('BREADCRUMB_MAIN_PAGE'),
-									permalink: '/'
-								},
-								{
-									title: t('BREADCRUMB_NEWS_TITLE_PAGE'),
-									permalink: `/${newsRootSlug}`
-								},
-								{
-									title,
-									permalink: ''
-								}
-							]"
-						/>
-						<AText tag="h1" :attributes="titleSettings">{{ h1 }}</AText>
-						<date :value="update_at.slice(0, 10)" />
+						<div class="breadcrumbs_wrapper">
+							<Breadcrumbs
+								:value="[
+									{
+										title: t('BREADCRUMB_MAIN_PAGE'),
+										permalink: '/'
+									},
+									{
+										title: t('BREADCRUMB_NEWS_TITLE_PAGE'),
+										permalink: `/${newsRootSlug}`
+									},
+									{
+										title: data.body.title,
+										permalink: ''
+									}
+								]"
+							/>
+						</div>
 					</gradientWrapper>
 				</div>
+				<ArticleBanner
+					id="banner"
+					:src="thumbnail"
+					:h1="h1"
+					:short_desc="short_desc"
+					:date="update_at.slice(0, 10)"
+					:author_permalink="authors.length ? authors[0].permalink : ''"
+					:author_title="authors.length ? authors[0].title : ''"
+				/>
 			</div>
-			<div class="container content_container z-index-3" v-if="content">
-				<Content :value="content" />
-			</div>
-			<div class="container" v-if="faq.length">
-				<Faq :value="faq" />
-			</div>
+			<LatestNews v-if="news.length" :posts="news" :title="t('LAST_NEWS')" />
+			<FunnelLoop v-if="funnels.length" :posts="funnels" :title="t('ALL_VIDEO_BREAKDOWNS')" />
 			<Cookies />
 		</main>
 	</div>
@@ -46,15 +51,16 @@ import Gradient from '~/components/gradient'
 import Breadcrumbs from '~/components/breadcrumbs'
 import components from '~/mixins/components'
 import gradientWrapper from '~/components/gradient_wrapper'
-import date from '~/components/date'
-import Faq from '~/components/faq'
 import { NEWS_ROOT_SLUG } from '~/constants'
+import ArticleBanner from '~/components/article_banner'
+import LatestNews from '~/components/latest_news'
+import FunnelLoop from '~/components/funnel_loop'
 
 export default {
 	name: 'bonus-room-casino',
 	mixins: [pageTemplate, device, components],
 	layout: 'default',
-	components: { Gradient, Breadcrumbs, gradientWrapper, date, Faq },
+	components: { Gradient, Breadcrumbs, gradientWrapper, ArticleBanner, LatestNews, FunnelLoop },
 	data: () => {
 		return {
 			titleSettings: {
@@ -73,8 +79,8 @@ export default {
 		}
 		const response = await DAL_Page.getData(request)
 		const data = helper.headDataMixin(response.data, route)
-		const { content, h1, title, update_at, faq } = data.body
-		return { data, content, h1, title, update_at, faq }
+		const { content, h1, title, update_at, thumbnail, short_desc, authors, news, funnels } = data.body
+		return { data, content, h1, title, update_at, thumbnail, short_desc, authors, news, funnels }
 	}
 }
 </script>

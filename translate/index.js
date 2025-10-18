@@ -961,5 +961,10 @@ export default {
 		UA: 'Play for Real Mon...',
 		RU: 'Play for Real Mon...',
 		EN: 'Play for Real Mon...'
+	},
+	ALL_VIDEO_BREAKDOWNS: {
+		UA: 'Усі відеоаналізи',
+		RU: 'Все видео-разборы',
+		EN: 'All Video Breakdowns'
 	}
 }
