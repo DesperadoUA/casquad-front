@@ -10,7 +10,7 @@ export default {
 </script>
 <style scoped>
 .gradient_wrapper {
-	background: linear-gradient(to right, #1b1831e5, #332395e5);
+	background: rgba(16, 13, 36, 0.28);
 	display: flex;
 	flex-direction: column;
 	gap: 10px;

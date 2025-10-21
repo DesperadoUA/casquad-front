@@ -66,7 +66,7 @@
 				:style="{ order: data.body.order_components['games'] }"
 			>
 				<ContentSupport :value="data.body.content_3" />
-				<GameSlider :posts="data.body.games" />
+				<GameSlider v-if="data.body.games.length" :posts="data.body.games" />
 			</div>
 			<ContentWrapper
 				v-if="data.body.content_4"

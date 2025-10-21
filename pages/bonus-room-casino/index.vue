@@ -1,7 +1,7 @@
 <template>
 	<div>
-		<main class="main_wrapper">
-			<Gradient />
+		<main class="main_wrapper main_wrapper_slots">
+			<Gradient modifier="large" />
 			<div class="container z-index-3 main_gap">
 				<div class="h1_wrapper">
 					<gradientWrapper>
@@ -11,10 +11,6 @@
 									{
 										title: t('BREADCRUMB_MAIN_PAGE'),
 										permalink: '/'
-									},
-									{
-										title: t('BREADCRUMB_NEWS_TITLE_PAGE'),
-										permalink: `/${newsRootSlug}`
 									},
 									{
 										title: data.body.title,

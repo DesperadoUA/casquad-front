@@ -966,5 +966,10 @@ export default {
 		UA: 'Усі відеоаналізи',
 		RU: 'Все видео-разборы',
 		EN: 'All Video Breakdowns'
+	},
+	BREADCRUMBS_BONUS_ROOM_CASINO_PAGE: {
+		UA: 'Казино з бонусною кімнатою',
+		RU: 'Бонусная комната казино',
+		EN: 'Bonus Room Casino'
 	}
 }

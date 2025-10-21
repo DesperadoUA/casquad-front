@@ -12,8 +12,8 @@
 									permalink: '/'
 								},
 								{
-									title: t('BREADCRUMB_NEWS_TITLE_PAGE'),
-									permalink: `/${newsRootSlug}`
+									title: t('BREADCRUMBS_BONUS_ROOM_CASINO_PAGE'),
+									permalink: `/${bonusRoomCasinoRootSlug}`
 								},
 								{
 									title: data.body.title,
@@ -50,7 +50,7 @@
 				<ContentSupport :value="data.body.content_1" />
 			</ContentWrapper>
 			<div id="top_casinos" :style="{ order: data.body.order_components['top_casinos'] }">
-				<TopCasinoList v-if="casinos.length" :posts="casinos" />
+				<TopCasinoList v-if="data.body.casinos.length" :posts="data.body.casinos" />
 			</div>
 			<ContentWrapper
 				v-if="data.body.content_2"
@@ -66,7 +66,7 @@
 				:style="{ order: data.body.order_components['games'] }"
 			>
 				<ContentSupport :value="data.body.content_3" />
-				<GameSlider :posts="data.body.games" />
+				<GameSlider v-if="data.body.games.length" :posts="data.body.games" />
 			</div>
 			<ContentWrapper
 				v-if="data.body.content_4"
@@ -133,6 +133,10 @@
 			>
 				<ContentSupport :value="data.body.content_10" />
 			</ContentWrapper>
+			<div v-if="data.body.faq.length" class="main_gap" :style="{ order: data.body.order_components['faq'] }">
+				<h2 class="text_color_cairo">{{ data.body.faq_title }}</h2>
+				<Faq :value="data.body.faq" />
+			</div>
 			<div
 				v-if="author_summary && author"
 				id="author_summary"
@@ -170,7 +174,7 @@ import DAL_Builder from '~/DAL/builder'
 import pageTemplate from '~/mixins/pageTemplate'
 import Gradient from '~/components/gradient'
 import helper from '~/helpers/helpers'
-import { NEWS_ROOT_SLUG } from '~/constants'
+import { BONUS_ROOM_CASINO_ROOT_SLUG } from '~/constants'
 import components from '~/mixins/components'
 import Breadcrumbs from '~/components/breadcrumbs'
 import gradientWrapper from '~/components/gradient_wrapper'
@@ -206,7 +210,7 @@ export default {
 	layout: 'default',
 	data: () => {
 		return {
-			newsRootSlug: NEWS_ROOT_SLUG,
+			bonusRoomCasinoRootSlug: BONUS_ROOM_CASINO_ROOT_SLUG,
 			badgeList: config.AUTHOR_BADGE_LIST
 		}
 	},
