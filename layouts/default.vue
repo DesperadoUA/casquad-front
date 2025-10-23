@@ -652,6 +652,9 @@ Common styles*/
 	border-bottom-right-radius: var(--m);
 	margin-bottom: 15px;
 }
+.cms .get_file.cleveland {
+	border-left: 9px solid var(--cleveland);
+}
 .cms .get_file p {
 	font-size: 16px;
 	color: var(--cairo);
@@ -675,6 +678,10 @@ Common styles*/
 	padding: 5px 10px;
 	min-width: 166px;
 	justify-content: center;
+}
+.cms .get_file.cleveland .get_file_link {
+	background: var(--cleveland);
+	color: var(--cairo);
 }
 @media (max-width: 576px) {
 	.cms .get_file {

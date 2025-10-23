@@ -71,7 +71,7 @@ export default {
 	},
 	async asyncData({ store, route }) {
 		const request = {
-			url: 'bonus-room-casino'
+			url: 'progamblers-blueprint'
 		}
 		const response = await DAL_Page.getData(request)
 		const data = helper.headDataMixin(response.data, route)

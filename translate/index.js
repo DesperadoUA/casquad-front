@@ -970,6 +970,6 @@ export default {
 	BREADCRUMBS_BONUS_ROOM_CASINO_PAGE: {
 		UA: 'Казино з бонусною кімнатою',
 		RU: 'Бонусная комната казино',
-		EN: 'Bonus Room Casino'
+		EN: 'ProGamblers Blueprint'
 	}
 }

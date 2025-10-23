@@ -16,14 +16,14 @@ export default {
 				height: '170px',
 				class: 'img'
 			},
-            titleSettings: {
+			titleSettings: {
 				color: 'cairo',
 				size: 'large',
 				weight: 'bold',
 				transform: 'uppercase',
 				class: 'title',
-                align: 'center',
-			},
+				align: 'center'
+			}
 		}
 	},
 	props: {
@@ -39,7 +39,7 @@ export default {
 				return ''
 			}
 		}
-	},
+	}
 }
 </script>
 
@@ -48,11 +48,11 @@ export default {
 	max-width: 100%;
 	border-radius: var(--m);
 	cursor: pointer;
-    width: 100%;
+	width: 100%;
 }
 .title {
-    margin-top: 15px;
-    text-decoration: none;
+	margin-top: 15px;
+	text-decoration: none;
 	display: block;
 }
 </style>

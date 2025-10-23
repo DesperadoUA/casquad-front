@@ -133,7 +133,13 @@
 			>
 				<ContentSupport :value="data.body.content_10" />
 			</ContentWrapper>
-			<div v-if="data.body.faq.length" class="main_gap" :style="{ order: data.body.order_components['faq'] }">
+			<VideoWithText
+				v-if="data.body.video.length"
+				:style="{ order: data.body.order_components['video'] }"
+				:video="data.body.video[0]"
+				:text="data.body.video_text"
+			/>
+			<div v-if="data.body.faq.length" class="sub_gap" :style="{ order: data.body.order_components['faq'] }">
 				<h2 class="text_color_cairo">{{ data.body.faq_title }}</h2>
 				<Faq :value="data.body.faq" />
 			</div>
@@ -189,6 +195,7 @@ import GameSlider from '~/components/game_slider'
 import LatestNews from '~/components/latest_news'
 import NavMenu from '~/components/nav_menu'
 import DAL_Review from '~/DAL/review'
+import VideoWithText from '~/components/video_with_text/index.vue'
 
 export default {
 	name: 'funnel_single',
@@ -205,7 +212,8 @@ export default {
 		ProsCons,
 		GameSlider,
 		LatestNews,
-		NavMenu
+		NavMenu,
+		VideoWithText
 	},
 	layout: 'default',
 	data: () => {
