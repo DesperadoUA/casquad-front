@@ -13,7 +13,8 @@ export default {
 			{ name: 'viewport', content: 'width=device-width, initial-scale=1' },
 			{ hid: 'description', name: 'description', content: '' },
 			{ name: 'robots', content: 'index,follow', 'data-qmeta': 'robots' },
-			{ name: 'google', content: 'notranslate' }
+			{ name: 'google', content: 'notranslate' },
+			{ name: 'dmca-site-verification', content: 'THpuYXN4dmdZb1JuQnJFNjczS2JBdz090' }
 		],
 		link: [
 			{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
@@ -49,7 +50,7 @@ export default {
 		}
 	},
 	// Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-	plugins: [],
+	plugins: ['~/plugins/analytics.client.js'],
 
 	// Auto import components: https://go.nuxtjs.dev/config-components
 	components: true,

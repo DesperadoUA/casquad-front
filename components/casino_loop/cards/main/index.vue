@@ -28,9 +28,13 @@
 					>
 					<div class="action_wrapper">
 						<div class="btn_wrapper">
-							<AButton :attributes="btnSettings" :title="`Goes to ${title}`" @onClick="refActivate(refLinks, geo)">{{
-								t('GET_BONUS')
-							}}</AButton>
+							<AButton
+								:attributes="btnSettings"
+								:title="`Goes to ${title}`"
+								@onClick="refActivate(refLinks, geo, 'casino_main_card')"
+							>
+								{{ t('GET_BONUS') }}
+							</AButton>
 						</div>
 						<ALink :href="link" :attributes="readMoreLinkSettings" :title="`Goes to ${title} page`"
 							><AImg :attributes="{ ...searchSettings, alt: 'Read more' }" src="/img/search.png" />
@@ -104,9 +108,13 @@
 				</div>
 				<div class="action_wrapper">
 					<div class="btn_wrapper">
-						<AButton :attributes="btnSettings" :title="`Goes to ${title}`" @onClick="refActivate(refLinks, geo)">{{
-							t('GET_BONUS')
-						}}</AButton>
+						<AButton
+							:attributes="btnSettings"
+							:title="`Goes to ${title}`"
+							@onClick="refActivate(refLinks, geo, 'casino_main_card')"
+						>
+							{{ t('GET_BONUS') }}
+						</AButton>
 					</div>
 					<ALink :href="link" :attributes="readMoreLinkSettings" :title="`Goes to ${title} page`"
 						><AImg :attributes="{ ...searchSettings, alt: 'Read more' }" src="/img/search.png" />
@@ -290,7 +298,6 @@ export default {
 <style scoped>
 .item {
 	width: 820px;
-	height: 206px;
 	overflow: hidden;
 	padding: var(--xs);
 	border-radius: var(--m);

@@ -2,22 +2,22 @@
 	<article class="item">
 		<div class="wrapper">
 			<div class="left">
-				<div class="img_wrapper" @click="refActivate(refLinks, geo)">
+				<div class="img_wrapper" @click="refActivate(refLinks, geo, 'bonus_aside_card')">
 					<AText>
 						<AImg :attributes="{ ...imgSettings, alt: `${title} logo` }" :src="src" />
 					</AText>
 				</div>
 			</div>
 			<div class="right">
-				<div @click="refActivate(refLinks, geo)">
+				<div @click="refActivate(refLinks, geo, 'bonus_aside_card')">
 					<AText tag="div" :attributes="titleSettings">
 						{{ title }}
 					</AText>
 				</div>
-				<div @click="refActivate(refLinks, geo)">
+				<div @click="refActivate(refLinks, geo, 'bonus_aside_card')">
 					<AText tag="div" :attributes="descTextSettings">{{ desc }}</AText>
 				</div>
-				<div @click="refActivate(refLinks, geo)">
+				<div @click="refActivate(refLinks, geo, 'bonus_aside_card')">
 					<AText tag="div" :attributes="valueTextSettings">{{ value }}</AText>
 				</div>
 			</div>

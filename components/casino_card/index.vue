@@ -22,9 +22,13 @@
 							<AText tag="div" :attributes="bonusValueSettings">{{ bonus_value }}</AText>
 							<div class="action_wrapper">
 								<div class="btn_wrapper">
-									<AButton :attributes="btnSettings" @onClick="refActivate(refLinks, geo)" :title="`Goes to ${title}`">{{
-										t('GO_TO')
-									}}</AButton>
+									<AButton
+										:attributes="btnSettings"
+										@onClick="refActivate(refLinks, geo, 'casino_card')"
+										:title="`Goes to ${title}`"
+									>
+										{{ t('GO_TO') }}
+									</AButton>
 								</div>
 							</div>
 						</div>
@@ -77,7 +81,7 @@ export default {
 			},
 			bonusValueSettings: {
 				color: 'calgary',
-				size: 'x-large',
+				size: 'large',
 				weight: 'bold',
 				class: 'bonus_value'
 			},
@@ -175,7 +179,6 @@ export default {
 <style scoped>
 .casino_card {
 	width: 100%;
-	height: 206px;
 	padding: var(--xs);
 	border-radius: var(--m);
 	overflow: hidden;
@@ -207,7 +210,8 @@ export default {
 .characters_right .bonus_name {
 	margin-top: var(--m);
 }
-.bonus_name, .advantages {
+.bonus_name,
+.advantages {
 	margin-top: var(--s);
 }
 .bonus_value {

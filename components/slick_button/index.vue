@@ -1,29 +1,17 @@
 <template>
 	<section class="slick_button">
 		<div class="slick_button_part_left" @click="goHome()"></div>
-		<div class="slick_button_part_right" @click="refActivate(refLink)"></div>
+		<div class="slick_button_part_right" @click="refActivate(refLink, geo, 'app_slick_button')"></div>
 		<div class="container slick_button_container">
 			<div class="slick_button_left">
-				<img
-					src="/img/arrow.png"
-					class="slick_button_arrow left_arrow"
-					loading="lazy"
-					width="8"
-					height="12"
-				/>
+				<img src="/img/arrow.png" class="slick_button_arrow left_arrow" loading="lazy" width="8" height="12" />
 				<NuxtLink no-prefetch :to="link">
 					{{ linkText }}
 				</NuxtLink>
 			</div>
 			<div class="slick_button_right">
 				{{ refText }}
-				<img
-					src="/img/arrow.png"
-					class="slick_button_arrow right_arrow"
-					loading="lazy"
-					width="8"
-					height="12"
-				/>
+				<img src="/img/arrow.png" class="slick_button_arrow right_arrow" loading="lazy" width="8" height="12" />
 			</div>
 		</div>
 	</section>
@@ -32,15 +20,16 @@
 <script>
 import translateMixin from '~/mixins/translate'
 import refMixin from '~/mixins/ref'
+import geo from '~/mixins/geo'
 export default {
 	name: 'app_slick_button',
 	props: {
-        refLink: {
-            type: Array,
-            default() {
-                return []
-            }
-        },
+		refLink: {
+			type: Array,
+			default() {
+				return []
+			}
+		},
 		refText: {
 			type: String,
 			default() {
@@ -59,8 +48,8 @@ export default {
 				return ''
 			}
 		}
-    },
-	mixins: [refMixin, translateMixin],
+	},
+	mixins: [refMixin, translateMixin, geo],
 	methods: {
 		goHome() {
 			this.$router.push(this.link)
@@ -93,11 +82,7 @@ export default {
 	bottom: 0;
 	left: 0;
 	width: 100%;
-	background: linear-gradient(
-		to right,
-		var(--cleveland) 50%,
-		var(--calgary) 50%
-	);
+	background: linear-gradient(to right, var(--cleveland) 50%, var(--calgary) 50%);
 	cursor: pointer;
 }
 .slick_button a,
@@ -115,7 +100,7 @@ export default {
 }
 .slick_button_left {
 	width: 50%;
-    color: var(--cairo);
+	color: var(--cairo);
 }
 .slick_button_right {
 	width: 50%;

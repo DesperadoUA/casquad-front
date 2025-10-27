@@ -4,14 +4,14 @@
 			<h1 class="text_color_cairo title">{{ h1 }}</h1>
 			<div class="actions">
 				<div class="action_item">
-					<AButton :attributes="btnDemoSettings" v-if="demo" @onClick="onClickDemoActivate">{{
-						t('PLAY_FOR_FREE')
-					}}</AButton>
+					<AButton :attributes="btnDemoSettings" v-if="demo" @onClick="onClickDemoActivate">
+						{{ t('PLAY_FOR_FREE') }}
+					</AButton>
 				</div>
 				<div class="action_item">
-					<AButton :attributes="btnSettings" @onClick="refActivate(refLinks, geo)">{{
-						t('PLAY_ON_REAL_MONEY')
-					}}</AButton>
+					<AButton :attributes="btnSettings" @onClick="refActivate(refLinks, geo, 'single-game-top')">
+						{{ t('PLAY_ON_REAL_MONEY') }}
+					</AButton>
 				</div>
 			</div>
 			<div class="description text_color_cairo" v-html="short_desc" />
@@ -39,7 +39,7 @@ import ref from '~/mixins/ref'
 import components from '~/mixins/components'
 import geo from '~/mixins/geo'
 export default {
-	name: 'single-game-page',
+	name: 'single-game-top',
 	mixins: [components, ref, geo],
 	data: () => {
 		return {

@@ -14,7 +14,11 @@
 				</div>
 			</div>
 			<div class="button_wrapper">
-				<button class="play-button" :title="`Goes to ${item.title}`" @click="refActivate(item.ref, geo)">
+				<button
+					class="play-button"
+					:title="`Goes to ${item.title}`"
+					@click="refActivate(item.ref, geo, 'top_casino_card')"
+				>
 					{{ t('PLAY_NOW') }}
 				</button>
 			</div>

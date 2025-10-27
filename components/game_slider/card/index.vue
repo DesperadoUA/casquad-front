@@ -5,7 +5,11 @@
 			<div class="mask">
 				<div class="game_title">{{ title }}</div>
 				<NuxtLink :to="permalink" class="linkButton">{{ t('PLAY_FOR_FREE') }}</NuxtLink>
-				<AButton :attributes="btnSettings" :title="`Goes to ${title}`" @onClick="refActivate(refLinks, geo)">
+				<AButton
+					:attributes="btnSettings"
+					:title="`Goes to ${title}`"
+					@onClick="refActivate(refLinks, geo, 'game_slider_card')"
+				>
 					{{ t('PLAY_FOR_REAL') }}
 				</AButton>
 			</div>

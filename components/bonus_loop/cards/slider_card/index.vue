@@ -4,18 +4,22 @@
 			<div class="left">
 				<div class="img_wrapper">
 					<AText>
-						<AImg :attributes="{ ...imgSettings, alt: `${title} logo` }" :src="src" @click="refActivate(refLinks, geo)" />
+						<AImg
+							:attributes="{ ...imgSettings, alt: `${title} logo` }"
+							:src="src"
+							@click="refActivate(refLinks, geo, 'bonus_slider_card')"
+						/>
 					</AText>
 				</div>
 			</div>
 			<div class="right">
-				<div @click="refActivate(refLinks, geo)">
+				<div @click="refActivate(refLinks, geo, 'bonus_slider_card')">
 					<AText :attributes="titleSettings">{{ title }}</AText>
 				</div>
-				<div @click="refActivate(refLinks, geo)">
+				<div @click="refActivate(refLinks, geo, 'bonus_slider_card')">
 					<AText :attributes="descTextSettings">{{ desc }}</AText>
 				</div>
-				<div @click="refActivate(refLinks, geo)">
+				<div @click="refActivate(refLinks, geo, 'bonus_slider_card')">
 					<AText :attributes="valueTextSettings">{{ value }}</AText>
 				</div>
 			</div>

@@ -53,6 +53,9 @@ export default {
 	display: flex !important;
 	z-index: 5;
 }
+.nav_menu_slider {
+	background: rgba(8, 5, 26, 0.7);
+}
 .nav_menu_slider .slick-prev,
 .nav_menu_slider .slick-next {
 	width: 24px;
