@@ -195,7 +195,7 @@ import GameSlider from '~/components/game_slider'
 import LatestNews from '~/components/latest_news'
 import NavMenu from '~/components/nav_menu'
 import DAL_Review from '~/DAL/review'
-import VideoWithText from '~/components/video_with_text/index.vue'
+import VideoWithText from '~/components/video_with_text'
 
 export default {
 	name: 'funnel_single',
@@ -264,15 +264,3 @@ export default {
 	}
 }
 </script>
-<style>
-.sticky-tabs .slick-track {
-	padding: 10px 0;
-}
-</style>
-<style scoped>
-.sticky-tabs {
-	position: sticky;
-	top: 0;
-	z-index: 100;
-}
-</style>

@@ -37,6 +37,39 @@
 					:author_title="data.body.authors.length ? data.body.authors[0].title : ''"
 					@onClickDemoActivate="onClickDemoActivate"
 				/>
+				<div
+					class="sticky-tabs"
+					id="nav_menu"
+					v-if="data.body.nav_menu.length"
+					:style="{ order: data.body.order_components['nav_menu'] || 3 }"
+				>
+					<NavMenu :value="data.body.nav_menu" />
+				</div>
+				<div id="top_casinos" :style="{ order: data.body.order_components['top_casinos'] }">
+					<TopCasinoList v-if="data.body.casinos.length" :posts="data.body.casinos" />
+				</div>
+				<VideoWithText
+					v-if="data.body.video.length"
+					:style="{ order: data.body.order_components['video'] }"
+					:video="data.body.video[0]"
+					:text="data.body.video_text"
+				/>
+				<div
+					class="main_gap"
+					v-if="data.body.content_3"
+					id="games"
+					:style="{ order: data.body.order_components['games'] }"
+				>
+					<ContentSupport :value="data.body.content_3" />
+					<GameSlider v-if="data.body.games.length" :posts="data.body.games" />
+				</div>
+				<ContentWrapper
+					v-if="data.body.content_2"
+					id="content_2"
+					:style="{ order: data.body.order_components['content'] }"
+				>
+					<ContentSupport :value="data.body.content" />
+				</ContentWrapper>
 			</div>
 			<div class="symbols" v-if="data.body.symbols.length">
 				<div class="container">
@@ -48,14 +81,6 @@
 				<div class="screenshots">
 					<AText tag="div" :attributes="symbolTitleSettings">{{ t('SCREENSHOTS') }}</AText>
 					<SlotScreenshots :posts="data.body.screenshots" :title="data.body.title" />
-				</div>
-			</div>
-			<div class="container" v-if="data.body.video.length">
-				<div class="video_gallery">
-					<AText tag="div" v-if="data.body.video_title" :attributes="symbolTitleSettings">{{
-						data.body.video_title
-					}}</AText>
-					<VideoGallery :posts="videoListWrapper(data.body.video)" />
 				</div>
 			</div>
 			<div class="container content_container" v-if="data.body.content">
@@ -115,6 +140,12 @@ import DAL_Review from '~/DAL/review'
 import gradientWrapper from '~/components/gradient_wrapper'
 import date from '~/components/date'
 import AuthorSummary from '~/components/author_summary'
+import TopCasinoList from '~/components/top_casino_list'
+import ContentSupport from '~/components/content/text_2'
+import ContentWrapper from '~/components/content_wrapper'
+import GameSlider from '~/components/game_slider'
+import NavMenu from '~/components/nav_menu'
+import VideoWithText from '~/components/video_with_text'
 import config from '~/config'
 
 export default {
@@ -132,7 +163,13 @@ export default {
 		Reviews,
 		gradientWrapper,
 		date,
-		AuthorSummary
+		AuthorSummary,
+		TopCasinoList,
+		ContentSupport,
+		ContentWrapper,
+		GameSlider,
+		NavMenu,
+		VideoWithText
 	},
 	layout: 'default',
 	data: () => {

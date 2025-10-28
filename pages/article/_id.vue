@@ -252,15 +252,3 @@ export default {
 	}
 }
 </script>
-<style>
-.sticky-tabs .slick-track {
-	padding: 10px 0;
-}
-</style>
-<style scoped>
-.sticky-tabs {
-	position: sticky;
-	top: 0;
-	z-index: 100;
-}
-</style>

@@ -31,7 +31,7 @@
 			</div>
 			<div class="container" v-if="faq.length">
 				<div class="main_gap">
-					<h2 class="text_color_cairo">{{ t('FAQ_MINIMUM_DEPOSIT_CASINOS_TEN_DOLLAR') }}</h2>
+					<h2 class="text_color_cairo">{{ faq_title }}</h2>
 					<Faq :value="faq" />
 				</div>
 			</div>
@@ -74,8 +74,8 @@ export default {
 		}
 		const response = await DAL_Page.getData(request)
 		const data = helper.headDataMixin(response.data, route)
-		const { content, h1, title, update_at, faq } = data.body
-		return { data, content, h1, title, update_at, faq }
+		const { content, h1, title, update_at, faq, faq_title } = data.body
+		return { data, content, h1, title, update_at, faq, faq_title }
 	}
 }
 </script>

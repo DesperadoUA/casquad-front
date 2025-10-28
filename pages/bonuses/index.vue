@@ -30,9 +30,10 @@
 			<div class="container content_container">
 				<Content :value="data.body.content" />
 			</div>
-			<div class="container" v-if="data.body.faq.length">
-				<div class="faq_container">
-					<Faq :value="data.body.faq" />
+			<div class="container" v-if="faq.length">
+				<div class="main_gap">
+					<h2 class="text_color_cairo">{{ faq_title }}</h2>
+					<Faq :value="faq" />
 				</div>
 			</div>
 			<Cookies />
@@ -95,8 +96,8 @@ export default {
 		}
 		const response = await DAL_Page.getData(request)
 		const data = helper.headDataMixin(response.data, route)
-		const { bonus_category } = response.data.body
-		return { data, bonus_category }
+		const { bonus_category, faq, faq_title } = response.data.body
+		return { data, bonus_category, faq, faq_title }
 	}
 }
 </script>

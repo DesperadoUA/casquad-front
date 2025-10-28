@@ -815,6 +815,14 @@ Common styles*/
 .custom-table td:last-child {
 	border-right: none;
 }
+.sticky-tabs {
+	position: sticky;
+	top: 0;
+	z-index: 100;
+}
+.sticky-tabs .slick-track {
+	padding: 10px 0;
+}
 @media (max-width: 1024px) {
 	.table-wrapper {
 		border-radius: 6px;

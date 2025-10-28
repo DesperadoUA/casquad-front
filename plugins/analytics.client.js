@@ -1,20 +1,30 @@
 let __analyticsInitialized = false
 
+function normalizeUrl(url) {
+	try {
+		if (!url) return ''
+		let cleaned = decodeURIComponent(url)
+		cleaned = cleaned.replace(/^https?:\/\//i, '').replace(/^www\./i, '')
+		cleaned = cleaned.trim().replace(/\/+$/, '')
+		return cleaned
+	} catch (err) {
+		console.warn('[normalizeUrl] Failed to normalize url:', err)
+		return url
+	}
+}
+
+// 🔹 Получаем источник и сразу нормализуем
 function getReferrerSource(refParam) {
 	try {
-		const currentHost = window.location.hostname
 		let source = 'direct'
 
 		if (refParam) {
 			source = refParam
 		} else if (document.referrer) {
-			const refHost = new URL(document.referrer).hostname
-			if (refHost && refHost !== currentHost) {
-				source = document.referrer
-			}
+			source = document.referrer
 		}
 
-		return source
+		return source === 'direct' ? 'direct' : normalizeUrl(source)
 	} catch (err) {
 		console.warn('[analytics] Failed to determine referrer source:', err)
 		return 'direct'
@@ -40,7 +50,9 @@ export default ({ store }) => {
 		if (!analyticsData.first_source) {
 			analyticsData.first_source = getReferrerSource(refParam)
 		}
+
 		analyticsData.referrer = getReferrerSource(refParam)
+
 		localStorage.setItem('analytics', JSON.stringify(analyticsData))
 		store.dispatch('analytics/initAnalytics', analyticsData)
 	} catch (err) {
