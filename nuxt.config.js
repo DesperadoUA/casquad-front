@@ -47,7 +47,8 @@ export default {
 			} else {
 				return { x: 0, y: 0 }
 			}
-		}
+		},
+		middleware: ['stripTrailingSlash']
 	},
 	// Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
 	plugins: ['~/plugins/analytics.client.js'],

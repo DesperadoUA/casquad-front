@@ -6,6 +6,10 @@
 				permalink: '/'
 			},
 			{
+				title: t('BREADCRUMB_MINIMUM_DEPOSIT_CASINOS_PAGE'),
+				permalink: '/minimum-deposit-casinos'
+			},
+			{
 				title,
 				permalink: ''
 			}
@@ -24,7 +28,7 @@
 import defaultStaticPage from '~/mixins/defaultStaticPage'
 
 export default {
-	name: 'gambling-law',
+	name: 'deposit-twenty-dollar',
 	mixins: [defaultStaticPage]
 }
 </script>

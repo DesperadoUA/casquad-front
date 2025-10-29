@@ -24,7 +24,7 @@
 import defaultStaticPage from '~/mixins/defaultStaticPage'
 
 export default {
-	name: 'gambling-law',
+	name: 'vip-casinos',
 	mixins: [defaultStaticPage]
 }
 </script>

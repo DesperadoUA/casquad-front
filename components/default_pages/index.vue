@@ -1,0 +1,101 @@
+<template>
+	<main class="main_wrapper">
+		<Gradient />
+		<div class="container z-index-3">
+			<div class="h1_wrapper">
+				<gradientWrapper>
+					<Breadcrumbs :value="breadcrumbs" />
+					<AText tag="h1" :attributes="titleSettings">{{ h1 }}</AText>
+					<date :value="update_at.slice(0, 10)" />
+				</gradientWrapper>
+			</div>
+		</div>
+		<div class="container content_container z-index-3" v-if="content">
+			<Content :value="content" />
+		</div>
+		<div class="container" v-if="author_summary && author">
+			<AuthorSummary
+				:social="author.social"
+				:short_desc="author_summary"
+				:title="author.title"
+				:create_at="author.create_at.slice(0, 10)"
+				:position="author.position"
+				:img="author.thumbnail"
+				:totalPosts="author.total_posts || 0"
+				:role="badgeList[author.role]"
+				:roleText="author.role"
+				:permalink="author.permalink"
+			/>
+		</div>
+		<div class="container" v-if="faq.length">
+			<div class="main_gap">
+				<h2 class="text_color_cairo">{{ faq_title }}</h2>
+				<Faq :value="faq" />
+			</div>
+		</div>
+		<Cookies />
+	</main>
+</template>
+
+<script>
+import Gradient from '~/components/gradient'
+import Breadcrumbs from '~/components/breadcrumbs'
+import gradientWrapper from '~/components/gradient_wrapper'
+import date from '~/components/date'
+import Faq from '~/components/faq'
+import AuthorSummary from '~/components/author_summary'
+import config from '~/config'
+import components from '~/mixins/components'
+
+export default {
+	name: 'default_page',
+	mixins: [components],
+	components: { Gradient, Breadcrumbs, gradientWrapper, date, Faq, AuthorSummary },
+	props: {
+		breadcrumbs: {
+			type: Array,
+			default: []
+		},
+		h1: {
+			type: String,
+			default: ''
+		},
+		update_at: {
+			type: String,
+			default: ''
+		},
+		content: {
+			type: String,
+			default: ''
+		},
+		author_summary: {
+			type: String,
+			default: ''
+		},
+		author: {
+			type: Object,
+			default: () => {}
+		},
+		faq_title: {
+			type: String,
+			default: ''
+		},
+		faq: {
+			type: Array,
+			default: []
+		}
+	},
+	data: () => {
+		return {
+			titleSettings: {
+				color: 'cairo',
+				size: 'x-large',
+				weight: 'bold',
+				transform: 'uppercase',
+				class: 'title'
+			},
+			badgeList: config.AUTHOR_BADGE_LIST
+		}
+	}
+}
+</script>
