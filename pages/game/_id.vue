@@ -71,16 +71,85 @@
 					<ContentSupport :value="data.body.content" />
 				</ContentWrapper>
 			</div>
-			<div class="symbols" v-if="data.body.symbols.length">
-				<div class="container">
-					<AText tag="div" :attributes="videoTitleSettings">{{ t('SLOT_SYMBOLS') }}</AText>
-					<SlotSymbols :posts="data.body.symbols" :title="data.body.title" />
+			<section id="stats" class="bg_grey p-gap">
+				<div class="container main_gap">
+					<AText tag="div" v-if="data.body.characters_title" :attributes="videoTitleSettings">
+						{{ data.body.characters_title }}
+					</AText>
+					<div class="stats">
+						<div class="stats_item">
+							<GameStatsItem src="/img/software.svg" title="Software" :subTitle="data.body.characters_software" />
+						</div>
+						<div class="stats_item">
+							<GameStatsItem src="/img/themes.svg" title="Themes" :subTitle="data.body.characters_themes" />
+						</div>
+						<div class="stats_item">
+							<GameStatsItem src="/img/date.svg" title="Release Date" :subTitle="data.body.characters_release_date" />
+						</div>
+						<div class="stats_item">
+							<GameStatsItem src="/img/mobile.svg" title="Mobile" :isCheck="Boolean(data.body.characters_mobile)" />
+						</div>
+						<div class="stats_item">
+							<GameStatsItem src="/img/slot_types.svg" title="Slot Type" :subTitle="data.body.characters_slot_type" />
+						</div>
+						<div class="stats_item">
+							<GameStatsItem
+								src="/img/mobile.svg"
+								title="Free Spins"
+								:isCheck="Boolean(data.body.characters_free_spins)"
+							/>
+						</div>
+						<div class="stats_item">
+							<GameStatsItem src="/img/rtp.svg" title="RTP" :subTitle="data.body.characters_rtp" />
+						</div>
+						<div class="stats_item">
+							<GameStatsItem
+								src="/img/bonus_round.svg"
+								title="Bonus Round"
+								:isCheck="Boolean(data.body.characters_bonus_round)"
+							/>
+						</div>
+						<div class="stats_item">
+							<GameStatsItem src="/img/volatility.svg" title="Volatility" :subTitle="data.body.characters_volatility" />
+						</div>
+						<div class="stats_item">
+							<GameStatsItem src="/img/wild.svg" title="Wild" :isCheck="Boolean(data.body.characters_wild)" />
+						</div>
+						<div class="stats_item">
+							<GameStatsItem src="/img/paylines.svg" title="Paylines" :subTitle="data.body.characters_paylines" />
+						</div>
+						<div class="stats_item">
+							<GameStatsItem src="/img/multiplier.svg" title="Multiplier" :isCheck="Boolean(data.body.multiplier)" />
+						</div>
+						<div class="stats_item">
+							<GameStatsItem src="/img/paylines.svg" title="Reels" :subTitle="data.body.characters_reels" />
+						</div>
+						<div class="stats_item">
+							<GameStatsItem src="/img/scatter.svg" title="Scatter" :isCheck="Boolean(data.body.characters_scatter)" />
+						</div>
+						<div class="stats_item">
+							<GameStatsItem src="/img/min_bet.svg" title="Min Bet" :subTitle="data.body.characters_min_bet" />
+						</div>
+						<div class="stats_item">
+							<GameStatsItem
+								src="/img/progressive.svg"
+								title="Progressive"
+								:isCheck="Boolean(data.body.characters_progressive)"
+							/>
+						</div>
+					</div>
 				</div>
-			</div>
+			</section>
 			<div class="container" v-if="data.body.screenshots.length">
 				<div class="screenshots">
 					<AText tag="div" :attributes="symbolTitleSettings">{{ t('SCREENSHOTS') }}</AText>
 					<SlotScreenshots :posts="data.body.screenshots" :title="data.body.title" />
+				</div>
+			</div>
+			<div class="symbols" v-if="data.body.symbols.length">
+				<div class="container sub_gap">
+					<AText tag="div" :attributes="videoTitleSettings">{{ t('SLOT_SYMBOLS') }}</AText>
+					<SlotSymbols :posts="data.body.symbols" :title="data.body.title" />
 				</div>
 			</div>
 			<div class="container content_container" v-if="data.body.content">
@@ -146,6 +215,7 @@ import ContentWrapper from '~/components/content_wrapper'
 import GameSlider from '~/components/game_slider'
 import NavMenu from '~/components/nav_menu'
 import VideoWithText from '~/components/video_with_text'
+import GameStatsItem from '~/components/game_stats/item'
 import config from '~/config'
 
 export default {
@@ -169,7 +239,8 @@ export default {
 		ContentWrapper,
 		GameSlider,
 		NavMenu,
-		VideoWithText
+		VideoWithText,
+		GameStatsItem
 	},
 	layout: 'default',
 	data: () => {
@@ -267,11 +338,6 @@ export default {
 }
 </script>
 <style scoped>
-.symbols {
-	background: var(--cucuta);
-	padding-top: 20px;
-	padding-bottom: 20px;
-}
 .screenshots,
 .video_gallery {
 	padding: 20px;
@@ -290,11 +356,36 @@ export default {
 .video_gallery .title {
 	line-height: 32px;
 }
+.bg_grey {
+	background: var(--cancun);
+}
+.p-gap {
+	padding-top: var(--gap-components);
+	padding-bottom: var(--gap-components);
+}
+.stats {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 20px;
+}
+.stats_item {
+	width: calc(25% - 15px);
+}
 @media (max-width: 767px) {
 	.symbols,
 	.screenshots {
 		padding-top: 20px;
 		padding-bottom: 20px;
+	}
+}
+@media (max-width: 576px) {
+	.stats_item {
+		width: 100%;
+	}
+}
+@media (min-width: 577px) and (max-width: 1200px) {
+	.stats_item {
+		width: calc(50% - 10px);
 	}
 }
 </style>
