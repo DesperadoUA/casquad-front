@@ -1,39 +1,46 @@
 <template>
 	<div class="breadcrumbs">
-		<ul itemscope="itemscope" itemtype="https://schema.org/BreadcrumbList" class="breadcrumb-list">
+		<ul itemscope itemtype="https://schema.org/BreadcrumbList" class="breadcrumb-list">
 			<li
-				itemprop="itemListElement"
-				itemscope="itemscope"
-				itemtype="https://schema.org/ListItem"
-				class="breadcrumb-item"
 				v-for="(item, index) in value"
 				:key="index"
+				itemprop="itemListElement"
+				itemscope
+				itemtype="https://schema.org/ListItem"
+				class="breadcrumb-item"
 			>
-				<span
-					itemtype="https://schema.org/Thing"
-					v-if="item.permalink === ''"
-					itemscope="itemscope"
-					itemprop="item"
-					:itemid="fullUrl"
-					:id="index === 0 ? 'homePage' : 'single'"
-					class="nuxt-link-active"
-				>
-					<span itemprop="name">{{ item.title }}</span>
-				</span>
-				<NuxtLink
-					v-else
-					:to="item.permalink"
-					itemtype="https://schema.org/Thing"
-					itemscope="itemscope"
-					itemprop="item"
-					:itemid="item.permalink"
-					:id="index === 0 ? 'homePage' : 'single'"
-					class="nuxt-link-active"
-					:title="`Goes to ${item.title}`"
-					><span itemprop="name">{{ item.title }} </span>
-				</NuxtLink>
+				<template v-if="item.permalink === ''">
+					<span
+						itemscope
+						itemtype="https://schema.org/Thing"
+						itemprop="item"
+						:itemid="fullUrl"
+						:id="index === 0 ? 'homePage' : 'single'"
+						class="nuxt-link-active"
+					>
+						<span itemprop="name">{{ item.title }}</span>
+					</span>
+				</template>
+				<template v-else>
+					<NuxtLink
+						:to="item.permalink"
+						itemscope
+						itemtype="https://schema.org/Thing"
+						itemprop="item"
+						:itemid="item.permalink"
+						:id="index === 0 ? 'homePage' : 'single'"
+						class="nuxt-link-active"
+						:title="`Goes to ${item.title}`"
+					>
+						<span itemprop="name">{{ item.title }}</span>
+					</NuxtLink>
+				</template>
+
+				<!-- 👇 добавляем обязательные поля -->
+				<meta itemprop="name" :content="item.title" />
+				<meta itemprop="position" :content="index + 1" />
+
 				<span v-if="value.length !== index + 1">/</span>
-				<meta itemprop="position" :content="++index" />
 			</li>
 		</ul>
 	</div>
@@ -47,7 +54,7 @@ export default {
 	props: {
 		value: {
 			type: Array,
-			default: []
+			default: () => []
 		}
 	},
 	data() {
@@ -71,7 +78,6 @@ export default {
 	display: flex;
 	flex-wrap: wrap;
 }
-
 .breadcrumb-item {
 	font-size: 18px;
 	line-height: 1.2;

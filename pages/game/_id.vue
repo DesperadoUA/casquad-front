@@ -1,9 +1,9 @@
 <template>
 	<div>
-		<main class="main_wrapper_slots">
+		<main class="main_wrapper_slots container_top_game main_gap">
 			<Gradient modifier="large" />
-			<div class="container container_top_game z-index-3 main_gap">
-				<div class="h1_wrapper">
+			<div class="container">
+				<div class="h1_wrapper z-index-3">
 					<gradientWrapper>
 						<div class="breadcrumbs_wrapper">
 							<Breadcrumbs
@@ -25,6 +25,8 @@
 						</div>
 					</gradientWrapper>
 				</div>
+			</div>
+			<div class="container z-index-3">
 				<SlotCard
 					:title="data.body.title"
 					:src="data.body.thumbnail"
@@ -37,39 +39,23 @@
 					:author_title="data.body.authors.length ? data.body.authors[0].title : ''"
 					@onClickDemoActivate="onClickDemoActivate"
 				/>
-				<div
-					class="sticky-tabs"
-					id="nav_menu"
-					v-if="data.body.nav_menu.length"
-					:style="{ order: data.body.order_components['nav_menu'] || 3 }"
-				>
+			</div>
+			<div class="container z-index-3" id="nav_menu" v-if="data.body.nav_menu.length">
+				<div class="sticky-tabs" :style="{ order: data.body.order_components['nav_menu'] || 3 }">
 					<NavMenu :value="data.body.nav_menu" />
 				</div>
-				<div id="top_casinos" :style="{ order: data.body.order_components['top_casinos'] }">
-					<TopCasinoList v-if="data.body.casinos.length" :posts="data.body.casinos" />
-				</div>
+			</div>
+			<div class="container z-index-3" id="video" v-if="data.body.video.length">
 				<VideoWithText
-					v-if="data.body.video.length"
 					:style="{ order: data.body.order_components['video'] }"
 					:video="data.body.video[0]"
 					:text="data.body.video_text"
 				/>
-				<div
-					class="main_gap"
-					v-if="data.body.content_3"
-					id="games"
-					:style="{ order: data.body.order_components['games'] }"
-				>
-					<ContentSupport :value="data.body.content_3" />
-					<GameSlider v-if="data.body.games.length" :posts="data.body.games" />
+			</div>
+			<div class="container z-index-3" id="top_casinos" v-if="data.body.casinos.length">
+				<div :style="{ order: data.body.order_components['top_casinos'] }">
+					<TopCasinoList :posts="data.body.casinos" />
 				</div>
-				<ContentWrapper
-					v-if="data.body.content_2"
-					id="content_2"
-					:style="{ order: data.body.order_components['content'] }"
-				>
-					<ContentSupport :value="data.body.content" />
-				</ContentWrapper>
 			</div>
 			<section id="stats" class="bg_grey p-gap">
 				<div class="container main_gap">
@@ -138,8 +124,42 @@
 							/>
 						</div>
 					</div>
+					<AText tag="div" v-if="data.body.details_title" :attributes="videoTitleSettings">
+						{{ data.body.details_title }}
+					</AText>
+					<div class="details">
+						<div class="details_item" v-for="(item, index) in data.body.details" :key="index">
+							<GameDetailsItem :src="item.src" :title="item.value_1" :subTitle="item.value_2" />
+						</div>
+					</div>
 				</div>
 			</section>
+			<div class="container sub_gap z-index-3" id="rtp" v-if="data.body.rtp_description">
+				<h2 class="text_color_cairo m-0" v-if="data.body.rtp_description_title">
+					{{ data.body.rtp_description_title }}
+				</h2>
+				<ContentWrapper :style="{ order: data.body.order_components['rtp_description'] }">
+					<ContentSupport :value="data.body.rtp_description" />
+				</ContentWrapper>
+			</div>
+			<div class="container container_top_game main_gap">
+				<div
+					class="main_gap"
+					v-if="data.body.content_3"
+					id="games"
+					:style="{ order: data.body.order_components['games'] }"
+				>
+					<ContentSupport :value="data.body.content_3" />
+					<GameSlider v-if="data.body.games.length" :posts="data.body.games" />
+				</div>
+				<ContentWrapper
+					v-if="data.body.content_2"
+					id="content_2"
+					:style="{ order: data.body.order_components['content'] }"
+				>
+					<ContentSupport :value="data.body.content" />
+				</ContentWrapper>
+			</div>
 			<div class="container" v-if="data.body.screenshots.length">
 				<div class="screenshots">
 					<AText tag="div" :attributes="symbolTitleSettings">{{ t('SCREENSHOTS') }}</AText>
@@ -216,6 +236,7 @@ import GameSlider from '~/components/game_slider'
 import NavMenu from '~/components/nav_menu'
 import VideoWithText from '~/components/video_with_text'
 import GameStatsItem from '~/components/game_stats/item'
+import GameDetailsItem from '~/components/game_details/item'
 import config from '~/config'
 
 export default {
@@ -240,7 +261,8 @@ export default {
 		GameSlider,
 		NavMenu,
 		VideoWithText,
-		GameStatsItem
+		GameStatsItem,
+		GameDetailsItem
 	},
 	layout: 'default',
 	data: () => {
@@ -363,12 +385,15 @@ export default {
 	padding-top: var(--gap-components);
 	padding-bottom: var(--gap-components);
 }
-.stats {
+.stats,
+.details {
 	display: flex;
 	flex-wrap: wrap;
 	gap: 20px;
+	align-items: stretch;
 }
-.stats_item {
+.stats_item,
+.details_item {
 	width: calc(25% - 15px);
 }
 @media (max-width: 767px) {
@@ -379,12 +404,14 @@ export default {
 	}
 }
 @media (max-width: 576px) {
-	.stats_item {
+	.stats_item,
+	.details_item {
 		width: 100%;
 	}
 }
 @media (min-width: 577px) and (max-width: 1200px) {
-	.stats_item {
+	.stats_item,
+	.details_item {
 		width: calc(50% - 10px);
 	}
 }

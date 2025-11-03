@@ -191,7 +191,6 @@ export default {
 	width: 210px;
 	min-width: 210px;
 	display: flex;
-	height: 100%;
 	align-items: center;
 	position: relative;
 }
