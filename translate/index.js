@@ -971,5 +971,30 @@ export default {
 		UA: 'Казино з бонусною кімнатою',
 		RU: 'Бонусная комната казино',
 		EN: 'ProGamblers Blueprint'
+	},
+	MOBILE_VERSION: {
+		UA: 'Мобільна версія',
+		RU: 'Мобильная версия',
+		EN: 'Mobile Version'
+	},
+	IOS_ANDROID: {
+		UA: 'iOS/Android',
+		RU: 'iOS/Android',
+		EN: 'iOS/Android'
+	},
+	ONE_HAND_USE: {
+		UA: 'Интерфейс удобен для использования одной рукой',
+		RU: 'Интерфейс удобен для использования одной рукой',
+		EN: 'Interface convenient for one-hand use'
+	},
+	AUTOSPINS: {
+		UA: 'Підтримуються автообертання',
+		RU: 'Поддерживаются автоспины',
+		EN: 'Autospins supported'
+	},
+	TLS: {
+		UA: 'TLS/HTTPS',
+		RU: 'TLS/HTTPS',
+		EN: 'TLS/HTTPS'
 	}
 }

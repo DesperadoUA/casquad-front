@@ -142,6 +142,37 @@
 					<ContentSupport :value="data.body.rtp_description" />
 				</ContentWrapper>
 			</div>
+			<div class="container" id="pros_cons" v-if="data.body.pros.length || data.body.cons.length">
+				<ContentWrapper :style="{ order: data.body.order_components['pros_cons'] }" class="sub_gap">
+					<h2 class="text_color_cairo m-0" v-if="data.body.pros_cons_title">
+						{{ data.body.pros_cons_title }}
+					</h2>
+					<ProsCons
+						:prosList="data.body.pros"
+						:consList="data.body.cons"
+						:prosTitle="data.body.pros_title"
+						:consTitle="data.body.cons_title"
+					/>
+				</ContentWrapper>
+			</div>
+			<div class="container sub_gap z-index-3" id="mobile_version">
+				<h2 class="text_color_cairo m-0">
+					{{ t('MOBILE_VERSION') }}
+				</h2>
+				<MobileVersion
+					:mobile_version_ios="Boolean(data.body.mobile_version_ios)"
+					:mobile_one_hand_use="Boolean(data.body.mobile_one_hand_use)"
+					:mobile_autospins="Boolean(data.body.mobile_autospins)"
+					:mobile_tls="Boolean(data.body.mobile_tls)"
+				/>
+			</div>
+			<div class="container sub_gap z-index-3" id="bonuses" v-if="data.body.bonuses_text">
+				<h2 class="text_color_cairo m-0" v-if="data.body.bonuses_title">
+					{{ data.body.bonuses_title }}
+				</h2>
+				<ContentSupport :value="data.body.bonuses_text" />
+			</div>
+			<!--
 			<div class="container container_top_game main_gap">
 				<div
 					class="main_gap"
@@ -160,6 +191,7 @@
 					<ContentSupport :value="data.body.content" />
 				</ContentWrapper>
 			</div>
+			-->
 			<div class="container" v-if="data.body.screenshots.length">
 				<div class="screenshots">
 					<AText tag="div" :attributes="symbolTitleSettings">{{ t('SCREENSHOTS') }}</AText>
@@ -237,6 +269,7 @@ import NavMenu from '~/components/nav_menu'
 import VideoWithText from '~/components/video_with_text'
 import GameStatsItem from '~/components/game_stats/item'
 import GameDetailsItem from '~/components/game_details/item'
+import MobileVersion from '~/components/mobile_version'
 import config from '~/config'
 
 export default {
@@ -262,7 +295,8 @@ export default {
 		NavMenu,
 		VideoWithText,
 		GameStatsItem,
-		GameDetailsItem
+		GameDetailsItem,
+		MobileVersion
 	},
 	layout: 'default',
 	data: () => {
