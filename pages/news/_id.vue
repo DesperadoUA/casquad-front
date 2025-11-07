@@ -1,6 +1,6 @@
 <template>
 	<main class="main_wrapper pb-0">
-		<Gradient />
+		<Gradient modifier="large" />
 		<div class="container z-index-3 main_gap">
 			<div class="h1_wrapper">
 				<gradientWrapper>

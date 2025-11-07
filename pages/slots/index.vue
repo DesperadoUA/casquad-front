@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<main class="main_wrapper">
-			<Gradient />
+			<Gradient modifier="large" />
 			<div class="container z-index-3" v-if="data.body.h1">
 				<div class="h1_wrapper">
 					<gradientWrapper>

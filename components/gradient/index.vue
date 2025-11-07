@@ -19,10 +19,10 @@ export default {
 	width: 100%;
 	top: 0;
 	left: 0;
-	background: linear-gradient(90deg, rgba(51, 35, 149, 1) 0%, rgba(104, 66, 255, 1) 100%);
+	background: linear-gradient(180deg, #6842ff 0%, #08051a 100%);
 }
 .large {
-	height: 390px;
+	height: 606px;
 }
 @media (min-width: 768px) and (max-width: 1200px) {
 	.large {

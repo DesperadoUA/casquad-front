@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<main class="main_wrapper">
-			<Gradient />
+			<Gradient modifier="large" />
 			<div class="container z-index-3">
 				<div class="h1_wrapper">
 					<gradientWrapper>
@@ -22,7 +22,7 @@
 					</gradientWrapper>
 				</div>
 			</div>
-			<div class="container">
+			<div class="container z-index-3">
 				<NewsLoop :value="data.body.news" />
 			</div>
 			<div class="container content_container">

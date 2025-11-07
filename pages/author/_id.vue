@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<main class="main_wrapper">
-			<Gradient />
+			<Gradient modifier="large" />
 			<div class="container container_top_game z-index-3">
 				<div class="h1_wrapper">
 					<gradientWrapper>
@@ -22,7 +22,7 @@
 					</gradientWrapper>
 				</div>
 			</div>
-			<div class="container main_gap">
+			<div class="container main_gap z-index-3">
 				<AuthorCardTop
 					:social="data.body.social"
 					:short_desc="data.body.short_desc"
