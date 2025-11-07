@@ -2,7 +2,7 @@
 	<div>
 		<main class="main_wrapper_slots container_top_game main_gap">
 			<Gradient modifier="large" />
-			<div class="container">
+			<div class="container" id="breadcrumbs" :style="{ order: data.body.order_components['breadcrumbs'] }">
 				<div class="h1_wrapper z-index-3">
 					<gradientWrapper>
 						<div class="breadcrumbs_wrapper">
@@ -26,7 +26,7 @@
 					</gradientWrapper>
 				</div>
 			</div>
-			<div class="container z-index-3">
+			<div class="container z-index-3" id="top_card" :style="{ order: data.body.order_components['top_card'] }">
 				<SlotCard
 					:title="data.body.title"
 					:src="data.body.thumbnail"
@@ -40,24 +40,33 @@
 					@onClickDemoActivate="onClickDemoActivate"
 				/>
 			</div>
-			<div class="container z-index-3" id="nav_menu" v-if="data.body.nav_menu.length">
-				<div class="sticky-tabs" :style="{ order: data.body.order_components['nav_menu'] || 3 }">
+			<div
+				class="container z-index-3"
+				id="nav_menu"
+				v-if="data.body.nav_menu.length"
+				:style="{ order: data.body.order_components['nav_menu'] || 3 }"
+			>
+				<div class="sticky-tabs">
 					<NavMenu :value="data.body.nav_menu" />
 				</div>
 			</div>
-			<div class="container z-index-3" id="video" v-if="data.body.video.length">
-				<VideoWithText
-					:style="{ order: data.body.order_components['video'] }"
-					:video="data.body.video[0]"
-					:text="data.body.video_text"
-				/>
+			<div
+				class="container z-index-3"
+				id="video"
+				v-if="data.body.video.length"
+				:style="{ order: data.body.order_components['video'] }"
+			>
+				<VideoWithText :video="data.body.video[0]" :text="data.body.video_text" />
 			</div>
-			<div class="container z-index-3" id="top_casinos" v-if="data.body.casinos.length">
-				<div :style="{ order: data.body.order_components['top_casinos'] }">
-					<TopCasinoList :posts="data.body.casinos" />
-				</div>
+			<div
+				class="container z-index-3"
+				id="top_casinos"
+				v-if="data.body.casinos.length"
+				:style="{ order: data.body.order_components['top_casinos'] }"
+			>
+				<TopCasinoList :posts="data.body.casinos" />
 			</div>
-			<section id="stats" class="bg_grey p-gap">
+			<section id="characters" class="bg_grey p-gap" :style="{ order: data.body.order_components['characters'] }">
 				<div class="container main_gap">
 					<AText tag="div" v-if="data.body.characters_title" :attributes="videoTitleSettings">
 						{{ data.body.characters_title }}
@@ -134,16 +143,26 @@
 					</div>
 				</div>
 			</section>
-			<div class="container sub_gap z-index-3" id="rtp" v-if="data.body.rtp_description">
+			<div
+				class="container sub_gap z-index-3"
+				id="rtp"
+				v-if="data.body.rtp_description"
+				:style="{ order: data.body.order_components['rtp'] }"
+			>
 				<h2 class="text_color_cairo m-0" v-if="data.body.rtp_description_title">
 					{{ data.body.rtp_description_title }}
 				</h2>
-				<ContentWrapper :style="{ order: data.body.order_components['rtp_description'] }">
+				<ContentWrapper>
 					<ContentSupport :value="data.body.rtp_description" />
 				</ContentWrapper>
 			</div>
-			<div class="container" id="pros_cons" v-if="data.body.pros.length || data.body.cons.length">
-				<ContentWrapper :style="{ order: data.body.order_components['pros_cons'] }" class="sub_gap">
+			<div
+				class="container"
+				id="pros_cons"
+				v-if="data.body.pros.length || data.body.cons.length"
+				:style="{ order: data.body.order_components['pros_cons'] }"
+			>
+				<ContentWrapper class="sub_gap">
 					<h2 class="text_color_cairo m-0" v-if="data.body.pros_cons_title">
 						{{ data.body.pros_cons_title }}
 					</h2>
@@ -155,7 +174,11 @@
 					/>
 				</ContentWrapper>
 			</div>
-			<div class="container sub_gap z-index-3" id="mobile_version">
+			<div
+				class="container sub_gap z-index-3"
+				id="mobile_version"
+				:style="{ order: data.body.order_components['mobile_version'] }"
+			>
 				<h2 class="text_color_cairo m-0">
 					{{ t('MOBILE_VERSION') }}
 				</h2>
@@ -166,48 +189,64 @@
 					:mobile_tls="Boolean(data.body.mobile_tls)"
 				/>
 			</div>
-			<div class="container sub_gap z-index-3" id="bonuses" v-if="data.body.bonuses_text">
+			<div
+				class="container sub_gap z-index-3"
+				id="bonuses"
+				v-if="data.body.bonuses_text"
+				:style="{ order: data.body.order_components['characters'] }"
+			>
 				<h2 class="text_color_cairo m-0" v-if="data.body.bonuses_title">
 					{{ data.body.bonuses_title }}
 				</h2>
 				<ContentSupport :value="data.body.bonuses_text" />
 			</div>
-			<!--
-			<div class="container container_top_game main_gap">
-				<div
-					class="main_gap"
-					v-if="data.body.content_3"
-					id="games"
-					:style="{ order: data.body.order_components['games'] }"
-				>
-					<ContentSupport :value="data.body.content_3" />
-					<GameSlider v-if="data.body.games.length" :posts="data.body.games" />
-				</div>
-				<ContentWrapper
-					v-if="data.body.content_2"
-					id="content_2"
-					:style="{ order: data.body.order_components['content'] }"
-				>
-					<ContentSupport :value="data.body.content" />
-				</ContentWrapper>
+			<div
+				class="container sub_gap"
+				v-if="data.body.games_text"
+				id="games"
+				:style="{ order: data.body.order_components['games'] }"
+			>
+				<h2 class="text_color_cairo m-0" v-if="data.body.games_title">
+					{{ data.body.games_title }}
+				</h2>
+				<ContentSupport :value="data.body.games_text" />
+				<GameSlider v-if="data.body.games.length" :posts="data.body.games" />
 			</div>
-			-->
-			<div class="container" v-if="data.body.screenshots.length">
+			<div
+				class="container"
+				v-if="data.body.screenshots.length"
+				:style="{ order: data.body.order_components['screenshots'] }"
+			>
 				<div class="screenshots">
 					<AText tag="div" :attributes="symbolTitleSettings">{{ t('SCREENSHOTS') }}</AText>
 					<SlotScreenshots :posts="data.body.screenshots" :title="data.body.title" />
 				</div>
 			</div>
-			<div class="symbols" v-if="data.body.symbols.length">
+			<div
+				class="symbols"
+				id="symbols"
+				v-if="data.body.symbols.length"
+				:style="{ order: data.body.order_components['symbols'] }"
+			>
 				<div class="container sub_gap">
 					<AText tag="div" :attributes="videoTitleSettings">{{ t('SLOT_SYMBOLS') }}</AText>
 					<SlotSymbols :posts="data.body.symbols" :title="data.body.title" />
 				</div>
 			</div>
-			<div class="container content_container" v-if="data.body.content">
+			<div
+				class="container content_container"
+				id="content"
+				v-if="data.body.content"
+				:style="{ order: data.body.order_components['content'] }"
+			>
 				<Content :value="data.body.content" />
 			</div>
-			<div class="container" v-if="author_summary && author">
+			<div
+				class="container"
+				v-if="author_summary && author"
+				id="author_summary"
+				:style="{ order: data.body.order_components['author_summary'] }"
+			>
 				<AuthorSummary
 					:social="author.social"
 					:short_desc="author_summary"
@@ -221,13 +260,18 @@
 					:permalink="author.permalink"
 				/>
 			</div>
-			<div class="container sub_gap" v-if="data.body.faq.length">
+			<div
+				class="container sub_gap"
+				v-if="data.body.faq.length"
+				id="faq"
+				:style="{ order: data.body.order_components['faq'] }"
+			>
 				<AText v-if="data.body.faq_title" tag="h2" :attributes="videoTitleSettings">{{ data.body.faq_title }}</AText>
 				<div class="faq_container">
 					<Faq :value="data.body.faq" />
 				</div>
 			</div>
-			<div class="review_container">
+			<div class="review_container z-index-3" id="reviews" :style="{ order: data.body.order_components['reviews'] }">
 				<Reviews :posts="reviews" post_type="game" :post_id="data.body.id" @changeFilter="changeFilter" />
 			</div>
 			<SlotPopUp
