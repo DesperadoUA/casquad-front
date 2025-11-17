@@ -114,7 +114,7 @@
 							<GameStatsItem src="/img/paylines.svg" title="Paylines" :subTitle="data.body.characters_paylines" />
 						</div>
 						<div class="stats_item">
-							<GameStatsItem src="/img/multiplier.svg" title="Multiplier" :isCheck="Boolean(data.body.multiplier)" />
+							<GameStatsItem src="/img/multiplier.svg" title="Multiplier" :isCheck="Boolean(data.body.characters_multiplier)" />
 						</div>
 						<div class="stats_item">
 							<GameStatsItem src="/img/paylines.svg" title="Reels" :subTitle="data.body.characters_reels" />

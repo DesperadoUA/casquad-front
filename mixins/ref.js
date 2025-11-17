@@ -17,8 +17,7 @@ export default {
 				url.searchParams.set('element_id', component)
 				url.searchParams.set('first_source', first_source)
 				url.searchParams.set('referrer', referrer)
-				console.log(url.toString())
-				window.open(arr[geo], '_blank')
+				window.open(url.toString(), '_blank')
 			}
 		}
 	}

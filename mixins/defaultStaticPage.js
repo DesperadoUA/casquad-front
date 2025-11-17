@@ -24,7 +24,7 @@ export default {
 			author_summary = ''
 		} = data.body || {}
 
-		const [author = {}] = authors
+		const [author = null] = authors
 
 		return { data, content, h1, title, update_at, faq, faq_title, author, author_summary }
 	}

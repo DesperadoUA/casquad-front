@@ -683,6 +683,17 @@ Common styles*/
 	background: var(--cleveland);
 	color: var(--cairo);
 }
+.cms .link_btn {
+	display: inline-flex;
+	padding: 13px 27px;
+	border-radius: 16px;
+	text-decoration: none;
+	font-size: 16px;
+}
+.cms .link_btn.cleveland {
+	background: var(--cleveland);
+	color: var(--cairo);
+}
 @media (max-width: 576px) {
 	.cms .get_file {
 		flex-wrap: wrap;

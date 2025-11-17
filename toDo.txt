@@ -1,12 +1,8 @@
-[] Добавить темплейт с хедером и футером принимающим в качестве слота компоненты темплейта
-[] Сделать ренейм названий файлов
-[] Fix status code
-[] Adaptive
-   [] Main
-   [x] Games
-   [x] Bonuses
-   [x] News
-   [x] Game Single
-   [x] Casino Single
-   [x] Vendor Single
-   [x] News Single
+[1] best-casinos (путь старой главной страницы)
+[2]
+Compare Casinos => best-casinos
+View Bonuses => bonuses
+Play for Free => slots
+Exclusive Materials => news
+[3]
+  
