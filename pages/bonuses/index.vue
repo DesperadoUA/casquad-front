@@ -50,7 +50,7 @@ import Gradient from '~/components/gradient'
 import helper from '~/helpers/helpers'
 import components from '~/mixins/components'
 import Breadcrumbs from '~/components/breadcrumbs'
-import gradientWrapper from '~/components/gradient_wrapper/index.vue'
+import gradientWrapper from '~/components/gradient_wrapper'
 import date from '~/components/date'
 import geo from '~/mixins/geo'
 

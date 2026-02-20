@@ -7,21 +7,23 @@
 					<img src="/img/bad_casino_1.svg" />
 					<div class="bad_casino_item_title">Unpaid winnings</div>
 					<div class="bad_casino_item_text">
-						We recorded violations and do not recommend playing. Share confirmed cases and we’ll investigate.
+						Withdrawals delayed for weeks or months, vague rules, endless stalling. If money gets stuck - we add it
+						here.
 					</div>
 				</div>
 				<div class="bad_casino_item">
 					<img src="/img/bad_casino_2.svg" />
 					<div class="bad_casino_item_title">Fake license</div>
 					<div class="bad_casino_item_text">
-						We recorded violations and do not recommend playing. Share confirmed cases and we’ll investigate.
+						They flash MGA/UKGC/Curaçao logos but nothing checks out with the regulator. Fake licence = fake security.
 					</div>
 				</div>
 				<div class="bad_casino_item">
 					<img src="/img/bad_casino_3.svg" />
 					<div class="bad_casino_item_title">Hidden T&Cs</div>
 					<div class="bad_casino_item_text">
-						We recorded violations and do not recommend playing. Share confirmed cases and we’ll investigate.
+						Tiny print restrictions, tricky withdrawal limits, wagering that turns bonuses into trash. If a casino tries
+						to deceive you through rules - it goes straight to the blacklist.
 					</div>
 				</div>
 			</div>

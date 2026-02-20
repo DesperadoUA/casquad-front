@@ -23,16 +23,16 @@
 			</div>
 			<div class="action">
 				<AText>
-					<nuxt-link :to="permalink" class="permalink">
+					<div @click="refActivate(refLinks, geo, 'bonus_aside_card')" class="permalink">
 						<AImg :attributes="{ ...arrowSettings, alt: 'Arrow Green' }" src="/img/arrowWhite.svg" />
-					</nuxt-link>
+					</div>
 				</AText>
 			</div>
 		</div>
 		<div class="bottom">
-			<AText tag="div" :attributes="bottomTextSettings"
-				>Min. deposit: {{ min_dep }} &middot; Wagering: {{ wager }}</AText
-			>
+			<AText tag="div" :attributes="bottomTextSettings">
+				Min. deposit: {{ min_dep }} &middot; Wagering: {{ wager }}
+			</AText>
 		</div>
 	</article>
 </template>

@@ -22,24 +22,6 @@ import components from '~/mixins/components'
 import MobileVersionItem from '~/components/best_for_mobile/item'
 export default {
 	name: 'best_for_mobile',
-	props: {
-		mobile_version_ios: {
-			type: Boolean,
-			default: 0
-		},
-		mobile_one_hand_use: {
-			type: Boolean,
-			default: 0
-		},
-		mobile_autospins: {
-			type: Boolean,
-			default: 0
-		},
-		mobile_tls: {
-			type: Boolean,
-			default: 0
-		}
-	},
 	mixins: [components],
 	components: { MobileVersionItem }
 }

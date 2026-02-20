@@ -4,7 +4,6 @@ export default {
 			geoConfig: {
 				WORLD: 'W',
 				GB: 'GB',
-				BD: 'BD',
 				AU: 'AU',
 				GR: 'GR',
 				IN: 'IN',
@@ -14,7 +13,23 @@ export default {
 				DE: 'DE',
 				ZA: 'ZA',
 				PH: 'PH',
-				SE: 'SE'
+				SE: 'SE',
+				IT: 'IT',
+				NZ: 'NZ',
+				CH: 'CH',
+				FI: 'FI',
+				MY: 'MY',
+				HU: 'HU',
+				FR: 'FR',
+				HR: 'HR',
+				AT: 'AT',
+				BE: 'BE',
+				PL: 'PL',
+				PT: 'PT',
+				RO: 'RO',
+				NO: 'NO',
+				BR: 'BR',
+				CZ: 'CZ'
 			}
 		}
 	},

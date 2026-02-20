@@ -8,24 +8,24 @@
 				</div>
 			</div>
 			<div class="pluses">
-				<Pluses src="/img/cup.svg" title="25 Years of iGaming Experience" />
-				<Pluses src="/img/agreement.svg" title="100K+ Players  Trust Us" />
-				<Pluses src="/img/schedule.svg" title="Updated: October 2025" />
-				<Pluses src="/img/think.svg" title="Verified by Real Players" />
+				<Pluses src="/img/cup.svg" title="25+ years in iGaming" />
+				<Pluses src="/img/agreement.svg" title="100,000+ players trust CASQUAD" />
+				<Pluses src="/img/schedule.svg" title="Updated: November 2025" />
+				<Pluses src="/img/think.svg" title="Verified by real players" />
 			</div>
 		</div>
 		<div class="right">
 			<div class="section_item">
-				<SiteSection src="/img/gambler_section.svg" link="#" title="Compare Casinos" />
+				<SiteSection src="/img/gambler_section.svg" link="/" title="Compare Casinos" />
 			</div>
 			<div class="section_item">
-				<SiteSection src="/img/gift_sections.svg" link="#" title="View Bonuses" />
+				<SiteSection src="/img/gift_sections.svg" link="/bonuses" title="View Bonuses" />
 			</div>
 			<div class="section_item">
-				<SiteSection src="/img/bonus_section.svg" link="#" title="Play for Free" />
+				<SiteSection src="/img/bonus_section.svg" link="/free-play" title="Play for Free" />
 			</div>
 			<div class="section_item">
-				<SiteSection src="/img/vip_section.svg" link="#" title="Exclusive Materials" />
+				<SiteSection src="/img/vip_section.svg" link="/progamblers-blueprint" title="Exclusive Materials" />
 			</div>
 		</div>
 	</div>

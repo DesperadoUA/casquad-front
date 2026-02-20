@@ -1,8 +1,5 @@
-[1] best-casinos (путь старой главной страницы)
-[2]
-Compare Casinos => best-casinos
-View Bonuses => bonuses
-Play for Free => slots
-Exclusive Materials => news
-[3]
-  
+[1] How We Rank Casinos - No Paid Reviews, No Lies
+  -разнести текст для этого раздела(3 раздела).
+[x] Для блока с категориями с позиционировать кнопку к низу и сделать высоту 100%
+[x] Для блока с провайдерами добавить ссылки на страницы
+

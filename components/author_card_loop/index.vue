@@ -18,7 +18,7 @@
 <script>
 import components from '~/mixins/components'
 import Card from '~/components/author_card_loop/card.vue'
-import config from '~/config'
+import config from '~/config/'
 
 export default {
 	name: 'author_card_loop',
