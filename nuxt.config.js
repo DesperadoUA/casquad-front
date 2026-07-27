@@ -1,6 +1,7 @@
 import DAL_Builder from './DAL/builder'
 import config from './config'
 export default {
+	telemetry: false,
 	mode: 'universal',
 	// Global page headers: https://go.nuxtjs.dev/config-head
 	head: {
@@ -13,7 +14,8 @@ export default {
 			{ name: 'viewport', content: 'width=device-width, initial-scale=1' },
 			{ hid: 'description', name: 'description', content: '' },
 			{ name: 'robots', content: 'index,follow', 'data-qmeta': 'robots' },
-			{ name: 'google', content: 'notranslate' }
+			{ name: 'google', content: 'notranslate' },
+			{ name: 'dmca-site-verification', content: 'THpuYXN4dmdZb1JuQnJFNjczS2JBdz090' }
 		],
 		link: [
 			{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
@@ -22,17 +24,35 @@ export default {
 			/*{ href: 'https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;800&display=swap', rel: 'stylesheet' }*/
 		],
 		script: [
-			{ hid: 'gtag', src: 'https://www.googletagmanager.com/gtag/js?id=G-XK5G5KT3P8' },
-			{ hid: 'gtm', src: '/js/gtm.js' },
-            { hid: 'analytics', src: 'https://analytics.ahrefs.com/analytics.js',  'data-key': "4Janzt1ko61kpMRlF1OaXw" }
+			{ hid: 'gtag', src: 'https://www.googletagmanager.com/gtag/js?id=G-XK5GKT3P8' },
+			{ hid: 'analytics', src: 'https://analytics.ahrefs.com/analytics.js', 'data-key': '4Janzt1ko61kpMRlF1OaXw' },
+			{ hid: 'gtm', src: '/js/gtm.js' }
 		]
 	},
 	serverMiddleware: ['~/serverMiddleware/redirects'],
 	// Global CSS: https://go.nuxtjs.dev/config-css
-	css: [],
-
+	css: ['~/assets/css/pros-cons.css'],
+	router: {
+		scrollBehavior(to, from, savedPosition) {
+			if (to.hash) {
+				const el = document.querySelector(to.hash)
+				if (el) {
+					setTimeout(() => {
+						const offset = 75
+						const top = el.getBoundingClientRect().top + window.pageYOffset - offset
+						window.scrollTo({ top, behavior: 'smooth' })
+					}, 100)
+				}
+			} else if (savedPosition) {
+				return savedPosition
+			} else {
+				return { x: 0, y: 0 }
+			}
+		},
+		middleware: ['stripTrailingSlash']
+	},
 	// Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-	plugins: [],
+	plugins: ['~/plugins/analytics.client.js'],
 
 	// Auto import components: https://go.nuxtjs.dev/config-components
 	components: true,
@@ -69,10 +89,7 @@ export default {
 		],
 		routes: async () => {
 			const request = new DAL_Builder()
-			const { data } = await request
-				.postType('pages')
-				.url('sitemap')
-				.get()
+			const { data } = await request.postType('pages').url('sitemap').get()
 			return data.body.posts
 		}
 	}
