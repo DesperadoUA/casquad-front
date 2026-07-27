@@ -64,7 +64,8 @@ export default {
 			'/licenses',
 			'/technologies',
 			'/type-bonuses',
-			'/type-payments'
+			'/type-payments',
+			'/go/**'
 		],
 		routes: async () => {
 			const request = new DAL_Builder()
