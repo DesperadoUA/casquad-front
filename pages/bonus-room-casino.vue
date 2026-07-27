@@ -30,7 +30,7 @@
 					:src="thumbnail"
 					:h1="h1"
 					:short_desc="short_desc"
-					:date="update_at.slice(0, 10)"
+					:date="update_at ? update_at.slice(0, 10) : ''"
 					:author_permalink="authors.length ? authors[0].permalink : ''"
 					:author_title="authors.length ? authors[0].title : ''"
 				/>
@@ -73,13 +73,27 @@ export default {
 			newsRootSlug: NEWS_ROOT_SLUG
 		}
 	},
-	async asyncData({ store, route }) {
+	async asyncData({ store, route, error }) {
 		const request = {
 			url: 'bonus-room-casino'
 		}
 		const response = await DAL_Page.getData(request)
+		if (response.data.confirm === 'error') {
+			return error({ statusCode: 404, message: 'Post not found' })
+		}
 		const data = helper.headDataMixin(response.data, route)
-		const { content, h1, title, update_at, thumbnail, short_desc, authors, news, funnels } = data.body
+		const body = data && data.body ? data.body : {}
+		const {
+			content,
+			h1,
+			title,
+			update_at,
+			thumbnail,
+			short_desc,
+			authors = [],
+			news = [],
+			funnels = []
+		} = body
 		return { data, content, h1, title, update_at, thumbnail, short_desc, authors, news, funnels }
 	}
 }

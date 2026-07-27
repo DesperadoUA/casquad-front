@@ -175,7 +175,8 @@ export default {
 <style scoped>
 .casino_card {
 	width: 100%;
-	height: 206px;
+	min-height: 206px;
+	height: auto;
 	padding: var(--xs);
 	border-radius: var(--m);
 	overflow: hidden;
@@ -188,7 +189,6 @@ export default {
 	width: 210px;
 	min-width: 210px;
 	display: flex;
-	height: 100%;
 	align-items: center;
 	position: relative;
 }
@@ -202,7 +202,8 @@ export default {
 }
 .wrapper {
 	display: flex;
-	height: 100%;
+	align-items: stretch;
+	min-height: 198px;
 }
 .characters_right .bonus_name {
 	margin-top: var(--m);

@@ -87,13 +87,16 @@ export default {
 			this.bonus_category = response.data.body.bonus_category
 		}
 	},
-	async asyncData({ store, route }) {
+	async asyncData({ store, route, error }) {
 		const geo = store.getters['common/getGeo']
 		const request = {
 			url: 'bonuses',
 			geo
 		}
 		const response = await DAL_Page.getData(request)
+		if (response.data.confirm === 'error') {
+			return error({ statusCode: 404, message: 'Post not found' })
+		}
 		const data = helper.headDataMixin(response.data, route)
 		const { bonus_category } = response.data.body
 		return { data, bonus_category }

@@ -1,5 +1,5 @@
 <template>
-	<main class="casino_page">
+	<main class="casino_page" :class="{ 'casino_page--no-similar': !casinos.length }">
 		<Gradient />
 		<div class="container z-index-3">
 			<div class="h1_wrapper">
@@ -276,6 +276,9 @@ export default {
 <style>
 .casino_page .reviews_wrapper {
 	margin-bottom: 0px;
+}
+.casino_page--no-similar .reviews_wrapper {
+	margin-bottom: var(--l);
 }
 </style>
 <style scoped>

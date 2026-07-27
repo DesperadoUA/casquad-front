@@ -1,26 +1,13 @@
 <template>
-	<section class="faq" itemscope itemtype="https://schema.org/FAQPage" v-if="currentValue.length !== 0">
+	<section class="faq" v-if="currentValue.length !== 0">
 		<div class="faq_wrapper">
-			<div
-				class="faq_row"
-				itemscope
-				itemprop="mainEntity"
-				itemtype="https://schema.org/Question"
-				v-for="(item, index) in currentValue"
-				:key="index"
-			>
+			<div class="faq_row" v-for="(item, index) in currentValue" :key="index">
 				<div class="faq_question" @click="activate(item)" :class="{ faq_active: item.status === 'open' }">
-					<span itemprop="name">{{ item.question }}</span>
+					<span>{{ item.question }}</span>
 					<span class="faq_close"></span>
 				</div>
-				<div
-					class="faq_answer"
-					:class="{ fadeIn: item.status === 'open' }"
-					itemscope
-					itemprop="acceptedAnswer"
-					itemtype="https://schema.org/Answer"
-				>
-					<span itemprop="text" v-html="item.answer"></span>
+				<div class="faq_answer" :class="{ fadeIn: item.status === 'open' }">
+					<span v-html="item.answer"></span>
 				</div>
 			</div>
 		</div>
@@ -48,6 +35,39 @@ export default {
 	methods: {
 		activate(item) {
 			item.status === 'close' ? (item.status = 'open') : (item.status = 'close')
+		},
+		stripHtml(html) {
+			if (!html) return ''
+			return String(html)
+				.replace(/<[^>]*>/g, ' ')
+				.replace(/\s+/g, ' ')
+				.trim()
+		}
+	},
+	head() {
+		if (!this.value || !this.value.length) return {}
+
+		const faqSchema = {
+			'@context': 'https://schema.org',
+			'@type': 'FAQPage',
+			mainEntity: this.value.map(item => ({
+				'@type': 'Question',
+				name: item.value_1,
+				acceptedAnswer: {
+					'@type': 'Answer',
+					text: this.stripHtml(item.value_2)
+				}
+			}))
+		}
+
+		return {
+			script: [
+				{
+					hid: 'faq-jsonld',
+					type: 'application/ld+json',
+					json: faqSchema
+				}
+			]
 		}
 	},
 	mounted() {

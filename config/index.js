@@ -23,5 +23,40 @@ export default {
 		EN: 'en'
 	},
 	DEFAULT_GEO: 'WORLD',
-	AVAILABLE_GEO: new Set(['GB', 'AU', 'CA', 'NL', 'DE' /*'IN', 'ID', 'GR', 'ZA', 'PH', 'SE', 'BD'*/])
+	AVAILABLE_GEO: new Set([
+		'GB',
+		'AU',
+		'GR',
+		'IN',
+		'ID',
+		'CA',
+		'NL',
+		'DE',
+		'ZA',
+		'PH',
+		'SE',
+		'IT',
+		'NZ',
+		'CH',
+		'FI',
+		'MY',
+		'HU',
+		'FR',
+		'HR',
+		'AT',
+		'BE',
+		'PL',
+		'PT',
+		'ES',
+		'RO',
+		'NO',
+		'BR',
+		'CZ'
+	]),
+	AUTHOR_BADGE_LIST: {
+		['Verified User']: 'verified_user',
+		['Active User']: 'active_user',
+		['Editor-in-Chief']: 'editor_in_chief',
+		['Editor Writer']: 'editor_writer'
+	}
 }

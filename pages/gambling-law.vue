@@ -57,11 +57,14 @@ export default {
 			}
 		}
 	},
-	async asyncData({ store, route }) {
+	async asyncData({ store, route, error }) {
 		const request = {
 			url: 'gambling-law'
 		}
 		const response = await DAL_Page.getData(request)
+		if (response.data.confirm === 'error') {
+			return error({ statusCode: 404, message: 'Post not found' })
+		}
 		const data = helper.headDataMixin(response.data, route)
 		return { data }
 	}

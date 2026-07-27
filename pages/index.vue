@@ -391,13 +391,16 @@ export default {
 			this.top_bonuses = response.data.body.top_bonuses
 		}
 	},
-	async asyncData({ store, route }) {
+	async asyncData({ store, route, error }) {
 		const geo = store.getters['common/getGeo']
 		const request = {
 			url: 'main',
 			geo
 		}
 		const response = await DAL_Page.getData(request)
+		if (response.data.confirm === 'error') {
+			return error({ statusCode: 404, message: 'Post not found' })
+		}
 		const data = helper.headDataMixin(response.data, route)
 		const { casino, casino_slider, bonuses, top_bonuses } = response.data.body
 		return { data, casino, casino_slider, bonuses, top_bonuses }

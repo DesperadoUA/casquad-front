@@ -6,7 +6,7 @@
 				<gradientWrapper>
 					<Breadcrumbs :value="breadcrumbs" />
 					<AText tag="h1" :attributes="titleSettings">{{ h1 }}</AText>
-					<date :value="update_at.slice(0, 10)" />
+					<date :value="update_at ? update_at.slice(0, 10) : ''" />
 				</gradientWrapper>
 			</div>
 		</div>
@@ -110,7 +110,7 @@ export default {
 				transform: 'uppercase',
 				class: 'title'
 			},
-			badgeList: config.AUTHOR_BADGE_LIST
+			badgeList: config.AUTHOR_BADGE_LIST || {}
 		}
 	}
 }

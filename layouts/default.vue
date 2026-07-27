@@ -66,6 +66,12 @@ export default {
 	--chicago: #da00ed;
 	--caracas: rgba(255, 255, 255, 0.06);
 	--coruna: #28263d;
+	--cayenne: #ffffff26;
+	--cascais: #494563;
+	--cali: #054e0c;
+	--curitiba: #2a7f33;
+	--cuzco: #ffd600;
+	--casablanca: #3e395a;
 	--xxs: 2px;
 	--xs: 4px;
 	--s: 8px;
@@ -76,6 +82,8 @@ export default {
 	--container--cms: 960px;
 	--side-gutters: 0px;
 	--gap-components: 40px;
+	--gap-title: 20px;
+	--scroll-margin-top: 100px;
 
 	/* Fonts */
 	--base-line-height: 1.7;
@@ -90,7 +98,9 @@ export default {
 * {
 	box-sizing: border-box;
 }
-
+html {
+	scroll-behavior: smooth;
+}
 body {
 	margin: 0;
 	min-width: 320px;
@@ -105,7 +115,6 @@ body {
 	overflow-x: hidden;
 	max-width: 100%;
 	font-size-adjust: 0.5;
-	font-display: swap;
 	background: var(--colombo);
 }
 img {
@@ -140,11 +149,17 @@ h3,
 h4,
 h5,
 h6 {
-	margin: 0px;
-	padding: 0px;
+	margin: 0;
+	padding: 0;
 }
 .mt-15 {
 	margin-top: 15px;
+}
+.m-0 {
+	margin: 0;
+}
+.pb-0 {
+	padding-bottom: 0 !important;
 }
 .pt-3 {
 	padding-top: 3px !important;
@@ -222,6 +237,9 @@ h6 {
 }
 .text_decoration_none {
 	text-decoration: none;
+}
+.text_size_x-small {
+	font-size: 10px;
 }
 .text_size_small {
 	font-size: 12px;
@@ -535,10 +553,6 @@ h6 {
 /* */
 .faq_container {
 	max-width: 820px;
-	padding-top: 30px;
-	padding-bottom: 30px;
-	padding-left: 0px;
-	padding-right: 0px;
 }
 /*
 Common styles*/
@@ -623,6 +637,77 @@ Common styles*/
 		color: #00ea17;
 	}
 }
+.cms div:first-child p {
+	margin-top: 0px;
+}
+.cms div p:last-child {
+	margin-bottom: 0px;
+}
+.cms .get_file {
+	background: #29263d;
+	padding: 20px;
+	border-left: 9px solid var(--calgary);
+	display: flex;
+	border-top-right-radius: var(--m);
+	border-bottom-right-radius: var(--m);
+	margin-bottom: 15px;
+}
+.cms .get_file.cleveland {
+	border-left: 9px solid var(--cleveland);
+}
+.cms .get_file p {
+	font-size: 16px;
+	color: var(--cairo);
+	font-weight: bold;
+}
+.cms .get_file_left {
+	flex: 1;
+}
+.cms .get_file_right {
+	min-width: 300px;
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+}
+.cms .get_file_link {
+	display: flex;
+	background: var(--calgary);
+	color: #323234;
+	text-decoration: none;
+	border-radius: var(--s);
+	padding: 5px 10px;
+	min-width: 166px;
+	justify-content: center;
+}
+.cms .get_file.cleveland .get_file_link {
+	background: var(--cleveland);
+	color: var(--cairo);
+}
+.cms .link_btn {
+	display: inline-flex;
+	padding: 13px 27px;
+	border-radius: 16px;
+	text-decoration: none;
+	font-size: 16px;
+}
+.cms .link_btn.cleveland {
+	background: var(--cleveland);
+	color: var(--cairo);
+}
+@media (max-width: 576px) {
+	.cms .get_file {
+		flex-wrap: wrap;
+		gap: 20px;
+	}
+	.cms .get_file_left,
+	.cms .get_file_right {
+		width: 100%;
+		max-width: 100%;
+	}
+	.cms .get_file_right {
+		justify-content: flex-start;
+	}
+}
 .load_more {
 	background: rgba(255, 255, 255, 0.1);
 	border-radius: var(--s);
@@ -639,14 +724,146 @@ Common styles*/
 	background: #232036;
 	border-radius: var(--m);
 }
-.main_container {
-	padding-bottom: 60px;
-}
 #cookies a {
 	color: var(--cairo);
 }
-.h1_wrapper {
-	margin-bottom: 40px;
+.main_wrapper,
+.main_wrapper_slots {
+	background-repeat: no-repeat;
+	padding-top: 130px;
+	display: flex;
+	flex-direction: column;
+	gap: var(--gap-components);
+	padding-bottom: 40px;
+}
+.main_wrapper_slots {
+	padding-top: 100px;
+}
+.main_gap {
+	display: flex;
+	flex-direction: column;
+	gap: var(--gap-components);
+}
+.sub_gap {
+	gap: var(--gap-title);
+	display: flex;
+	flex-direction: column;
+}
+.news_item {
+	width: calc(25% - 15px);
+}
+.breadcrumbs_wrapper {
+	display: flex;
+	justify-content: center;
+}
+.table-section {
+	width: 100%;
+	margin: 40px 0;
+}
+.table-title {
+	font-weight: 600;
+	font-size: 20px;
+	color: var(--cairo);
+	margin-bottom: 16px;
+	padding-left: 4px;
+}
+.table-wrapper {
+	width: 100%;
+	overflow-x: auto;
+	border-radius: 8px;
+	box-shadow: 0 0 20px rgba(74, 63, 143, 0.3);
+}
+.custom-table {
+	width: 100%;
+	border-collapse: collapse;
+	color: var(--cairo);
+}
+.custom-table thead {
+	background: var(--cleveland);
+}
+.custom-table th {
+	padding: 16px 20px;
+	text-align: left;
+	font-weight: 600;
+	font-size: 15px;
+	color: var(--cairo);
+	border-right: 1px solid rgba(255, 255, 255, 0.1);
+}
+.custom-table th:last-child {
+	border-right: none;
+}
+.custom-table tbody tr {
+	background: rgba(42, 31, 92, 0.5);
+	border-bottom: 1px solid rgba(74, 63, 143, 0.3);
+	transition: background 0.2s ease;
+}
+.custom-table tbody tr:hover {
+	background: rgba(74, 63, 143, 0.3);
+}
+.custom-table tbody tr:last-child {
+	border-bottom: none;
+}
+.custom-table tbody tr:nth-child(odd) {
+	background-color: var(--coruna);
+}
+
+.custom-table tbody tr:nth-child(even) {
+	background-color: var(--cucuta);
+}
+
+.custom-table tbody tr:hover {
+	transition: background 0.3s;
+}
+.custom-table td {
+	padding: 18px 20px;
+	font-weight: 400;
+	font-size: 14px;
+	line-height: 1.5;
+	color: rgba(255, 255, 255, 0.9);
+	border-right: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.custom-table td:last-child {
+	border-right: none;
+}
+.sticky-tabs {
+	position: sticky;
+	top: 0;
+	z-index: 100;
+}
+.sticky-tabs .slick-track {
+	padding: 10px 0;
+}
+@media (max-width: 1024px) {
+	.table-wrapper {
+		border-radius: 6px;
+	}
+	.custom-table th,
+	.custom-table td {
+		padding: 14px 16px;
+		font-size: 13px;
+	}
+	.table-title {
+		font-size: 18px;
+	}
+}
+@media (max-width: 576px) {
+	.news_item {
+		width: 100%;
+		min-width: 265px;
+	}
+	.main_wrapper_slots {
+		padding-top: 130px;
+	}
+	.main_wrapper_slots,
+	.main_wrapper {
+		padding-top: 110px;
+	}
+}
+@media (min-width: 577px) and (max-width: 1200px) {
+	.news_item {
+		width: calc(50% - 10px);
+	}
 }
 @media (max-width: 767px) {
 	.content_container {
@@ -654,12 +871,6 @@ Common styles*/
 		margin-left: var(--side-gutters);
 		margin-right: var(--side-gutters);
 		width: calc(100% - var(--side-gutters) - var(--side-gutters));
-	}
-	.h1_wrapper {
-		margin-bottom: 30px;
-	}
-	.main_container {
-		padding-bottom: 40px;
 	}
 }
 @media (min-width: 768px) and (max-width: 1200px) {
@@ -674,6 +885,10 @@ Common styles*/
 		margin-right: 0px;
 		padding: 0 20px;
 		max-width: 100%;
+	}
+	.main_wrapper_slots,
+	.main_wrapper {
+		padding-top: 120px;
 	}
 }
 </style>

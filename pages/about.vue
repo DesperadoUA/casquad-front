@@ -143,13 +143,16 @@ export default {
 		BestForMobile,
 		AuthorCardLoop
 	},
-	async asyncData({ store, route }) {
+	async asyncData({ store, route, error }) {
 		const geo = store.getters['common/getGeo']
 		const request = {
 			url: 'about',
 			geo
 		}
 		const response = await DAL_Page.getData(request)
+		if (response.data.confirm === 'error') {
+			return error({ statusCode: 404, message: 'Post not found' })
+		}
 		const data = helper.headDataMixin(response.data, route)
 		data.body.nav_menu = [
 			{
