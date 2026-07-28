@@ -2,7 +2,7 @@
 	<div>
 		<main class="category_page">
 			<Gradient />
-			<div class="container z-index-3">
+			<div class="container z-index-3 main_gap">
 				<div class="h1_wrapper">
 					<gradientWrapper>
 						<Breadcrumbs
@@ -137,10 +137,12 @@ export default {
 	padding-top: 165px;
 }
 .content_container {
+	margin-top: 40px;
 	margin-bottom: 40px;
 }
 @media (max-width: 767px) {
 	.content_container {
+		margin-top: 20px;
 		margin-bottom: 20px;
 	}
 	.category_page ::v-deep .casino_loop {

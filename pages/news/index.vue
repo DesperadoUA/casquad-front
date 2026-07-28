@@ -93,18 +93,14 @@ export default {
 	background: var(--colombo);
 	background-repeat: no-repeat;
 	padding-top: 165px;
+	display: flex;
+	flex-direction: column;
+	gap: var(--gap-components);
+	padding-bottom: 40px;
 }
 .news_container {
 	display: flex;
 	justify-content: space-between;
 	margin-top: var(--l);
-}
-.content_container {
-	margin-top: 40px;
-}
-@media (max-width: 767px) {
-	.content_container {
-		margin-top: 20px;
-	}
 }
 </style>

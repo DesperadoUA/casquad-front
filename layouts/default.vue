@@ -553,6 +553,10 @@ h6 {
 /* */
 .faq_container {
 	max-width: 820px;
+	padding-top: 30px;
+	padding-bottom: 30px;
+	padding-left: 0px;
+	padding-right: 0px;
 }
 /*
 Common styles*/

@@ -80,7 +80,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="main_container">
+			<div class="main_container main_gap">
 				<div class="h1_wrapper">
 					<gradientWrapper>
 						<AText tag="h2" :attributes="mainContainerTitle">{{ t('BEST_ONLINE_CASINOS') }}</AText>
@@ -460,6 +460,7 @@ export default {
 }
 .main_container {
 	margin-top: 60px;
+	padding-bottom: 60px;
 }
 .banner_wrapper {
 	position: relative;
@@ -518,6 +519,7 @@ export default {
 	}
 	.main_container {
 		margin-top: 0px;
+		padding-bottom: 40px;
 	}
 	.content_container {
 		margin-top: 20px;

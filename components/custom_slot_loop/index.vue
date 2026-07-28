@@ -1,9 +1,23 @@
 <template>
 	<div>
-		<div class="slot_loop">
+		<div class="games_grid">
+			<div class="week-card" v-if="weekGame">
+				<GameBigCard
+					:link="weekGame.permalink"
+					:src="weekGame.thumbnail"
+					:title="weekGame.title"
+				/>
+			</div>
+			<GameMainCard
+				v-for="(item, index) in prepend"
+				:key="'week-' + index"
+				:link="item.permalink"
+				:src="item.thumbnail"
+				:title="item.title"
+			/>
 			<GameMainCard
 				v-for="(item, index) in currentPosts"
-				:key="index"
+				:key="'loop-' + index"
 				:link="item.permalink"
 				:src="item.thumbnail"
 				:title="item.title"
@@ -22,25 +36,36 @@
 <script>
 import { GAME as NumberPostOnQuery } from '~/config/postLoader'
 import GameMainCard from '~/components/slot_loop/cards/main'
+import GameBigCard from '~/components/slot_loop/cards/big_card'
 import components from '~/mixins/components'
 import device from '~/mixins/device'
 import { START_PAGE } from './constants'
 export default {
 	name: 'custom_slot_loop',
-	components: { GameMainCard },
+	components: { GameMainCard, GameBigCard },
 	props: {
 		value: {
 			type: Array,
 			default() {
 				return []
 			}
+		},
+		prepend: {
+			type: Array,
+			default() {
+				return []
+			}
+		},
+		weekGame: {
+			type: Object,
+			default: null
 		}
 	},
 	mixins: [device, components],
 	data() {
 		return {
 			numberPostOnQuery: NumberPostOnQuery,
-            postCurrentPage: 0,
+			postCurrentPage: 0,
 			btnSettings: {
 				color: 'cairo',
 				class: 'load_more',
@@ -54,20 +79,20 @@ export default {
 			}
 		}
 	},
-    computed: {
+	computed: {
 		currentPosts() {
 			return this.value.slice(0, this.numberPostOnQuery * this.currentPage)
 		},
-        hideBtnShowMore() {
-            return this.value.length > this.numberPostOnQuery * this.currentPage
-        },
-        currentPage() {
-            const device = this.device || 'DC'
-            const settingsPage = START_PAGE[device]
-            return this.postCurrentPage + settingsPage
-        }
+		hideBtnShowMore() {
+			return this.value.length > this.numberPostOnQuery * this.currentPage
+		},
+		currentPage() {
+			const device = this.device || 'DC'
+			const settingsPage = START_PAGE[device]
+			return this.postCurrentPage + settingsPage
+		}
 	},
-    methods: {
+	methods: {
 		postShowMore() {
 			this.postCurrentPage += 1
 		}
@@ -75,10 +100,42 @@ export default {
 }
 </script>
 <style scoped>
-.slot_loop {
-	display: flex;
+.games_grid {
+	display: grid;
+	grid-template-columns: repeat(7, 159px);
+	grid-auto-rows: 172px;
 	gap: 12px;
-	flex-wrap: wrap;
+	justify-content: start;
+	align-content: start;
+}
+.week-card {
+	grid-column: span 2;
+	grid-row: span 2;
+	position: relative;
+	min-width: 0;
+	min-height: 0;
+}
+.week-card >>> .item {
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+}
+.games_grid >>> article.item.big {
+	width: 100%;
+	height: 100%;
+}
+.games_grid >>> .wrapper,
+.games_grid >>> .wrapper a {
+	display: block;
+	width: 100%;
+	height: 100%;
+}
+.games_grid >>> .thumbnail {
+	display: block;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
 }
 .items-more {
 	display: flex;
@@ -100,14 +157,38 @@ export default {
 	margin-left: 10px;
 }
 @media (max-width: 767px) {
-	.slot_loop {
-		justify-content: space-between;
+	.games_grid {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		grid-auto-rows: auto;
+		gap: 12px;
 		padding-bottom: 20px;
+	}
+	.week-card {
+		grid-column: span 2;
+		grid-row: span 1;
+		aspect-ratio: 329 / 355;
+	}
+	.games_grid >>> article.item.big {
+		aspect-ratio: 159 / 172;
+		height: auto;
 	}
 }
 @media (min-width: 768px) and (max-width: 1200px) {
-	.slot_loop {
-		justify-content: space-between;
+	.games_grid {
+		grid-template-columns: repeat(4, minmax(0, 1fr));
+		grid-auto-rows: auto;
+		gap: 8px;
+		align-items: start;
+	}
+	.week-card {
+		grid-column: span 2;
+		grid-row: span 2;
+		aspect-ratio: 330 / 356;
+		height: auto;
+	}
+	.games_grid >>> article.item.big {
+		aspect-ratio: 159 / 172;
+		height: auto;
 	}
 }
 </style>

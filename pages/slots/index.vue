@@ -25,27 +25,12 @@
 			<div class="container z-index-3 container_providers">
 				<ProviderFilter :value="data.body.vendors" />
 			</div>
-			<div class="container z-index-3 container_game_week">
-				<div class="left">
-					<GameBigCard
-						v-if="data.body.game_week.length"
-						:link="data.body.game_week[0].permalink"
-						:src="data.body.game_week[0].thumbnail"
-						:title="data.body.game_week[0].title"
-					/>
-				</div>
-				<div class="right">
-					<GameMainCard
-						v-for="(item, index) in gamesWeek"
-						:key="index"
-						:link="item.permalink"
-						:src="item.thumbnail"
-						:title="item.title"
-					/>
-				</div>
-			</div>
-			<div class="container container_loop" v-if="data.body.games.length">
-				<SlotLoop :value="data.body.games" />
+			<div class="container z-index-3" v-if="data.body.games.length || gamesWeek.length">
+				<SlotLoop
+					:value="data.body.games"
+					:prepend="gamesWeek"
+					:week-game="weekGame"
+				/>
 			</div>
 			<div class="container content_container" v-if="data.body.content">
 				<Content :value="data.body.content" />
@@ -65,8 +50,6 @@ import DAL_Page from '~/DAL/static_pages'
 import pageTemplate from '~/mixins/pageTemplate'
 import Faq from '~/components/faq'
 import BonusCategory from '~/components/bonus_category'
-import GameMainCard from '~/components/slot_loop/cards/main'
-import GameBigCard from '~/components/slot_loop/cards/big_card'
 import SlotLoop from '~/components/custom_slot_loop'
 import ProviderFilter from '~/components/provider_list'
 import Cookies from '~/components/cookies'
@@ -84,8 +67,6 @@ export default {
 	components: {
 		Faq,
 		BonusCategory,
-		GameMainCard,
-		GameBigCard,
 		SlotLoop,
 		ProviderFilter,
 		Cookies,
@@ -121,8 +102,12 @@ export default {
 	},
 	computed: {
 		gamesWeek() {
-			const config = { DC: 10, MOB: 10, TABLET: 10 }
+			const config = { DC: 10, MOB: 10, TABLET: 8 }
 			return this.data.body.games_week_list.slice(0, config[this.device])
+		},
+		weekGame() {
+			if (!this.data.body.game_week.length) return null
+			return this.data.body.game_week[0]
 		}
 	}
 }
@@ -132,68 +117,21 @@ export default {
 	background: var(--colombo);
 	background-repeat: no-repeat;
 	padding-top: 165px;
-	overflow: hidden;
-}
-.right {
 	display: flex;
-	gap: 12px;
-	flex-wrap: wrap;
-}
-.container_game_week {
-	display: flex;
-	gap: 12px;
-	padding-left: 0px;
-	padding-right: 0px;
-}
-.container_loop {
-	margin-top: 12px;
-	padding-left: 0px;
-	padding-right: 0px;
+	flex-direction: column;
+	gap: var(--gap-components);
+	padding-bottom: 40px;
 }
 .container_providers {
-	padding: var(--s) 0px 21px 0px;
+	padding: 0;
 }
 .content_container {
-	margin-top: 40px;
-	margin-bottom: 40px;
+	margin-top: 0;
+	margin-bottom: 0;
 }
 @media (max-width: 767px) {
-	.content_container {
-		margin-top: 20px;
-		margin-bottom: 20px;
-	}
 	.container_providers {
 		padding-left: 15px;
-	}
-	.container_game_week {
-		flex-wrap: wrap;
-		padding-left: 15px;
-		padding-right: 15px;
-	}
-	.left {
-		width: 100%;
-		margin-bottom: 20px;
-		justify-content: center;
-		display: flex;
-	}
-	.right {
-		justify-content: space-between;
-	}
-	.container_loop {
-		padding-left: 15px;
-		padding-right: 15px;
-	}
-}
-
-@media (min-width: 768px) and (max-width: 1200px) {
-	.container_game_week {
-		gap: 8px;
-	}
-	.left {
-		min-width: 50%;
-	}
-	.right {
-		justify-content: space-between;
 	}
 }
 </style>

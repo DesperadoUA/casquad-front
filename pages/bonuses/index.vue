@@ -2,7 +2,7 @@
 	<div>
 		<main class="bonuses_page">
 			<Gradient />
-			<div class="container z-index-3">
+			<div class="container z-index-3 main_gap">
 				<div class="h1_wrapper">
 					<gradientWrapper>
 						<Breadcrumbs
