@@ -65,13 +65,23 @@ export default {
 }
 </script>
 <style scoped>
+.game_card {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	overflow: hidden;
+	border-radius: var(--m);
+}
 .thumbnail {
+	display: block;
 	width: 100%;
 	height: 100%;
 	object-fit: cover;
 }
 .img_wrapper {
 	position: relative;
+	aspect-ratio: 300 / 325;
+	overflow: hidden;
 }
 .mask {
 	display: flex;
@@ -121,6 +131,22 @@ export default {
 	border-bottom-left-radius: var(--m);
 	border-bottom-right-radius: var(--m);
 	background: var(--cancun);
+	min-height: 82px;
+	display: flex;
+	align-items: center;
+}
+.vendor_wrapper a {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	height: 42px;
+}
+.vendor_wrapper img {
+	display: block;
+	max-width: 100%;
+	max-height: 42px;
+	object-fit: contain;
 }
 @media (max-width: 576px) {
 	.linkButton {

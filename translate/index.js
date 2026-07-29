@@ -64,6 +64,36 @@ export default {
 		RU: 'Играть',
 		EN: 'Play'
 	},
+	PLAY_NOW: {
+		UA: 'Грати зараз',
+		RU: 'Играть сейчас',
+		EN: 'Play now'
+	},
+	PLAY_FOR_FREE: {
+		UA: 'Грати безкоштовно',
+		RU: 'Играть бесплатно',
+		EN: 'Play for free'
+	},
+	PLAY_FOR_REAL: {
+		UA: 'Грати на гроші',
+		RU: 'Играть на деньги',
+		EN: 'Play for real'
+	},
+	PLAY_ON_REAL_MONEY: {
+		UA: 'Грати на реальні гроші',
+		RU: 'Играть на реальные деньги',
+		EN: 'Play for real money'
+	},
+	MORE_DETAILS: {
+		UA: 'Детальніше',
+		RU: 'Подробнее',
+		EN: 'More details'
+	},
+	TOP_RATED_CASINO: {
+		UA: 'Казино з найвищим рейтингом',
+		RU: 'Казино с лучшим рейтингом',
+		EN: 'Top rated casino'
+	},
 	ALL_SLOTS: {
 		UA: 'Усі слоти',
 		RU: 'Все слоты',

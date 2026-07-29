@@ -30,18 +30,18 @@
   background: url(/img/pros_fail.svg) center center no-repeat;
 }
 .pros_list, .cons_list {
-  padding-left: 30px;
+  padding-left: 0;
   margin-top: 0;
   margin-bottom: 0;
 }
-.pros_list li::before {
+.pros_cons .pros ul li::before {
   content: "";
   position: absolute;
   display: block;
   width: 10px;
   height: 10px;
   top: 9px;
-  left: -30px;
+  left: 0;
   background: url(/img/pros.svg) center center no-repeat;
 }
 .pros_cons .cons ul li::before {
@@ -51,13 +51,14 @@
   width: 10px;
   height: 10px;
   top: 9px;
-  left: -30px;
+  left: 0;
   background: url(/img/cons_cros.svg) center center no-repeat;
 }
 .pros_cons .cons ul li, .pros_cons .pros ul li {
   color: var(--cairo);
   position: relative;
   list-style: none;
+  padding-left: 30px;
 }
 @media (max-width: 1200px) {
   .pros_cons {

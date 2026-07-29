@@ -90,6 +90,12 @@
 				<TabContent :value="tabContent" />
 			</div>
 		</section>
+		<div class="container" v-if="data.body.faq && data.body.faq.length">
+			<div class="sub_gap">
+				<h2 class="text_color_cairo m-0" v-if="data.body.faq_title">{{ data.body.faq_title }}</h2>
+				<Faq :value="data.body.faq" />
+			</div>
+		</div>
 		<Reviews :posts="reviews" post_type="casino" :post_id="data.body.id" @changeFilter="changeFilter" />
 		<div class="container" v-if="casinos.length">
 			<div class="section_title_wrapper">
@@ -128,6 +134,7 @@ import DAL_Review from '~/DAL/review'
 import gradientWrapper from '~/components/gradient_wrapper'
 import date from '~/components/date'
 import AsideBonuses from '~/components/aside_bonuses'
+import Faq from '~/components/faq'
 
 export default {
 	name: 'casino_single',
@@ -147,7 +154,8 @@ export default {
 		Reviews,
 		gradientWrapper,
 		date,
-		AsideBonuses
+		AsideBonuses,
+		Faq
 	},
 	layout: 'default',
 	data: () => {

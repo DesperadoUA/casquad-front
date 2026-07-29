@@ -1,210 +1,110 @@
 <template>
-	<div class="root">
-		<div class="left">
-			<div class="thumbnail_wrapper">
-				<AImg :attributes="{ ...imgSettings, alt: `${title} Logo` }" :src="src" />
-			</div>
-		</div>
-		<div class="center">
-			<div class="center_wrapper">
-				<AText tag="div" :attributes="titleSettings">{{ title }}</AText>
-				<AText tag="div" :attributes="subTitleSettings">
-					<ALink :href="vendor_permalink">
-						<AImg :attributes="{ ...vendorImgSettings, alt: `${vendor_title} Logo` }" :src="vendor_icon" />
-						{{ vendor_title }}
-					</ALink>
-				</AText>
-				<AText tag="div" :attributes="sectionTitleSettings">{{ t('GAME_AVAILABLE_CASINOS') }}</AText>
-				<div class="casino_wrapper" v-if="casinos.length">
-					<Slider :settings="sliderSettings">
-						<div class="item" v-for="(item, index) in casinos" :key="index" :style="`background: ${item.color}`">
-							<ALink :href="item.permalink">
-								<AImg :attributes="{ ...itemImgSettings, alt: `${item.title} Logo` }" :src="item.thumbnail" />
-							</ALink>
-						</div>
-					</Slider>
+	<div class="root border_radius_m">
+		<div class="left sub_gap">
+			<h1 class="text_color_cairo title">{{ h1 }}</h1>
+			<div class="actions">
+				<div class="action_item">
+					<AButton :attributes="btnDemoSettings" v-if="demo" @onClick="onClickDemoActivate">
+						{{ t('PLAY_FOR_FREE') }}
+					</AButton>
 				</div>
-				<div class="action_wrapper">
-					<div class="action_item">
-						<AButton :attributes="btnSettings" @onClick="refActivate(refLinks, geo)">{{ t('GO_TO') }}</AButton>
-					</div>
-					<div class="action_item">
-						<AButton :attributes="btnDemoSettings" v-if="demo" @onClick="onClickDemoActivate">{{ t('DEMO') }}</AButton>
-					</div>
+				<div class="action_item">
+					<AButton :attributes="btnSettings" @onClick="refActivate(refLinks, geo, 'single-game-top')">
+						{{ t('PLAY_ON_REAL_MONEY') }}
+					</AButton>
+				</div>
+			</div>
+			<div class="description text_color_cairo" v-html="short_desc" />
+			<div class="meta">
+				<div class="meta_item author" v-if="author_title">
+					<AImg
+						:attributes="{ width: '20', height: '20', alt: 'Author' }"
+						src="/img/icon_user.webp"
+					/>
+					<NuxtLink :to="author_permalink" class="text_size_large text_color_cairo text_decoration_none">
+						{{ author_title }}
+					</NuxtLink>
+				</div>
+				<div class="separator" v-if="author_title"></div>
+				<div class="meta_item">
+					<AImg
+						:attributes="{ width: '20', height: '20', alt: 'Calendar' }"
+						src="/img/calendar.webp"
+					/>
+					<time class="date text_size_large" :datetime="date">{{ date }}</time>
 				</div>
 			</div>
 		</div>
 		<div class="right">
-			<div class="characters_container">
-				<GameCharacters type="rtp" title="RTP" :value="rtp" />
-				<GameCharacters type="min_dep" :title="t('MIN_BET')" :value="min_bid" />
-				<GameCharacters type="scheme" :title="t('SCHEMA')" :value="scheme" />
-				<GameCharacters type="line" :title="t('LINES')" :value="line" />
-			</div>
+			<AImg :attributes="{ ...imgSettings, alt: `${title} game` }" :src="src" />
 		</div>
 	</div>
 </template>
+
 <script>
-import GameCharacters from '~/components/game_characters'
-import Slider from '~/components/slider'
 import ref from '~/mixins/ref'
 import components from '~/mixins/components'
 import geo from '~/mixins/geo'
+
 export default {
-	name: 'single-game-page',
+	name: 'single-game-top',
 	mixins: [components, ref, geo],
-	components: {
-		GameCharacters,
-		Slider
-	},
 	data: () => {
 		return {
 			imgSettings: {
-				width: '300px',
-				height: '325px',
-				class: 'object_fit_cover thumbnail'
-			},
-			vendorImgSettings: {
-				width: '26',
-				height: '26',
-				class: ''
-			},
-			titleSettings: {
-				class: 'title',
-				color: 'cairo',
-				weight: 'bold'
-			},
-			subTitleSettings: {
-				color: 'cairo',
-				size: 'medium',
-				class: 'vendor_container sub_title'
-			},
-			sectionTitleSettings: {
-				class: 'section_title',
-				color: 'cairo',
-				size: 'small'
-			},
-			itemImgSettings: {
-				width: '68px',
-				height: '50px'
+				width: '377px',
+				height: '380px',
+				class: 'thumbnail'
 			},
 			btnSettings: {
 				bg: 'calgary',
 				color: 'cucuta',
 				borderRadius: 's',
-				weight: 'semi-bold',
+				weight: 'regular',
 				text_transform: 'uppercase'
 			},
 			btnDemoSettings: {
-				bg: 'calgary',
+				bg: 'cleveland',
 				color: 'cairo',
 				borderRadius: 's',
-				weight: 'semi-bold',
+				weight: 'regular',
 				class: 'demo_btn',
 				text_transform: 'uppercase'
-			},
-			sliderSettings: {
-				slidesToShow: 7,
-				autoplay: true,
-				speed: 2000,
-				autoplaySpeed: 2000,
-				initialSlide: 0,
-				infinite: true,
-				responsive: [
-					{
-						breakpoint: 1024,
-						settings: {
-							slidesToShow: 4,
-							centerMode: false,
-							initialSlide: -1
-						}
-					},
-					{
-						breakpoint: 600,
-						settings: {
-							slidesToShow: 4,
-							centerMode: false,
-							initialSlide: -1
-						}
-					},
-					{
-						breakpoint: 480,
-						settings: {
-							slidesToShow: 4,
-							centerMode: false,
-							initialSlide: -1
-						}
-					}
-				]
 			}
 		}
 	},
 	props: {
 		title: {
 			type: String,
-			default() {
-				return ''
-			}
+			default: ''
+		},
+		h1: {
+			type: String,
+			default: ''
 		},
 		src: {
 			type: String,
-			default() {
-				return '/img/slotokingLogo.png'
-			}
-		},
-		rtp: {
-			type: String,
-			default() {
-				return ''
-			}
-		},
-		min_bid: {
-			type: String,
-			default() {
-				return ''
-			}
-		},
-		scheme: {
-			type: String,
-			default() {
-				return ''
-			}
-		},
-		line: {
-			type: String,
-			default() {
-				return ''
-			}
+			default: '/img/slotokingLogo.png'
 		},
 		demo: {
 			type: Boolean,
-			default() {
-				return false
-			}
+			default: false
 		},
-		vendor_title: {
+		short_desc: {
 			type: String,
-			default() {
-				return ''
-			}
+			default: ''
 		},
-		casinos: {
-			type: Array,
-			default() {
-				return []
-			}
-		},
-		vendor_permalink: {
+		author_title: {
 			type: String,
-			default() {
-				return ''
-			}
+			default: ''
 		},
-		vendor_icon: {
+		author_permalink: {
 			type: String,
-			default() {
-				return ''
-			}
+			default: ''
+		},
+		date: {
+			type: String,
+			default: ''
 		}
 	},
 	methods: {
@@ -214,151 +114,117 @@ export default {
 	}
 }
 </script>
+
 <style scoped>
-.thumbnail_wrapper {
-	width: 300px;
-	height: 325px;
-	overflow: hidden;
-}
-.center {
-	display: flex;
-	align-items: center;
-	min-width: 512px;
-	max-width: 512px;
-}
-.left {
-	max-width: 300px;
-}
 .root {
 	display: flex;
-	gap: 33px;
-	background: var(--cucuta);
-	border-radius: 20px;
-	border: 1px solid rgba(255, 255, 255, 0.15);
-	padding: var(--xs);
+	gap: 60px;
+	background: linear-gradient(to right, #1f1559, #120c33);
+	padding: 20px;
+	overflow: hidden;
 }
-.title {
-	font-size: var(--l);
-}
-.section_title {
-	margin-top: 15px;
-}
-.casino_wrapper {
-	margin-top: 12px;
-}
-.center_wrapper {
-	width: 100%;
-}
-.item {
-	width: 68px;
-	height: 50px;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	padding: 3px;
-}
-.item img {
-	border-radius: var(--s);
-}
-.action_item {
-	height: 40px;
+.left {
 	flex-grow: 1;
-}
-.action_wrapper {
-	display: flex;
-	gap: 12px;
-	margin-top: 50px;
-}
-.demo_btn {
-	background: rgba(255, 255, 255, 0.1);
-	border: 1px solid rgba(255, 255, 255, 0.16);
+	min-width: 0;
 }
 .right {
-	flex-grow: 1;
-	display: flex;
-	align-items: center;
+	min-width: 377px;
+	border-radius: var(--m);
+	overflow: hidden;
+}
+.thumbnail {
+	display: block;
 	width: 100%;
+	height: 100%;
+	object-fit: cover;
 }
-.characters_container {
-	width: 100%;
+.title {
+	font-size: 24px;
+}
+.description ::v-deep p {
+	font-size: 14px;
+	display: -webkit-box;
+	-webkit-line-clamp: 4;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+.description ::v-deep p:last-child {
+	margin-bottom: 0;
+}
+.description ::v-deep h2,
+.description ::v-deep h3,
+.description ::v-deep h4,
+.description ::v-deep h5,
+.description ::v-deep h6 {
+	font-size: 20px;
+}
+.actions {
 	display: flex;
-	flex-wrap: wrap;
-	gap: var(--m);
+	gap: 20px;
 }
-.vendor_container {
-	display: inline-block;
-	margin-top: 10px;
+.action_item {
+	width: 210px;
+	height: 42px;
 }
-.vendor_container a {
-	display: flex;
-	align-items: center;
-	padding: 5px 10px;
-	border-radius: var(--s);
-	background: hsla(0, 0%, 100%, 0.1);
-	white-space: nowrap;
-	font-size: 10px;
-	height: 40px;
+.date {
 	color: var(--cairo);
-	font-weight: 400;
-	text-decoration: none;
 }
-.vendor_container img {
-	margin-right: 5px;
+.meta_item {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+}
+.meta {
+	display: flex;
+	gap: 10px;
+	margin-top: auto;
+}
+.separator {
+	width: 1px;
+	background: #888b8e;
 }
 @media (max-width: 767px) {
 	.root {
 		flex-wrap: wrap;
-		padding: 15px;
+		gap: 20px;
 	}
 	.left,
-	.right,
-	.center {
+	.right {
 		width: 100%;
-		max-width: none;
+		max-width: 100%;
+		min-width: 100%;
 	}
-	.center {
-		min-width: auto;
+	.thumbnail {
+		width: 100%;
+		height: auto;
 	}
-	.left {
-		display: flex;
-		justify-content: center;
-	}
-	.casino_wrapper {
+	.actions {
 		flex-wrap: wrap;
 	}
-	.action_wrapper {
-		margin-top: 30px;
+	.action_item {
+		width: 100%;
 	}
-	.item_character {
-		padding-right: 0px;
+	.meta {
+		flex-wrap: wrap;
+	}
+	.separator {
+		display: none;
+	}
+	.meta_item {
+		width: 100%;
 	}
 }
 @media (min-width: 768px) and (max-width: 1200px) {
 	.root {
 		flex-wrap: wrap;
-		padding: 15px;
+		gap: 20px;
 	}
-	.left,
-	.right,
-	.center {
+	.right {
 		width: 100%;
-		max-width: none;
-	}
-	.center {
-		min-width: auto;
-	}
-	.left {
+		min-width: 100%;
 		display: flex;
 		justify-content: center;
-	}
-	.casino_wrapper {
-		flex-wrap: wrap;
-	}
-	.action_wrapper {
-		margin-top: 30px;
-	}
-	.item_character {
-		padding-right: 0px;
 	}
 }
 </style>

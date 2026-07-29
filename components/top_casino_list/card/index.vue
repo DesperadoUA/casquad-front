@@ -29,7 +29,7 @@
 					</div>
 					<div class="stat-content">
 						<div class="stat-label">Payout</div>
-						<div class="stat-value">{{ item.payout }}</div>
+						<div class="stat-value">{{ item.payout || 'N/A' }}</div>
 					</div>
 				</div>
 
@@ -39,7 +39,7 @@
 					</div>
 					<div class="stat-content">
 						<div class="stat-label">Win Rate</div>
-						<div class="stat-value win_rate">{{ item.win_rate }}</div>
+						<div class="stat-value win_rate">{{ item.win_rate || 'N/A' }}</div>
 					</div>
 				</div>
 			</div>

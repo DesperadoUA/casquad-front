@@ -38,30 +38,24 @@ export default {
 
 <style scoped>
 .item_container {
-	display: flex;
-	flex-wrap: wrap;
-	gap: 26px;
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+	gap: 20px;
 }
 .item_wrapper {
-	width: calc(25% - 20px);
+	display: block;
+	width: 100%;
+	min-width: 0;
 }
 @media (max-width: 767px) {
 	.item_container {
-		flex-wrap: wrap;
-		justify-content: space-between;
-	}
-	.item_wrapper {
-		width: calc(50% - 10px);
-	}
-	.item_container {
-		flex-wrap: wrap;
-		justify-content: space-between;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
 		gap: 20px;
 	}
 }
 @media (min-width: 768px) and (max-width: 1200px) {
-	.item_wrapper {
-		width: calc(50% - 15px);
+	.item_container {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
 	}
 }
 </style>

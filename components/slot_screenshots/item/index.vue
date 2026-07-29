@@ -45,9 +45,18 @@ export default {
 </script>
 
 <style scoped>
-.img {
-	max-width: 100%;
+.item {
+	display: block;
+	width: 100%;
+	aspect-ratio: 16 / 9;
+	overflow: hidden;
 	border-radius: var(--m);
+}
+.img {
+	display: block;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
 	cursor: pointer;
 }
 </style>
