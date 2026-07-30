@@ -35,6 +35,20 @@
 			<div class="container content_container" v-if="data.body.content">
 				<Content :value="data.body.content" />
 			</div>
+			<div class="container" v-if="data.body.author_summary && author">
+				<AuthorSummary
+					:social="author.social"
+					:short_desc="data.body.author_summary"
+					:title="author.title"
+					:create_at="author.create_at.slice(0, 10)"
+					:position="author.position"
+					:img="author.thumbnail"
+					:totalPosts="author.total_posts || 0"
+					:role="badgeList[author.role]"
+					:roleText="author.role"
+					:permalink="author.permalink"
+				/>
+			</div>
 			<div class="container" v-if="data.body.faq.length">
 				<div class="faq_container">
 					<Faq :value="data.body.faq" />
@@ -60,6 +74,8 @@ import components from '~/mixins/components'
 import Breadcrumbs from '~/components/breadcrumbs'
 import gradientWrapper from '~/components/gradient_wrapper'
 import date from '~/components/date'
+import AuthorSummary from '~/components/author_summary'
+import config from '~/config'
 
 export default {
 	name: 'games-page',
@@ -73,7 +89,8 @@ export default {
 		Gradient,
 		Breadcrumbs,
 		gradientWrapper,
-		date
+		date,
+		AuthorSummary
 	},
 	layout: 'default',
 	data: () => {
@@ -84,7 +101,8 @@ export default {
 				weight: 'bold',
 				transform: 'uppercase',
 				class: 'title'
-			}
+			},
+			badgeList: config.AUTHOR_BADGE_LIST || {}
 		}
 	},
 	async asyncData({ store, route, error }) {
@@ -98,7 +116,8 @@ export default {
 			return error({ statusCode: 404, message: 'Post not found' })
 		}
 		const data = helper.headDataMixin(response.data, route)
-		return { data }
+		const [author = null] = response.data.body.authors || []
+		return { data, author }
 	},
 	computed: {
 		gamesWeek() {
