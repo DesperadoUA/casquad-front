@@ -807,6 +807,11 @@ export default {
 		UA: 'Найкращі казино',
 		EN: 'Best casinos'
 	},
+	BREADCRUMB_MINIMUM_DEPOSIT_CASINOS_PAGE: {
+		RU: 'Казино с минимальным депозитом',
+		UA: 'Казино з мінімальним депозитом',
+		EN: 'Minimum deposit casinos'
+	},
 	PLAYERS_FEEDBACK: {
 		RU: 'Отзывы игроков',
 		UA: 'Відгуки гравців',

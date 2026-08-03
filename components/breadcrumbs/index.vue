@@ -6,7 +6,7 @@
 				itemscope="itemscope"
 				itemtype="https://schema.org/ListItem"
 				class="breadcrumb-item"
-				v-for="(item, index) in value"
+				v-for="(item, index) in items"
 				:key="index"
 			>
 				<span
@@ -30,10 +30,10 @@
 					:id="index === 0 ? 'homePage' : 'single'"
 					class="nuxt-link-active"
 					:title="`Goes to ${item.title}`"
-					><span itemprop="name">{{ item.title }} </span>
+					><span itemprop="name">{{ item.title }}</span>
 				</NuxtLink>
-				<span v-if="value.length !== index + 1">/</span>
-				<meta itemprop="position" :content="++index" />
+				<span v-if="items.length !== index + 1">/</span>
+				<meta itemprop="position" :content="index + 1" />
 			</li>
 		</ul>
 	</div>
@@ -47,7 +47,7 @@ export default {
 	props: {
 		value: {
 			type: Array,
-			default: []
+			default: () => []
 		}
 	},
 	data() {
@@ -58,6 +58,28 @@ export default {
 	computed: {
 		fullUrl() {
 			return process.client ? window.location.origin + this.$route.fullPath : `${this.domain}${this.$route.fullPath}`
+		},
+		// Гарантируем непорожній name у кожному ListItem (GSC BreadcrumbList)
+		items() {
+			return (this.value || []).map((item) => ({
+				...item,
+				title: this.resolveTitle(item)
+			}))
+		}
+	},
+	methods: {
+		resolveTitle(item = {}) {
+			const title = String(item.title || '').trim()
+			if (title) return title
+
+			const permalink = String(item.permalink || '').trim()
+			if (!permalink || permalink === '/') return 'Home'
+
+			const slug = permalink.replace(/^\/+|\/+$/g, '').split('/').pop() || ''
+			if (!slug) return 'Page'
+
+			const humanized = slug.replace(/[-_]+/g, ' ').trim()
+			return humanized ? humanized.charAt(0).toUpperCase() + humanized.slice(1) : 'Page'
 		}
 	}
 }
