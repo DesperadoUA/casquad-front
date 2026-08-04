@@ -14,7 +14,24 @@ export default {
 				DE: 'DE',
 				ZA: 'ZA',
 				PH: 'PH',
-				SE: 'SE'
+				SE: 'SE',
+				IT: 'IT',
+				NZ: 'NZ',
+				CH: 'CH',
+				FI: 'FI',
+				MY: 'MY',
+				HU: 'HU',
+				FR: 'FR',
+				HR: 'HR',
+				AT: 'AT',
+				BE: 'BE',
+				PL: 'PL',
+				PT: 'PT',
+				ES: 'ES',
+				RO: 'RO',
+				NO: 'NO',
+				BR: 'BR',
+				CZ: 'CZ'
 			}
 		}
 	},
