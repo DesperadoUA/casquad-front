@@ -90,6 +90,20 @@
 				<TabContent :value="tabContent" />
 			</div>
 		</section>
+		<div class="container" v-if="data.body.author_summary && author">
+			<AuthorSummary
+				:social="author.social"
+				:short_desc="data.body.author_summary"
+				:title="author.title"
+				:create_at="author.create_at.slice(0, 10)"
+				:position="author.position"
+				:img="author.thumbnail"
+				:totalPosts="author.total_posts || 0"
+				:role="badgeList[author.role]"
+				:roleText="author.role"
+				:permalink="author.permalink"
+			/>
+		</div>
 		<div class="container" v-if="data.body.faq && data.body.faq.length">
 			<div class="sub_gap">
 				<h2 class="text_color_cairo m-0" v-if="data.body.faq_title">{{ data.body.faq_title }}</h2>
@@ -135,6 +149,8 @@ import gradientWrapper from '~/components/gradient_wrapper'
 import date from '~/components/date'
 import AsideBonuses from '~/components/aside_bonuses'
 import Faq from '~/components/faq'
+import AuthorSummary from '~/components/author_summary'
+import config from '~/config'
 
 export default {
 	name: 'casino_single',
@@ -155,7 +171,8 @@ export default {
 		gradientWrapper,
 		date,
 		AsideBonuses,
-		Faq
+		Faq,
+		AuthorSummary
 	},
 	layout: 'default',
 	data: () => {
@@ -198,7 +215,8 @@ export default {
 				trusted: 'BREADCRUMB_CATEGORY_CASINO_TRUSTED_PAGE',
 				best: 'BREADCRUMB_CATEGORY_CASINO_BEST_PAGE'
 			},
-			configCategorySlug: CASINO_CATEGORY_SLUG
+			configCategorySlug: CASINO_CATEGORY_SLUG,
+			badgeList: config.AUTHOR_BADGE_LIST || {}
 		}
 	},
 	computed: {
@@ -238,7 +256,8 @@ export default {
 			} else {
 				const data = helper.headDataMixin(response.data, route)
 				const { casinos, bonuses, reviews, id } = response.data.body
-				return { data, casinos, bonuses, reviews, id }
+				const [author = null] = response.data.body.authors || []
+				return { data, casinos, bonuses, reviews, id, author }
 			}
 		} else {
 			error({ statusCode: 404, message: 'Post not found' })
