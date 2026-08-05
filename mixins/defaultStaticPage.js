@@ -17,9 +17,16 @@ function pickStaticBody(responseData, route) {
 		faq_title = '',
 		authors = [],
 		author_summary = '',
-		casino: casinoRaw
+		casino: casinoRaw,
+		pros: prosRaw,
+		cons: consRaw,
+		pros_cons_title = '',
+		pros_title = '',
+		cons_title = ''
 	} = body
 	const casino = Array.isArray(casinoRaw) ? casinoRaw : []
+	const pros = Array.isArray(prosRaw) ? prosRaw : []
+	const cons = Array.isArray(consRaw) ? consRaw : []
 	const [author = null] = authors
 	return {
 		data,
@@ -31,7 +38,12 @@ function pickStaticBody(responseData, route) {
 		faq_title,
 		author,
 		author_summary,
-		casino
+		casino,
+		pros,
+		cons,
+		pros_cons_title,
+		pros_title,
+		cons_title
 	}
 }
 

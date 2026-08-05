@@ -16,6 +16,12 @@
 		<div class="container content_container z-index-3" v-if="content">
 			<Content :value="content" />
 		</div>
+		<div class="container z-index-3" v-if="pros.length || cons.length">
+			<div class="sub_gap">
+				<h2 class="text_color_cairo m-0" v-if="pros_cons_title">{{ pros_cons_title }}</h2>
+				<ProsCons :prosList="pros" :consList="cons" :prosTitle="pros_title" :consTitle="cons_title" />
+			</div>
+		</div>
 		<div class="container" v-if="author_summary && author">
 			<AuthorSummary
 				:social="author.social"
@@ -48,6 +54,7 @@ import date from '~/components/date'
 import Faq from '~/components/faq'
 import AuthorSummary from '~/components/author_summary'
 import CasinoLoop from '~/components/casino_loop'
+import ProsCons from '~/components/pros_cons'
 import config from '~/config'
 import components from '~/mixins/components'
 
@@ -61,7 +68,8 @@ export default {
 		date,
 		Faq,
 		AuthorSummary,
-		CasinoLoop
+		CasinoLoop,
+		ProsCons
 	},
 	props: {
 		breadcrumbs: {
@@ -99,6 +107,26 @@ export default {
 		casino: {
 			type: Array,
 			default: () => []
+		},
+		pros: {
+			type: Array,
+			default: () => []
+		},
+		cons: {
+			type: Array,
+			default: () => []
+		},
+		pros_cons_title: {
+			type: String,
+			default: ''
+		},
+		pros_title: {
+			type: String,
+			default: ''
+		},
+		cons_title: {
+			type: String,
+			default: ''
 		}
 	},
 	data: () => {
