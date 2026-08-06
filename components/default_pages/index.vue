@@ -13,6 +13,13 @@
 		<div class="container z-index-3 casino_cards_block" v-if="casino.length">
 			<CasinoLoop :value="casino" />
 		</div>
+		<div class="container z-index-3" v-if="screenshots.length">
+			<SlotScreenshots
+				:posts="screenshots"
+				:title="h1"
+				:sectionTitle="screenshots_title"
+			/>
+		</div>
 		<div class="container content_container z-index-3" v-if="content">
 			<Content :value="content" />
 		</div>
@@ -55,6 +62,7 @@ import Faq from '~/components/faq'
 import AuthorSummary from '~/components/author_summary'
 import CasinoLoop from '~/components/casino_loop'
 import ProsCons from '~/components/pros_cons'
+import SlotScreenshots from '~/components/slot_screenshots'
 import config from '~/config'
 import components from '~/mixins/components'
 
@@ -69,7 +77,8 @@ export default {
 		Faq,
 		AuthorSummary,
 		CasinoLoop,
-		ProsCons
+		ProsCons,
+		SlotScreenshots
 	},
 	props: {
 		breadcrumbs: {
@@ -125,6 +134,14 @@ export default {
 			default: ''
 		},
 		cons_title: {
+			type: String,
+			default: ''
+		},
+		screenshots: {
+			type: Array,
+			default: () => []
+		},
+		screenshots_title: {
 			type: String,
 			default: ''
 		}

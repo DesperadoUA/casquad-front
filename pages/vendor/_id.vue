@@ -46,6 +46,13 @@
 									}}</AText>
 									<VideoGallery :posts="videoListWrapper(data.body.video)" />
 								</div>
+								<div v-if="data.body.screenshots && data.body.screenshots.length">
+									<SlotScreenshots
+										:posts="data.body.screenshots"
+										:title="data.body.title"
+										:sectionTitle="data.body.screenshots_title"
+									/>
+								</div>
 								<div class="content_container">
 									<Content :value="data.body.content" />
 								</div>
@@ -122,6 +129,7 @@ import AsideBonuses from '~/components/aside_bonuses'
 import Faq from '~/components/faq'
 import AuthorSummary from '~/components/author_summary'
 import ProsCons from '~/components/pros_cons'
+import SlotScreenshots from '~/components/slot_screenshots'
 import config from '~/config'
 
 export default {
@@ -175,7 +183,8 @@ export default {
 		AsideBonuses,
 		Faq,
 		AuthorSummary,
-		ProsCons
+		ProsCons,
+		SlotScreenshots
 	},
 	mixins: [pageTemplate, components, geo],
 	watch: {

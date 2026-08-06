@@ -222,10 +222,11 @@
 				v-if="data.body.screenshots.length"
 				:style="{ order: data.body.order_components['screenshots'] }"
 			>
-				<div class="screenshots">
-					<AText tag="div" :attributes="symbolTitleSettings">{{ t('SCREENSHOTS') }}</AText>
-					<SlotScreenshots :posts="data.body.screenshots" :title="data.body.title" />
-				</div>
+				<SlotScreenshots
+					:posts="data.body.screenshots"
+					:title="data.body.title"
+					:sectionTitle="t('SCREENSHOTS')"
+				/>
 			</div>
 			<div
 				class="symbols"
@@ -352,12 +353,6 @@ export default {
 	layout: 'default',
 	data: () => {
 		return {
-			symbolTitleSettings: {
-				size: 'x-large',
-				color: 'cairo',
-				weight: 'bold',
-				class: 'title'
-			},
 			videoTitleSettings: {
 				size: 'x-large',
 				color: 'cairo',
@@ -440,19 +435,8 @@ export default {
 	padding-top: 20px;
 	padding-bottom: 20px;
 }
-.screenshots {
-	padding: 20px;
-	border-radius: var(--m);
-	background: #232036;
-	display: flex;
-	flex-direction: column;
-	gap: 20px;
-}
 .content_container {
 	padding-top: 16px;
-}
-.screenshots .title {
-	line-height: 24px;
 }
 .bg_grey {
 	background: var(--cancun);
@@ -473,8 +457,7 @@ export default {
 	width: calc(25% - 15px);
 }
 @media (max-width: 767px) {
-	.symbols,
-	.screenshots {
+	.symbols {
 		padding-top: 20px;
 		padding-bottom: 20px;
 	}

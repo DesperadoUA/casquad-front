@@ -85,6 +85,13 @@
 				<VideoGallery :posts="videoListWrapper(data.body.video)" />
 			</div>
 		</div>
+		<div class="container" v-if="data.body.screenshots && data.body.screenshots.length">
+			<SlotScreenshots
+				:posts="data.body.screenshots"
+				:title="data.body.title"
+				:sectionTitle="data.body.screenshots_title"
+			/>
+		</div>
 		<section class="content_wrapper">
 			<div class="container">
 				<TabContent :value="tabContent" />
@@ -150,6 +157,7 @@ import date from '~/components/date'
 import AsideBonuses from '~/components/aside_bonuses'
 import Faq from '~/components/faq'
 import AuthorSummary from '~/components/author_summary'
+import SlotScreenshots from '~/components/slot_screenshots'
 import config from '~/config'
 
 export default {
@@ -172,7 +180,8 @@ export default {
 		date,
 		AsideBonuses,
 		Faq,
-		AuthorSummary
+		AuthorSummary,
+		SlotScreenshots
 	},
 	layout: 'default',
 	data: () => {

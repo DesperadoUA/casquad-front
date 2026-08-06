@@ -22,6 +22,8 @@
 		:author="author"
 		:faq_title="faq_title"
 		:faq="faq"
+		:screenshots="screenshots"
+		:screenshots_title="screenshots_title"
 		:casino="casino"
 	/>
 </template>
