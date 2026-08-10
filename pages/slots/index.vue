@@ -26,6 +26,11 @@
 				<ProviderFilter :value="data.body.vendors" />
 			</div>
 			<div class="container z-index-3" v-if="data.body.games.length || gamesWeek.length">
+				<ItemListSchema
+					hid="slots-itemlist"
+					:name="data.body.title || data.body.h1"
+					:items="slotsItemList"
+				/>
 				<SlotLoop
 					:value="data.body.games"
 					:prepend="gamesWeek"
@@ -80,6 +85,7 @@ import Breadcrumbs from '~/components/breadcrumbs'
 import gradientWrapper from '~/components/gradient_wrapper'
 import date from '~/components/date'
 import AuthorSummary from '~/components/author_summary'
+import ItemListSchema from '~/components/item_list_schema'
 import config from '~/config'
 
 export default {
@@ -95,7 +101,8 @@ export default {
 		Breadcrumbs,
 		gradientWrapper,
 		date,
-		AuthorSummary
+		AuthorSummary,
+		ItemListSchema
 	},
 	layout: 'default',
 	data: () => {
@@ -126,12 +133,21 @@ export default {
 	},
 	computed: {
 		gamesWeek() {
-			const config = { DC: 10, MOB: 10, TABLET: 8 }
-			return this.data.body.games_week_list.slice(0, config[this.device])
+			const deviceConfig = { DC: 10, MOB: 10, TABLET: 8 }
+			const list = this.data.body.games_week_list || []
+			return list.slice(0, deviceConfig[this.device])
 		},
 		weekGame() {
-			if (!this.data.body.game_week.length) return null
+			if (!this.data.body.game_week || !this.data.body.game_week.length) return null
 			return this.data.body.game_week[0]
+		},
+		// Порядок як у custom_slot_loop: week → prepend → games
+		slotsItemList() {
+			const items = []
+			if (this.weekGame) items.push(this.weekGame)
+			if (this.gamesWeek.length) items.push(...this.gamesWeek)
+			if (this.data.body.games && this.data.body.games.length) items.push(...this.data.body.games)
+			return items
 		}
 	}
 }

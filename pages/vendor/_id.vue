@@ -32,12 +32,22 @@
 									<div class="section_title_wrapper">
 										<AText tag="div" :attributes="mainContainerTitle">{{ t('AVAILABLE_THESE_CASINOS') }}</AText>
 									</div>
+									<ItemListSchema
+										hid="vendor-casinos-itemlist"
+										:name="t('AVAILABLE_THESE_CASINOS')"
+										:items="casinos"
+									/>
 									<CasinoLoop :value="casinos" />
 								</div>
 								<div class="container_loop" v-if="data.body.games.length">
 									<AText tag="div" :attributes="titleSlotsSettings">
 										{{ t('BEST_GAMES_PROVIDER') }} {{ data.body.title }}
 									</AText>
+									<ItemListSchema
+										hid="vendor-games-itemlist"
+										:name="`${t('BEST_GAMES_PROVIDER')} ${data.body.title}`"
+										:items="data.body.games"
+									/>
 									<SlotLoop :value="data.body.games" />
 								</div>
 								<div class="video_gallery" v-if="data.body.video.length">
@@ -135,6 +145,7 @@ import Faq from '~/components/faq'
 import AuthorSummary from '~/components/author_summary'
 import ProsCons from '~/components/pros_cons'
 import SlotScreenshots from '~/components/slot_screenshots'
+import ItemListSchema from '~/components/item_list_schema'
 import config from '~/config'
 
 export default {
@@ -189,7 +200,8 @@ export default {
 		Faq,
 		AuthorSummary,
 		ProsCons,
-		SlotScreenshots
+		SlotScreenshots,
+		ItemListSchema
 	},
 	mixins: [pageTemplate, components, geo],
 	watch: {

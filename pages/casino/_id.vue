@@ -56,6 +56,11 @@
 								<AText tag="div" :attributes="titleSlotsSettings"
 									>{{ t('BEST_GAMES_IN_CASINO') }} {{ data.body.title }}</AText
 								>
+								<ItemListSchema
+									hid="casino-games-itemlist"
+									:name="`${t('BEST_GAMES_IN_CASINO')} ${data.body.title}`"
+									:items="data.body.games"
+								/>
 								<div class="slot_loop">
 									<GameMainCard
 										v-for="(item, index) in gamesLoop"
@@ -125,6 +130,7 @@
 			<div class="section_title_wrapper">
 				<AText tag="div" :attributes="mainContainerTitle">{{ t('SIMILAR_CASINOS') }}</AText>
 			</div>
+			<ItemListSchema hid="casino-similar-itemlist" :name="t('SIMILAR_CASINOS')" :items="casinos" />
 			<div class="similar_casinos">
 				<CasinoLoop :value="casinos" />
 			</div>
@@ -161,6 +167,7 @@ import AsideBonuses from '~/components/aside_bonuses'
 import Faq from '~/components/faq'
 import AuthorSummary from '~/components/author_summary'
 import SlotScreenshots from '~/components/slot_screenshots'
+import ItemListSchema from '~/components/item_list_schema'
 import config from '~/config'
 
 export default {
@@ -184,7 +191,8 @@ export default {
 		AsideBonuses,
 		Faq,
 		AuthorSummary,
-		SlotScreenshots
+		SlotScreenshots,
+		ItemListSchema
 	},
 	layout: 'default',
 	data: () => {
