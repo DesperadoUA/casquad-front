@@ -33,7 +33,12 @@
 				/>
 			</div>
 			<div class="container content_container" v-if="data.body.content">
-				<Content :value="data.body.content" />
+				<Toc
+						v-if="data.body.toc_enabled && data.body.toc && data.body.toc.length"
+						:items="data.body.toc"
+						:enabled="data.body.toc_enabled"
+					/>
+					<Content :value="data.body.content" />
 			</div>
 			<div class="container" v-if="data.body.author_summary && author">
 				<AuthorSummary

@@ -14,6 +14,11 @@ export default {
 		RU: 'Скрыть',
 		EN: 'Hide'
 	},
+	TABLE_OF_CONTENTS: {
+		UA: 'Зміст',
+		RU: 'Содержание',
+		EN: 'Table of Contents'
+	},
 	RATING: {
 		UA: 'Рейтинг',
 		RU: 'Рейтинг',

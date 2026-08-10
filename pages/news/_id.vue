@@ -28,7 +28,12 @@
 				<template v-slot:left>
 					<Banner :src="data.body.thumbnail" :alt="`${data.body.title} Logo`" />
 					<div class="content_container">
-						<Content :value="data.body.content" />
+						<Toc
+						v-if="data.body.toc_enabled && data.body.toc && data.body.toc.length"
+						:items="data.body.toc"
+						:enabled="data.body.toc_enabled"
+					/>
+					<Content :value="data.body.content" />
 					</div>
 				</template>
 				<template v-slot:right>

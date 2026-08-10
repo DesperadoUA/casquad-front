@@ -54,7 +54,12 @@
 									/>
 								</div>
 								<div class="content_container">
-									<Content :value="data.body.content" />
+									<Toc
+						v-if="data.body.toc_enabled && data.body.toc && data.body.toc.length"
+						:items="data.body.toc"
+						:enabled="data.body.toc_enabled"
+					/>
+					<Content :value="data.body.content" />
 								</div>
 							</div>
 						</template>

@@ -20,6 +20,9 @@
 				:sectionTitle="screenshots_title"
 			/>
 		</div>
+		<div class="container z-index-3" v-if="toc_enabled && toc.length">
+			<Toc :items="toc" :enabled="toc_enabled" />
+		</div>
 		<div class="container content_container z-index-3" v-if="content">
 			<Content :value="content" />
 		</div>
@@ -144,6 +147,14 @@ export default {
 		screenshots_title: {
 			type: String,
 			default: ''
+		},
+		toc: {
+			type: Array,
+			default: () => []
+		},
+		toc_enabled: {
+			type: [Number, Boolean, String],
+			default: 0
 		}
 	},
 	data: () => {

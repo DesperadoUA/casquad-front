@@ -93,6 +93,9 @@
 			/>
 		</div>
 		<section class="content_wrapper">
+			<div class="container" v-if="data.body.toc_enabled && data.body.toc && data.body.toc.length">
+				<Toc :items="data.body.toc" :enabled="data.body.toc_enabled" />
+			</div>
 			<div class="container">
 				<TabContent :value="tabContent" />
 			</div>

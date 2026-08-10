@@ -25,6 +25,8 @@
 		:screenshots="screenshots"
 		:screenshots_title="screenshots_title"
 		:casino="casino"
+		:toc="toc"
+		:toc_enabled="toc_enabled"
 	/>
 </template>
 

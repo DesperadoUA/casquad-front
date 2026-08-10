@@ -31,6 +31,11 @@
 						<button class="action" @click="refActivate(data.body.casino.ref, geo)">{{ t('GET_BONUS') }}</button>
 					</div>
 					<div class="content_container">
+						<Toc
+							v-if="data.body.toc_enabled && data.body.toc && data.body.toc.length"
+							:items="data.body.toc"
+							:enabled="data.body.toc_enabled"
+						/>
 						<Content :value="data.body.content" />
 					</div>
 					<div class="action_container">

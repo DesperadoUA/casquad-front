@@ -42,6 +42,12 @@
 			>
 				<NavMenu :value="data.body.nav_menu" />
 			</div>
+			<div
+				class="container"
+				v-if="data.body.toc_enabled && data.body.toc && data.body.toc.length"
+			>
+				<Toc :items="data.body.toc" :enabled="data.body.toc_enabled" />
+			</div>
 			<ContentWrapper
 				v-if="data.body.content_1"
 				id="content_1"

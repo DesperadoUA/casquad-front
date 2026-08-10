@@ -48,7 +48,12 @@
 				<AuthorOverview v-if="data.body.articles_overview" :text="data.body.articles_overview" />
 				<AuthorOverviewKeys v-if="data.body.articles_overview_keys.length" :posts="data.body.articles_overview_keys" />
 				<div class="content_wrapper">
-					<Content v-if="data.body.content" :value="data.body.content" />
+					<Toc
+					v-if="data.body.toc_enabled && data.body.toc && data.body.toc.length"
+					:items="data.body.toc"
+					:enabled="data.body.toc_enabled"
+				/>
+				<Content v-if="data.body.content" :value="data.body.content" />
 				</div>
 				<div id="posts" class="main_gap" v-if="casinos.length || articles.length">
 					<AuthorLoop
