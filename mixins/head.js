@@ -1,6 +1,14 @@
+import config from '~/config'
+import {
+	buildPageJsonLd,
+	collectSameAs,
+	detectPageJsonLdKind,
+	detectReviewKind
+} from '~/helpers/jsonLdSchema'
+
 export default {
 	head() {
-		return {
+		const head = {
 			title: this.data.body.meta_title,
 			meta: [
 				{
@@ -111,5 +119,28 @@ export default {
 				}
 			]
 		}
+
+		const routePath = (this.$route && this.$route.path) || ''
+		const settings =
+			(this.$store && this.$store.getters && this.$store.getters['settings/getSettings']) || null
+		const schema = buildPageJsonLd({
+			kind: detectPageJsonLdKind(routePath),
+			reviewKind: detectReviewKind(routePath),
+			domain: config.BASE_URL[config.LANG],
+			sameAs: collectSameAs(settings),
+			body: this.data.body
+		})
+
+		if (schema) {
+			head.script = [
+				{
+					hid: 'page-jsonld',
+					type: 'application/ld+json',
+					json: schema
+				}
+			]
+		}
+
+		return head
 	}
 }
