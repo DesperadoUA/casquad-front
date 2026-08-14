@@ -31,6 +31,8 @@ import { CASINO as NumberPostOnQuery } from '~/config/postLoader'
 import CasinoMainCard from '~/components/casino_loop/cards/main'
 import postLoader from '~/mixins/postLoader'
 import components from '~/mixins/components'
+import { buildItemListSchema } from '~/helpers/jsonLdSchema'
+import config from '~/config'
 export default {
 	name: 'casino_loop_downloads',
 	components: { CasinoMainCard },
@@ -40,9 +42,38 @@ export default {
 			default() {
 				return []
 			}
+		},
+		// Google accepts one ItemList per page, so a template enables it for a single loop
+		schema: {
+			type: Boolean,
+			default: false
+		},
+		schemaName: {
+			type: String,
+			default: ''
 		}
 	},
 	mixins: [components, postLoader],
+	head() {
+		if (!this.schema) return {}
+
+		const itemList = buildItemListSchema({
+			items: this.currentPosts,
+			name: this.schemaName,
+			domain: config.BASE_URL[config.LANG]
+		})
+		if (!itemList) return {}
+
+		return {
+			script: [
+				{
+					hid: 'itemlist-jsonld',
+					type: 'application/ld+json',
+					json: itemList
+				}
+			]
+		}
+	},
 	data() {
 		return {
 			numberPostOnQuery: NumberPostOnQuery,

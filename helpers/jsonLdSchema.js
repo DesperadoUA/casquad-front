@@ -198,7 +198,7 @@ function buildArticleNode({ body, domain }) {
 	return article
 }
 
-// Google supports a single ItemList per page, so a template must pass one list only
+// Google supports a single ItemList per page, so a template must mark up one list only
 function buildItemListNode({ items, name, domain, pageUrl }) {
 	const seen = new Set()
 	// Summary-page list: ListItem must hold only @type, position and url, urls must be unique
@@ -229,14 +229,25 @@ function buildItemListNode({ items, name, domain, pageUrl }) {
 	return node
 }
 
+export function buildItemListSchema({ items = [], name = '', domain = '', pageUrl = '' } = {}) {
+	const base = String(domain || '').replace(/\/+$/, '')
+	if (!base) return null
+
+	const node = buildItemListNode({ items, name, domain: base, pageUrl })
+	if (!node) return null
+
+	return {
+		'@context': 'https://schema.org',
+		...node
+	}
+}
+
 export function buildPageJsonLd({
 	kind = 'article',
 	domain = '',
 	sameAs = [],
 	body = {},
-	reviewKind = 'casino',
-	listItems = [],
-	listName = ''
+	reviewKind = 'casino'
 } = {}) {
 	const base = String(domain || '').replace(/\/+$/, '')
 	if (!base || !body || typeof body !== 'object') return null
@@ -252,14 +263,6 @@ export function buildPageJsonLd({
 		if (!article) return null
 		graph.push(article)
 	}
-
-	const itemList = buildItemListNode({
-		items: listItems,
-		name: listName || body.h1 || body.title,
-		domain: base,
-		pageUrl: String(body.currentUrl || '').trim()
-	})
-	if (itemList) graph.push(itemList)
 
 	return {
 		'@context': 'https://schema.org',

@@ -126,7 +126,7 @@
 				<AText tag="div" :attributes="mainContainerTitle">{{ t('SIMILAR_CASINOS') }}</AText>
 			</div>
 			<div class="similar_casinos">
-				<CasinoLoop :value="casinos" />
+				<CasinoLoop :value="casinos" schema :schemaName="t('SIMILAR_CASINOS')" />
 			</div>
 		</div>
 		<SlickBonus :refLinks="data.body.ref" />
@@ -248,12 +248,6 @@ export default {
 				TABLET: 10
 			}
 			return this.data.body.games.slice(0, config[this.device])
-		},
-		jsonLdList() {
-			return this.casinos || []
-		},
-		jsonLdListName() {
-			return this.t('SIMILAR_CASINOS')
 		}
 	},
 	watch: {
