@@ -57,10 +57,6 @@ export default {
 			type: String,
 			default: () => ''
 		},
-		refLinks: {
-			type: Object,
-			default: () => {}
-		},
 		hash: {
 			type: String,
 			default: () => ''

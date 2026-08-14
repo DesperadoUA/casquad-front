@@ -39,7 +39,7 @@
 					:demo="data.body.iframe ? true : false"
 					:h1="data.body.h1"
 					:short_desc="data.body.short_desc"
-					:refLinks="Array.isArray(data.body.ref) ? {} : data.body.ref"
+					:refLinks="data.body.ref"
 					:date="data.body.update_at.slice(0, 10)"
 					:author_permalink="data.body.authors.length ? data.body.authors[0].permalink : ''"
 					:author_title="data.body.authors.length ? data.body.authors[0].title : ''"

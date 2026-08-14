@@ -8,7 +8,7 @@
 				:link="item.permalink"
 				:src="item.thumbnail"
 				:title="item.title"
-				:refLinks="Array.isArray(item.ref) ? {} : item.ref"
+				:refLinks="item.ref"
 				:hash="item.hash"
 				:author_permalink="item.authors.length ? item.authors[0].permalink : ''"
 				:author_title="item.authors.length ? item.authors[0].title : ''"

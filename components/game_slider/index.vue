@@ -5,7 +5,7 @@
 				:title="game.title"
 				:thumbnail="game.thumbnail"
 				:permalink="game.permalink"
-				:refLinks="Array.isArray(game.ref) ? {} : game.ref"
+				:refLinks="game.ref"
 				:vendor="game.vendor"
 			/>
 		</div>

@@ -41,10 +41,6 @@ export default {
 			type: String,
 			default: ''
 		},
-		refLinks: {
-			type: Object,
-			default: () => ({})
-		},
 		vendor: {
 			type: Object,
 			default: () => ({})

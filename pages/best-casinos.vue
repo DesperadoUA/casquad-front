@@ -54,7 +54,7 @@
 							:title="item.title"
 							:desc="item.short_desc"
 							:value="item.bonus"
-							:refLinks="Array.isArray(item.ref) ? {} : item.ref"
+							:refLinks="item.ref"
 							:permalink="item.permalink"
 						/>
 					</SliderContainer>
