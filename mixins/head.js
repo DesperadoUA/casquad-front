@@ -123,12 +123,15 @@ export default {
 		const routePath = (this.$route && this.$route.path) || ''
 		const settings =
 			(this.$store && this.$store.getters && this.$store.getters['settings/getSettings']) || null
+		// A page opts into list markup by declaring jsonLdList (and optionally jsonLdListName)
 		const schema = buildPageJsonLd({
 			kind: detectPageJsonLdKind(routePath),
 			reviewKind: detectReviewKind(routePath),
 			domain: config.BASE_URL[config.LANG],
 			sameAs: collectSameAs(settings),
-			body: this.data.body
+			body: this.data.body,
+			listItems: this.jsonLdList || [],
+			listName: this.jsonLdListName || ''
 		})
 
 		if (schema) {

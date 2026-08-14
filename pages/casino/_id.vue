@@ -56,11 +56,6 @@
 								<AText tag="div" :attributes="titleSlotsSettings"
 									>{{ t('BEST_GAMES_IN_CASINO') }} {{ data.body.title }}</AText
 								>
-								<ItemListSchema
-									hid="casino-games-itemlist"
-									:name="`${t('BEST_GAMES_IN_CASINO')} ${data.body.title}`"
-									:items="data.body.games"
-								/>
 								<div class="slot_loop">
 									<GameMainCard
 										v-for="(item, index) in gamesLoop"
@@ -105,12 +100,12 @@
 				<TabContent :value="tabContent" />
 			</div>
 		</section>
-		<div class="container" v-if="data.body.author_summary && author">
+		<div class="container" v-if="author">
 			<AuthorSummary
 				:social="author.social"
 				:short_desc="data.body.author_summary"
 				:title="author.title"
-				:create_at="author.create_at.slice(0, 10)"
+				:create_at="(author.create_at || '').slice(0, 10)"
 				:position="author.position"
 				:img="author.thumbnail"
 				:totalPosts="author.total_posts || 0"
@@ -130,7 +125,6 @@
 			<div class="section_title_wrapper">
 				<AText tag="div" :attributes="mainContainerTitle">{{ t('SIMILAR_CASINOS') }}</AText>
 			</div>
-			<ItemListSchema hid="casino-similar-itemlist" :name="t('SIMILAR_CASINOS')" :items="casinos" />
 			<div class="similar_casinos">
 				<CasinoLoop :value="casinos" />
 			</div>
@@ -167,7 +161,7 @@ import AsideBonuses from '~/components/aside_bonuses'
 import Faq from '~/components/faq'
 import AuthorSummary from '~/components/author_summary'
 import SlotScreenshots from '~/components/slot_screenshots'
-import ItemListSchema from '~/components/item_list_schema'
+import { resolveAuthorEntity } from '~/helpers/jsonLdSchema'
 import config from '~/config'
 
 export default {
@@ -191,8 +185,7 @@ export default {
 		AsideBonuses,
 		Faq,
 		AuthorSummary,
-		SlotScreenshots,
-		ItemListSchema
+		SlotScreenshots
 	},
 	layout: 'default',
 	data: () => {
@@ -255,6 +248,12 @@ export default {
 				TABLET: 10
 			}
 			return this.data.body.games.slice(0, config[this.device])
+		},
+		jsonLdList() {
+			return this.casinos || []
+		},
+		jsonLdListName() {
+			return this.t('SIMILAR_CASINOS')
 		}
 	},
 	watch: {
@@ -276,7 +275,7 @@ export default {
 			} else {
 				const data = helper.headDataMixin(response.data, route)
 				const { casinos, bonuses, reviews, id } = response.data.body
-				const [author = null] = response.data.body.authors || []
+				const author = resolveAuthorEntity(response.data.body)
 				return { data, casinos, bonuses, reviews, id, author }
 			}
 		} else {

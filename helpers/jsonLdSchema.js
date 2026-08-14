@@ -1,7 +1,12 @@
+import config from '~/config'
+
 const CASQUAD_SAME_AS_FALLBACK = [
 	'https://www.youtube.com/@Casquad25',
 	'https://x.com/Casquad25'
 ]
+
+const AUTHOR_NAME_MAX_LENGTH = 100
+const ITEM_LIST_MIN_ITEMS = 2
 
 export function toAbsoluteUrl(domain, permalink) {
 	const base = String(domain || '').replace(/\/+$/, '')
@@ -86,8 +91,23 @@ function buildBrandOrganization({ name, url }) {
 	}
 }
 
+function isValidAuthorName(title) {
+	const name = String(title || '').trim()
+	return Boolean(name) && name.length < AUTHOR_NAME_MAX_LENGTH
+}
+
+export function resolveAuthorEntity(body = {}) {
+	const authors = Array.isArray(body.authors) ? body.authors : []
+	const [cmsAuthor = null] = authors
+	if (cmsAuthor && isValidAuthorName(cmsAuthor.title)) return cmsAuthor
+
+	const fallback = config.DEFAULT_AUTHOR || null
+	if (!fallback || !isValidAuthorName(fallback.title)) return null
+	return { ...fallback, create_at: fallback.create_at || body.update_at || '' }
+}
+
 function buildAuthor(author, domain) {
-	if (!author || !author.title) return null
+	if (!author || !isValidAuthorName(author.title)) return null
 	const node = {
 		'@type': 'Person',
 		name: String(author.title).trim()
@@ -113,10 +133,11 @@ function buildReviewNode({ body, domain, kind }) {
 	const name = String(body.title || body.h1 || '').trim()
 	if (!pageUrl || !name) return null
 
+	const author = buildAuthor(resolveAuthorEntity(body), domain)
+	if (!author) return null
+
 	const dateModified = toIsoDate(body.update_at)
 	const datePublished = toIsoDate(body.create_at) || dateModified
-	const authors = Array.isArray(body.authors) ? body.authors : []
-	const author = buildAuthor(authors[0], domain)
 	const reviewBodySource =
 		kind === 'casino'
 			? body.content_reviews || body.description || ''
@@ -130,6 +151,7 @@ function buildReviewNode({ body, domain, kind }) {
 		'@id': `${pageUrl}#review`,
 		name: `${name} Review`,
 		url: pageUrl,
+		author,
 		publisher: { '@id': `${domain}/#organization` },
 		itemReviewed: {
 			'@type': 'Organization',
@@ -141,7 +163,6 @@ function buildReviewNode({ body, domain, kind }) {
 
 	if (datePublished) review.datePublished = datePublished
 	if (dateModified) review.dateModified = dateModified
-	if (author) review.author = author
 	if (reviewRating) review.reviewRating = reviewRating
 	if (reviewBody) review.reviewBody = reviewBody
 
@@ -177,12 +198,45 @@ function buildArticleNode({ body, domain }) {
 	return article
 }
 
+// Google supports a single ItemList per page, so a template must pass one list only
+function buildItemListNode({ items, name, domain, pageUrl }) {
+	const seen = new Set()
+	// Summary-page list: ListItem must hold only @type, position and url, urls must be unique
+	const itemListElement = (Array.isArray(items) ? items : [])
+		.map(item => toAbsoluteUrl(domain, item && item.permalink))
+		.filter(url => {
+			if (!url || seen.has(url)) return false
+			seen.add(url)
+			return true
+		})
+		.map((url, index) => ({
+			'@type': 'ListItem',
+			position: index + 1,
+			url
+		}))
+
+	if (itemListElement.length < ITEM_LIST_MIN_ITEMS) return null
+
+	const node = {
+		'@type': 'ItemList',
+		itemListElement
+	}
+
+	if (pageUrl) node['@id'] = `${pageUrl}#itemlist`
+	const listName = String(name || '').trim()
+	if (listName) node.name = listName
+
+	return node
+}
+
 export function buildPageJsonLd({
 	kind = 'article',
 	domain = '',
 	sameAs = [],
 	body = {},
-	reviewKind = 'casino'
+	reviewKind = 'casino',
+	listItems = [],
+	listName = ''
 } = {}) {
 	const base = String(domain || '').replace(/\/+$/, '')
 	if (!base || !body || typeof body !== 'object') return null
@@ -191,13 +245,21 @@ export function buildPageJsonLd({
 
 	if (kind === 'review') {
 		const built = buildReviewNode({ body, domain: base, kind: reviewKind })
-		if (!built) return null
-		graph.push(built.brand, built.review)
+		// Review without a valid author is a critical error in Search Console, better to skip the node
+		if (built) graph.push(built.brand, built.review)
 	} else {
 		const article = buildArticleNode({ body, domain: base })
 		if (!article) return null
 		graph.push(article)
 	}
+
+	const itemList = buildItemListNode({
+		items: listItems,
+		name: listName || body.h1 || body.title,
+		domain: base,
+		pageUrl: String(body.currentUrl || '').trim()
+	})
+	if (itemList) graph.push(itemList)
 
 	return {
 		'@context': 'https://schema.org',

@@ -58,5 +58,15 @@ export default {
 		['Active User']: 'active_user',
 		['Editor-in-Chief']: 'editor_in_chief',
 		['Editor Writer']: 'editor_writer'
+	},
+	// Review schema is invalid for Google without author, so pages with rating fall back to Editor-in-Chief
+	DEFAULT_AUTHOR: {
+		title: 'Alex Hunter',
+		permalink: '/author/alex-hunter',
+		thumbnail: 'https://api.casquads.com/public/downloads/author-thumbnail-68d3ba38d4c43.png',
+		position: '@alexhunter • Editor-in-Chief at Casquad.com since • 2020',
+		role: 'Editor-in-Chief',
+		social: [],
+		create_at: ''
 	}
 }

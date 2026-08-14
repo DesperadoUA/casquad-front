@@ -26,11 +26,6 @@
 				<ProviderFilter :value="data.body.vendors" />
 			</div>
 			<div class="container z-index-3" v-if="data.body.games.length || gamesWeek.length">
-				<ItemListSchema
-					hid="slots-itemlist"
-					:name="data.body.title || data.body.h1"
-					:items="slotsItemList"
-				/>
 				<SlotLoop
 					:value="data.body.games"
 					:prepend="gamesWeek"
@@ -85,7 +80,6 @@ import Breadcrumbs from '~/components/breadcrumbs'
 import gradientWrapper from '~/components/gradient_wrapper'
 import date from '~/components/date'
 import AuthorSummary from '~/components/author_summary'
-import ItemListSchema from '~/components/item_list_schema'
 import config from '~/config'
 
 export default {
@@ -101,8 +95,7 @@ export default {
 		Breadcrumbs,
 		gradientWrapper,
 		date,
-		AuthorSummary,
-		ItemListSchema
+		AuthorSummary
 	},
 	layout: 'default',
 	data: () => {
