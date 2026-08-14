@@ -10,8 +10,13 @@
 			</div>
 		</div>
 		<div class="container z-index-3 sub_gap" id="top-casinos">
-			<h2 class="text_color_cairo m-0">CASQUAD Picks - Only Trusted Online Casinos of the Month</h2>
-			<TopCasinoList v-if="data.body.casino.length" :posts="data.body.casino" />
+			<h2 class="text_color_cairo m-0">{{ topCasinosTitle }}</h2>
+			<TopCasinoList
+				v-if="data.body.casino.length"
+				:posts="data.body.casino"
+				schema
+				:schema-name="topCasinosTitle"
+			/>
 		</div>
 		<div class="container z-index-3">
 			<VerifiedCasinoList
@@ -142,6 +147,11 @@ export default {
 		PartnersLogo,
 		BestForMobile,
 		AuthorCardLoop
+	},
+	data() {
+		return {
+			topCasinosTitle: 'CASQUAD Picks - Only Trusted Online Casinos of the Month'
+		}
 	},
 	async asyncData({ store, route, error }) {
 		const geo = store.getters['common/getGeo']

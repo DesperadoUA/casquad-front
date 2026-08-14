@@ -10,6 +10,8 @@
 
 <script>
 import CasinoCard from '@/components/top_casino_list/card'
+import { buildItemListSchema } from '~/helpers/jsonLdSchema'
+import config from '~/config'
 export default {
 	name: 'top_casino_list',
 	components: { CasinoCard },
@@ -17,6 +19,35 @@ export default {
 		posts: {
 			type: Array,
 			default: []
+		},
+		// Google accepts one ItemList per page, so a template enables it for a single loop
+		schema: {
+			type: Boolean,
+			default: false
+		},
+		schemaName: {
+			type: String,
+			default: ''
+		}
+	},
+	head() {
+		if (!this.schema) return {}
+
+		const itemList = buildItemListSchema({
+			items: this.posts,
+			name: this.schemaName,
+			domain: config.BASE_URL[config.LANG]
+		})
+		if (!itemList) return {}
+
+		return {
+			script: [
+				{
+					hid: 'itemlist-jsonld',
+					type: 'application/ld+json',
+					json: itemList
+				}
+			]
 		}
 	}
 }

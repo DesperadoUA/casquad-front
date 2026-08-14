@@ -20,11 +20,33 @@
 <script>
 import BonusAsideCard from '~/components/bonus_loop/cards/aside_card'
 import components from '~/mixins/components'
+import { buildItemListSchema } from '~/helpers/jsonLdSchema'
+import config from '~/config'
 
 export default {
 	name: 'aside_bonuses_list',
 	components: { BonusAsideCard },
 	mixins: [components],
+	head() {
+		if (!this.schema) return {}
+
+		const itemList = buildItemListSchema({
+			items: this.posts,
+			name: this.title,
+			domain: config.BASE_URL[config.LANG]
+		})
+		if (!itemList) return {}
+
+		return {
+			script: [
+				{
+					hid: 'itemlist-jsonld',
+					type: 'application/ld+json',
+					json: itemList
+				}
+			]
+		}
+	},
 	data: () => {
 		return {
 			asideContainerTitle: {
@@ -47,6 +69,11 @@ export default {
 			default() {
 				return []
 			}
+		},
+		// Google accepts one ItemList per page, so a template enables it for a single list
+		schema: {
+			type: Boolean,
+			default: false
 		}
 	}
 }

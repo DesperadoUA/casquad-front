@@ -68,6 +68,7 @@
 						:title="t('BLOG_ARTICLES')"
 						:posts="articles"
 						:total="articles_total"
+						schema
 						@showMore="showMoreArticles"
 					/>
 				</div>

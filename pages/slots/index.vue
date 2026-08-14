@@ -30,6 +30,8 @@
 					:value="data.body.games"
 					:prepend="gamesWeek"
 					:week-game="weekGame"
+					schema
+					:schema-name="data.body.h1"
 				/>
 			</div>
 			<div class="container content_container" v-if="data.body.content">

@@ -34,7 +34,7 @@
 				<div class="main_container">
 					<TwoContentContainer>
 						<template v-slot:left>
-							<CasinoLoop :value="posts" />
+							<CasinoLoop :value="posts" schema :schemaName="data.body.h1" />
 						</template>
 						<template v-slot:right>
 							<aside class="aside">

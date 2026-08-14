@@ -25,7 +25,7 @@
 						<date :value="data.body.update_at.slice(0, 10)" />
 					</gradientWrapper>
 				</div>
-				<BonusLoop :value="posts" />
+				<BonusLoop :value="posts" schema :schemaName="data.body.h1" />
 			</div>
 			<div class="container content_container">
 				<Toc

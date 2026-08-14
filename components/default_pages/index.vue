@@ -11,7 +11,7 @@
 			</div>
 		</div>
 		<div class="container z-index-3 casino_cards_block" v-if="casino.length">
-			<CasinoLoop :value="casino" />
+			<CasinoLoop :value="casino" :schema="schema" :schemaName="h1" />
 		</div>
 		<div class="container z-index-3" v-if="screenshots.length">
 			<SlotScreenshots
@@ -155,6 +155,11 @@ export default {
 		toc_enabled: {
 			type: [Number, Boolean, String],
 			default: 0
+		},
+		// Google accepts one ItemList per page, so a page opts in for its casino list
+		schema: {
+			type: Boolean,
+			default: false
 		}
 	},
 	data: () => {

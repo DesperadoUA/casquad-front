@@ -44,7 +44,7 @@
 				</template>
 				<template v-slot:right>
 					<aside class="aside">
-						<AsideBonuses :title="t('MOST_PROFITABLE_BONUSES')" :posts="bonuses" />
+						<AsideBonuses :title="t('MOST_PROFITABLE_BONUSES')" :posts="bonuses" schema />
 					</aside>
 				</template>
 			</TwoContentContainer>

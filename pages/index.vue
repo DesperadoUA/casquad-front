@@ -101,7 +101,7 @@
 				</div>
 				<TwoContentContainer>
 					<template v-slot:left>
-						<CasinoLoop :value="casino" />
+						<CasinoLoop :value="casino" schema :schemaName="data.body.h1" />
 					</template>
 					<template v-slot:right>
 						<aside class="aside">

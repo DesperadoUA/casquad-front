@@ -27,6 +27,7 @@
 		:casino="casino"
 		:toc="toc"
 		:toc_enabled="toc_enabled"
+		schema
 	/>
 </template>
 

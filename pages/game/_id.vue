@@ -70,7 +70,12 @@
 				v-if="data.body.casinos.length"
 				:style="{ order: data.body.order_components['top_casinos'] }"
 			>
-				<TopCasinoList :posts="data.body.casinos" />
+				<AText tag="div" :attributes="videoTitleSettings">{{ t('GAME_AVAILABLE_CASINOS') }}</AText>
+				<TopCasinoList
+					:posts="data.body.casinos"
+					schema
+					:schema-name="t('GAME_AVAILABLE_CASINOS')"
+				/>
 			</div>
 			<section id="characters" class="bg_grey p-gap" :style="{ order: data.body.order_components['characters'] }">
 				<div class="container main_gap">

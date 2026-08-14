@@ -21,6 +21,8 @@
 
 <script>
 import FunnelCard from '~/components/funnel_loop/card'
+import { buildItemListSchema } from '~/helpers/jsonLdSchema'
+import config from '~/config'
 export default {
 	name: 'funnel_loop',
 	components: { FunnelCard },
@@ -36,6 +38,31 @@ export default {
 			default() {
 				return ''
 			}
+		},
+		// Google accepts one ItemList per page, so a template enables it for a single list
+		schema: {
+			type: Boolean,
+			default: false
+		}
+	},
+	head() {
+		if (!this.schema) return {}
+
+		const itemList = buildItemListSchema({
+			items: this.posts,
+			name: this.title,
+			domain: config.BASE_URL[config.LANG]
+		})
+		if (!itemList) return {}
+
+		return {
+			script: [
+				{
+					hid: 'itemlist-jsonld',
+					type: 'application/ld+json',
+					json: itemList
+				}
+			]
 		}
 	}
 }

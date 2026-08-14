@@ -56,7 +56,7 @@
 				<ContentSupport :value="data.body.content_1" />
 			</ContentWrapper>
 			<div id="top_casinos" :style="{ order: data.body.order_components['top_casinos'] }">
-				<TopCasinoList v-if="casinos.length" :posts="casinos" />
+				<TopCasinoList v-if="casinos.length" :posts="casinos" schema />
 			</div>
 			<ContentWrapper
 				v-if="data.body.content_2"

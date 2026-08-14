@@ -39,6 +39,8 @@ import GameMainCard from '~/components/slot_loop/cards/main'
 import GameBigCard from '~/components/slot_loop/cards/big_card'
 import components from '~/mixins/components'
 import device from '~/mixins/device'
+import { buildItemListSchema } from '~/helpers/jsonLdSchema'
+import config from '~/config'
 import { START_PAGE } from './constants'
 export default {
 	name: 'custom_slot_loop',
@@ -59,9 +61,38 @@ export default {
 		weekGame: {
 			type: Object,
 			default: null
+		},
+		// Google accepts one ItemList per page, so a template enables it for a single loop
+		schema: {
+			type: Boolean,
+			default: false
+		},
+		schemaName: {
+			type: String,
+			default: ''
 		}
 	},
 	mixins: [device, components],
+	head() {
+		if (!this.schema) return {}
+
+		const itemList = buildItemListSchema({
+			items: this.schemaItems,
+			name: this.schemaName,
+			domain: config.BASE_URL[config.LANG]
+		})
+		if (!itemList) return {}
+
+		return {
+			script: [
+				{
+					hid: 'itemlist-jsonld',
+					type: 'application/ld+json',
+					json: itemList
+				}
+			]
+		}
+	},
 	data() {
 		return {
 			numberPostOnQuery: NumberPostOnQuery,
@@ -90,6 +121,10 @@ export default {
 			const device = this.device || 'DC'
 			const settingsPage = START_PAGE[device]
 			return this.postCurrentPage + settingsPage
+		},
+		// Keeps schema in sync with the grid: week game first, then prepended and loaded posts
+		schemaItems() {
+			return [this.weekGame, ...this.prepend, ...this.currentPosts].filter(Boolean)
 		}
 	},
 	methods: {

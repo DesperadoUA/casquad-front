@@ -30,6 +30,8 @@ import { BONUS_CATEGORY as NumberPostOnQuery } from '~/config/postLoader'
 import BonusAsideCard from '~/components/bonus_loop/cards/aside_card'
 import postLoader from '~/mixins/postLoader'
 import components from '~/mixins/components'
+import { buildItemListSchema } from '~/helpers/jsonLdSchema'
+import config from '~/config'
 export default {
 	name: 'bonus_loop',
 	components: { BonusAsideCard },
@@ -39,9 +41,38 @@ export default {
 			default() {
 				return []
 			}
+		},
+		// Google accepts one ItemList per page, so a template enables it for a single loop
+		schema: {
+			type: Boolean,
+			default: false
+		},
+		schemaName: {
+			type: String,
+			default: ''
 		}
 	},
 	mixins: [components, postLoader],
+	head() {
+		if (!this.schema) return {}
+
+		const itemList = buildItemListSchema({
+			items: this.currentPosts,
+			name: this.schemaName,
+			domain: config.BASE_URL[config.LANG]
+		})
+		if (!itemList) return {}
+
+		return {
+			script: [
+				{
+					hid: 'itemlist-jsonld',
+					type: 'application/ld+json',
+					json: itemList
+				}
+			]
+		}
+	},
 	data() {
 		return {
 			numberPostOnQuery: NumberPostOnQuery,

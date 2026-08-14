@@ -25,6 +25,8 @@
 <script>
 import components from '~/mixins/components'
 import Card from '~/components/news_loop/cards/main'
+import { buildItemListSchema } from '~/helpers/jsonLdSchema'
+import config from '~/config'
 
 export default {
 	name: 'author_loop',
@@ -42,6 +44,31 @@ export default {
 		total: {
 			type: Number,
 			default: () => 0
+		},
+		// Google accepts one ItemList per page, so a template enables it for a single loop
+		schema: {
+			type: Boolean,
+			default: false
+		}
+	},
+	head() {
+		if (!this.schema) return {}
+
+		const itemList = buildItemListSchema({
+			items: this.posts,
+			name: this.title,
+			domain: config.BASE_URL[config.LANG]
+		})
+		if (!itemList) return {}
+
+		return {
+			script: [
+				{
+					hid: 'itemlist-jsonld',
+					type: 'application/ld+json',
+					json: itemList
+				}
+			]
 		}
 	},
 	data: () => {

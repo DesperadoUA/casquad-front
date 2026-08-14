@@ -32,7 +32,7 @@
 				/>
 			</div>
 			<LatestNews v-if="news.length" :posts="news" :title="t('LAST_NEWS')" />
-			<FunnelLoop v-if="funnels.length" :posts="funnels" :title="t('ALL_VIDEO_BREAKDOWNS')" />
+			<FunnelLoop v-if="funnels.length" :posts="funnels" :title="t('ALL_VIDEO_BREAKDOWNS')" schema />
 			<Cookies />
 		</main>
 	</div>

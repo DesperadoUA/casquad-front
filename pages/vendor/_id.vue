@@ -32,7 +32,7 @@
 									<div class="section_title_wrapper">
 										<AText tag="div" :attributes="mainContainerTitle">{{ t('AVAILABLE_THESE_CASINOS') }}</AText>
 									</div>
-									<CasinoLoop :value="casinos" />
+									<CasinoLoop :value="casinos" schema :schemaName="t('AVAILABLE_THESE_CASINOS')" />
 								</div>
 								<div class="container_loop" v-if="data.body.games.length">
 									<AText tag="div" :attributes="titleSlotsSettings">
