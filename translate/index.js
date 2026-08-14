@@ -174,6 +174,11 @@ export default {
 		RU: 'Последние новости',
 		EN: 'Latest news'
 	},
+	ALL_VIDEO_BREAKDOWNS: {
+		UA: 'Всі відеорозбори',
+		RU: 'Все видеоразборы',
+		EN: 'All Video Breakdowns'
+	},
 	GAME_OFFERS: {
 		UA: 'Пропозиції ігор',
 		RU: 'Предложения игр',
