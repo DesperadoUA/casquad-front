@@ -82,13 +82,15 @@ function buildCasquadOrganization(domain, sameAs = []) {
 	return org
 }
 
-function buildBrandOrganization({ name, url }) {
-	return {
+function buildBrandOrganization({ name, url, image }) {
+	const node = {
 		'@type': 'Organization',
 		'@id': `${url}#brand`,
 		name,
 		url
 	}
+	if (image) node.image = image
+	return node
 }
 
 function isValidAuthorName(title) {
@@ -144,7 +146,17 @@ function buildReviewNode({ body, domain, kind }) {
 			: body.content || body.description || ''
 	const reviewBody = plainTextSummary(reviewBodySource)
 	const reviewRating = buildReviewRating(body.rating)
-	const brand = buildBrandOrganization({ name, url: pageUrl })
+	const logoSource = kind === 'casino' ? body.thumbnail : body.banner
+	const image = toAbsoluteUrl(domain, logoSource)
+	const brand = buildBrandOrganization({ name, url: pageUrl, image })
+
+	const itemReviewed = {
+		'@type': 'Organization',
+		'@id': brand['@id'],
+		name: brand.name,
+		url: brand.url
+	}
+	if (image) itemReviewed.image = image
 
 	const review = {
 		'@type': 'Review',
@@ -153,12 +165,7 @@ function buildReviewNode({ body, domain, kind }) {
 		url: pageUrl,
 		author,
 		publisher: { '@id': `${domain}/#organization` },
-		itemReviewed: {
-			'@type': 'Organization',
-			'@id': brand['@id'],
-			name: brand.name,
-			url: brand.url
-		}
+		itemReviewed
 	}
 
 	if (datePublished) review.datePublished = datePublished
