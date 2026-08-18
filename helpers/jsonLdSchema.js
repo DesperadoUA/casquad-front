@@ -59,6 +59,7 @@ export function detectPageJsonLdKind(path = '') {
 		.replace(/\/+$/, '') || '/'
 	if (/^\/casino\/[^/]+$/.test(normalized)) return 'review'
 	if (/^\/vendor\/[^/]+$/.test(normalized)) return 'review'
+	if (/^\/game\/[^/]+$/.test(normalized)) return 'game'
 	return 'article'
 }
 
@@ -130,7 +131,44 @@ function buildReviewRating(rating) {
 	}
 }
 
-function buildReviewNode({ body, domain, kind }) {
+function resolveGameReviewRating(body = {}) {
+	const direct = Number(body.rating)
+	if (Number.isFinite(direct) && direct > 0) {
+		if (direct <= 5) return direct
+		if (direct <= 50) return direct / 10
+		return null
+	}
+
+	const content = String(body.content || body.short_desc || '')
+	const match =
+		content.match(/\((\d+(?:\.\d+)?)\s*\/\s*5\)/i) ||
+		content.match(/(?:rating|оцінка)[^0-9]{0,40}(\d+(?:\.\d+)?)\s*\/\s*5/i) ||
+		content.match(/(\d+(?:\.\d+)?)\s*\/\s*5\b/i)
+	if (!match) return null
+
+	const value = Number(match[1])
+	if (!Number.isFinite(value) || value <= 0 || value > 5) return null
+	return value
+}
+
+function buildGameReviewRating(rating) {
+	const numeric = Number(rating)
+	if (!Number.isFinite(numeric) || numeric <= 0 || numeric > 5) return null
+	return {
+		'@type': 'Rating',
+		ratingValue: Number.isInteger(numeric) ? String(numeric) : numeric.toFixed(1),
+		bestRating: '5',
+		worstRating: '1'
+	}
+}
+
+function resolveReviewBrandImage(body = {}, kind = 'casino') {
+	const source =
+		kind === 'casino' ? body.thumbnail : body.thumbnail || body.banner
+	return source
+}
+
+function buildReviewNode({ body, domain, kind, image = '' }) {
 	const pageUrl = String(body.currentUrl || '').trim()
 	const name = String(body.title || body.h1 || '').trim()
 	if (!pageUrl || !name) return null
@@ -146,8 +184,6 @@ function buildReviewNode({ body, domain, kind }) {
 			: body.content || body.description || ''
 	const reviewBody = plainTextSummary(reviewBodySource)
 	const reviewRating = buildReviewRating(body.rating)
-	const logoSource = kind === 'casino' ? body.thumbnail : body.banner
-	const image = toAbsoluteUrl(domain, logoSource)
 	const brand = buildBrandOrganization({ name, url: pageUrl, image })
 
 	const itemReviewed = {
@@ -174,6 +210,61 @@ function buildReviewNode({ body, domain, kind }) {
 	if (reviewBody) review.reviewBody = reviewBody
 
 	return { review, brand }
+}
+
+function buildGameNode({ body, domain, image = '' }) {
+	const pageUrl = String(body.currentUrl || '').trim()
+	const name = String(body.title || body.h1 || '').trim()
+	if (!pageUrl || !name) return null
+
+	const game = {
+		'@type': 'SoftwareApplication',
+		'@id': `${pageUrl}#game`,
+		name,
+		url: pageUrl,
+		applicationCategory: 'GameApplication',
+		operatingSystem: 'Web'
+	}
+
+	if (image) game.image = image
+
+	return game
+}
+
+function buildGameReviewNode({ body, domain, game, image = '', author, reviewRating, reviewBody = '' }) {
+	if (!game || !author || !reviewRating || !reviewBody) return null
+
+	const pageUrl = String(body.currentUrl || '').trim()
+	const name = String(body.title || body.h1 || '').trim()
+	if (!pageUrl || !name) return null
+
+	const dateModified = toIsoDate(body.update_at)
+	const datePublished = toIsoDate(body.create_at) || dateModified
+
+	const itemReviewed = {
+		'@type': 'SoftwareApplication',
+		'@id': game['@id'],
+		name: game.name,
+		url: game.url
+	}
+	if (image) itemReviewed.image = image
+
+	const review = {
+		'@type': 'Review',
+		'@id': `${pageUrl}#review`,
+		name: `${name} Review`,
+		url: pageUrl,
+		author,
+		publisher: { '@id': `${domain}/#organization` },
+		itemReviewed,
+		reviewRating,
+		reviewBody
+	}
+
+	if (datePublished) review.datePublished = datePublished
+	if (dateModified) review.dateModified = dateModified
+
+	return review
 }
 
 function buildArticleNode({ body, domain }) {
@@ -262,9 +353,33 @@ export function buildPageJsonLd({
 	const graph = [buildCasquadOrganization(base, sameAs)]
 
 	if (kind === 'review') {
-		const built = buildReviewNode({ body, domain: base, kind: reviewKind })
+		const image = toAbsoluteUrl(base, resolveReviewBrandImage(body, reviewKind))
+		const built = buildReviewNode({ body, domain: base, kind: reviewKind, image })
 		// Review without a valid author is a critical error in Search Console, better to skip the node
 		if (built) graph.push(built.brand, built.review)
+	} else if (kind === 'game') {
+		const image = toAbsoluteUrl(base, body.social_img || body.thumbnail)
+		const author = buildAuthor(resolveAuthorEntity(body), base)
+		const reviewRating = buildGameReviewRating(resolveGameReviewRating(body))
+		const reviewBody = plainTextSummary(body.content || body.short_desc || body.description || '')
+
+		if (author && reviewRating && reviewBody) {
+			const game = buildGameNode({ body, domain: base, image })
+			const review = buildGameReviewNode({
+				body,
+				domain: base,
+				game,
+				image,
+				author,
+				reviewRating,
+				reviewBody
+			})
+			if (game && review) graph.push(game, review)
+		}
+
+		const article = buildArticleNode({ body, domain: base })
+		if (!article) return null
+		graph.push(article)
 	} else {
 		const article = buildArticleNode({ body, domain: base })
 		if (!article) return null
