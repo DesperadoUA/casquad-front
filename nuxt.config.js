@@ -24,7 +24,7 @@ export default {
 			/*{ href: 'https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;800&display=swap', rel: 'stylesheet' }*/
 		],
 		script: [
-			{ hid: 'gtag', src: 'https://www.googletagmanager.com/gtag/js?id=G-XK5GKT3P8' },
+			{ hid: 'gtag', src: 'https://www.googletagmanager.com/gtag/js?id=G-XK5G5KT3P8' },
 			{ hid: 'analytics', src: 'https://analytics.ahrefs.com/analytics.js', 'data-key': '4Janzt1ko61kpMRlF1OaXw' },
 			{ hid: 'gtm', src: '/js/gtm.js' }
 		]
@@ -85,7 +85,8 @@ export default {
 			'/technologies',
 			'/type-bonuses',
 			'/type-payments',
-			'/go/**'
+			'/go/**',
+			'/front'
 		],
 		routes: async () => {
 			const request = new DAL_Builder()

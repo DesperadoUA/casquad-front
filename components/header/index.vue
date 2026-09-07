@@ -22,7 +22,7 @@
 			<div class="header_mob_search_container">
 				<Search />
 			</div>
-			<div class="header_mob_menu" :class="{ active: menuActive }">
+			<div class="header_mob_menu" :class="{ active: menuActive }" @click.self="mobMenuToggle">
 				<div class="header_mob_menu_wrapper">
 					<div class="mob_lang_container">
 						<LangSelector />
@@ -51,17 +51,29 @@ export default {
 	},
 	watch: {
 		'$route.params': {
-			handler: function() {
-				this.menuActive = false
+			handler() {
+				this.closeMobMenu()
 			},
-			deep: true,
-			immediate: true
+			deep: true
 		}
 	},
 	methods: {
+		setBodyOverflow(value) {
+			if (process.client) {
+				document.body.style.overflow = value
+			}
+		},
 		mobMenuToggle() {
 			this.menuActive = !this.menuActive
+			this.setBodyOverflow(this.menuActive ? 'hidden' : '')
+		},
+		closeMobMenu() {
+			this.menuActive = false
+			this.setBodyOverflow('')
 		}
+	},
+	beforeDestroy() {
+		this.setBodyOverflow('')
 	}
 }
 </script>
@@ -95,7 +107,7 @@ export default {
 	justify-content: center;
 }
 .wrapper_menu {
-	margin-top: var(--s);
+	margin-top: var(--m);
 	width: 100%;
 }
 @media (max-width: 767px) {
@@ -127,20 +139,23 @@ export default {
 		width: 100vw;
 		height: 100vh;
 		background: rgba(16, 13, 36, 0.5);
-		z-index: 5;
+		z-index: 100;
 		display: flex;
 		justify-content: flex-end;
 		transform: translateX(100%);
 		transition: 0.7s;
+		pointer-events: none;
 	}
 	.header_mob_menu.active {
 		transform: translateX(0%);
+		pointer-events: auto;
 	}
 	.header_mob_menu_wrapper {
 		width: 260px;
 		height: 100%;
-		background: rgba(16, 13, 36, 0.92);
+		background: var(--colombo);
 		padding: 16px 16px 16px 32px;
+		overflow-y: auto;
 	}
 	.burger_close {
 		width: 48px;
@@ -183,20 +198,23 @@ export default {
 		width: 100vw;
 		height: 100vh;
 		background: rgba(16, 13, 36, 0.5);
-		z-index: 5;
+		z-index: 100;
 		display: flex;
 		justify-content: flex-end;
 		transform: translateX(100%);
 		transition: 0.7s;
+		pointer-events: none;
 	}
 	.header_mob_menu.active {
 		transform: translateX(0%);
+		pointer-events: auto;
 	}
 	.header_mob_menu_wrapper {
 		width: 320px;
 		height: 100%;
-		background: rgba(16, 13, 36, 0.92);
+		background: var(--colombo);
 		padding: 16px 16px 16px 32px;
+		overflow-y: auto;
 	}
 	.burger_close {
 		width: 48px;

@@ -100,6 +100,20 @@
 				<TabContent :value="tabContent" />
 			</div>
 		</section>
+		<div
+			class="container z-index-3"
+			v-if="(data.body.pros && data.body.pros.length) || (data.body.cons && data.body.cons.length)"
+		>
+			<div class="sub_gap">
+				<h2 class="text_color_cairo m-0" v-if="data.body.pros_cons_title">{{ data.body.pros_cons_title }}</h2>
+				<ProsCons
+					:prosList="data.body.pros"
+					:consList="data.body.cons"
+					:prosTitle="data.body.pros_title"
+					:consTitle="data.body.cons_title"
+				/>
+			</div>
+		</div>
 		<div class="container" v-if="author">
 			<AuthorSummary
 				:social="author.social"
@@ -160,6 +174,7 @@ import date from '~/components/date'
 import AsideBonuses from '~/components/aside_bonuses'
 import Faq from '~/components/faq'
 import AuthorSummary from '~/components/author_summary'
+import ProsCons from '~/components/pros_cons'
 import SlotScreenshots from '~/components/slot_screenshots'
 import { resolveAuthorEntity } from '~/helpers/jsonLdSchema'
 import config from '~/config'
@@ -185,6 +200,7 @@ export default {
 		AsideBonuses,
 		Faq,
 		AuthorSummary,
+		ProsCons,
 		SlotScreenshots
 	},
 	layout: 'default',
