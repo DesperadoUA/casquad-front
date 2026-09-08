@@ -9,10 +9,4 @@
 	j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl
 	f.parentNode.insertBefore(j, f)
 })(window, document, 'script', 'dataLayer', 'GTM-NQFS72JB')
-/* Google Tag Manager */
-window.dataLayer = window.dataLayer || []
-function gtag() {
-	dataLayer.push(arguments)
-}
-gtag('js', new Date())
-gtag('config', 'G-XK5G5KT3P8')
+/* End Google Tag Manager */

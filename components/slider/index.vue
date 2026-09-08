@@ -1,25 +1,59 @@
 <template>
-	<div>
-		<VueSlickCarousel class="sliderContainer" v-bind="settings">
+	<div ref="root">
+		<component :is="carouselComponent" v-if="isReady" class="sliderContainer" v-bind="settings">
 			<slot />
-		</VueSlickCarousel>
+		</component>
+		<div v-else class="sliderContainer sliderContainer--placeholder">
+			<slot />
+		</div>
 	</div>
 </template>
 
 <script>
-import VueSlickCarousel from 'vue-slick-carousel'
 import 'vue-slick-carousel/dist/vue-slick-carousel.css'
-// optional style for arrows & dots
 import 'vue-slick-carousel/dist/vue-slick-carousel-theme.css'
 
 export default {
 	name: 'Slider',
-	components: { VueSlickCarousel },
 	props: {
 		settings: {
 			type: Object,
-			default: {}
+			default: () => ({})
 		}
+	},
+	data() {
+		return {
+			isReady: false,
+			carouselComponent: null
+		}
+	},
+	mounted() {
+		if (!process.client) return
+
+		const loadCarousel = () => {
+			if (this.isReady) return
+
+			import('vue-slick-carousel').then((module) => {
+				this.carouselComponent = module.default
+				this.isReady = true
+			})
+		}
+
+		if (!('IntersectionObserver' in window)) {
+			loadCarousel()
+			return
+		}
+
+		const observer = new IntersectionObserver(
+			([entry]) => {
+				if (!entry.isIntersecting) return
+				loadCarousel()
+				observer.disconnect()
+			},
+			{ rootMargin: '200px 0px' }
+		)
+
+		observer.observe(this.$refs.root)
 	}
 }
 </script>
@@ -44,4 +78,8 @@ export default {
 	}
 }
 </style>
-<style scoped></style>
+<style scoped>
+.sliderContainer--placeholder {
+	overflow: hidden;
+}
+</style>
