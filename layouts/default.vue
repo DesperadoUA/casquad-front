@@ -735,6 +735,12 @@ Common styles*/
 	flex-direction: column;
 	gap: var(--gap-components);
 }
+.landing_sections {
+	display: flex;
+	flex-direction: column;
+	gap: var(--gap-title);
+	width: 100%;
+}
 .sub_gap {
 	gap: var(--gap-title);
 	display: flex;

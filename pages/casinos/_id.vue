@@ -2,35 +2,34 @@
 	<div>
 		<main class="category_page">
 			<Gradient />
-			<div class="container z-index-3 main_gap">
-				<div class="h1_wrapper">
-					<gradientWrapper>
-						<Breadcrumbs
-							:value="[
+			<div class="container z-index-3 landing_sections">
+				<gradientWrapper>
+					<Breadcrumbs
+						:value="[
+							{
+								title: t('BREADCRUMB_MAIN_PAGE'),
+								permalink: '/'
+							},
+							{
+								title: data.body.title,
+								permalink: ''
+							}
+						]"
+					/>
+					<AText tag="h1" :attributes="titleSettings">{{ data.body.h1 }}</AText>
+					<CategoryFilter
+						:value="
+							[
 								{
-									title: t('BREADCRUMB_MAIN_PAGE'),
-									permalink: '/'
-								},
-								{
-									title: data.body.title,
-									permalink: ''
+									title: 'All',
+									permalink: '/',
+									thumbnail: ''
 								}
-							]"
-						/>
-						<AText tag="h1" :attributes="titleSettings">{{ data.body.h1 }}</AText>
-						<CategoryFilter
-							:value="
-								[
-									{
-										title: 'All',
-										permalink: '/',
-										thumbnail: ''
-									}
-								].concat(data.body.casino_category)
-							"
-						/>
-					</gradientWrapper>
-				</div>
+							].concat(data.body.casino_category)
+						"
+					/>
+				</gradientWrapper>
+				<PageShortDesc :value="data.body.short_desc" />
 				<div class="main_container">
 					<TwoContentContainer>
 						<template v-slot:left>

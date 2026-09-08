@@ -1,29 +1,28 @@
 <template>
 	<main class="casino_page" :class="{ 'casino_page--no-similar': !casinos.length }">
 		<Gradient />
-		<div class="container z-index-3">
-			<div class="h1_wrapper">
-				<gradientWrapper>
-					<Breadcrumbs
-						:value="[
-							{
-								title: t('BREADCRUMB_MAIN_PAGE'),
-								permalink: '/'
-							},
-							{
-								title: t(configCategoryTitle[data.body.label]),
-								permalink: `/casinos/${configCategorySlug[data.body.label]}`
-							},
-							{
-								title: data.body.title,
-								permalink: ''
-							}
-						]"
-					/>
-					<AText tag="h1" :attributes="titleSettings">{{ data.body.h1 }}</AText>
-					<date :value="data.body.update_at.slice(0, 10)" />
-				</gradientWrapper>
-			</div>
+		<div class="container z-index-3 landing_sections">
+			<gradientWrapper>
+				<Breadcrumbs
+					:value="[
+						{
+							title: t('BREADCRUMB_MAIN_PAGE'),
+							permalink: '/'
+						},
+						{
+							title: t(configCategoryTitle[data.body.label]),
+							permalink: `/casinos/${configCategorySlug[data.body.label]}`
+						},
+						{
+							title: data.body.title,
+							permalink: ''
+						}
+					]"
+				/>
+				<AText tag="h1" :attributes="titleSettings">{{ data.body.h1 }}</AText>
+				<date :value="data.body.update_at.slice(0, 10)" />
+			</gradientWrapper>
+			<PageShortDesc :value="data.body.short_desc" />
 			<div class="main_container">
 				<TwoContentContainer>
 					<template v-slot:left>

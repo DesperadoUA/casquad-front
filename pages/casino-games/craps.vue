@@ -12,6 +12,7 @@
 		]"
 		:h1="h1"
 		:update_at="update_at"
+		:short_desc="short_desc"
 		:content="content"
 		:pros="pros"
 		:cons="cons"
