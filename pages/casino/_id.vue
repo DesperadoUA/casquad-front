@@ -1,29 +1,28 @@
 <template>
 	<main class="casino_page" :class="{ 'casino_page--no-similar': !casinos.length }">
 		<Gradient />
-		<div class="container z-index-3">
-			<div class="h1_wrapper">
-				<gradientWrapper>
-					<Breadcrumbs
-						:value="[
-							{
-								title: t('BREADCRUMB_MAIN_PAGE'),
-								permalink: '/'
-							},
-							{
-								title: t(configCategoryTitle[data.body.label]),
-								permalink: `/casinos/${configCategorySlug[data.body.label]}`
-							},
-							{
-								title: data.body.title,
-								permalink: ''
-							}
-						]"
-					/>
-					<AText tag="h1" :attributes="titleSettings">{{ data.body.h1 }}</AText>
-					<date :value="data.body.update_at.slice(0, 10)" />
-				</gradientWrapper>
-			</div>
+		<div class="container z-index-3 landing_sections">
+			<gradientWrapper>
+				<Breadcrumbs
+					:value="[
+						{
+							title: t('BREADCRUMB_MAIN_PAGE'),
+							permalink: '/'
+						},
+						{
+							title: t(configCategoryTitle[data.body.label]),
+							permalink: `/casinos/${configCategorySlug[data.body.label]}`
+						},
+						{
+							title: data.body.title,
+							permalink: ''
+						}
+					]"
+				/>
+				<AText tag="h1" :attributes="titleSettings">{{ data.body.h1 }}</AText>
+				<date :value="data.body.update_at.slice(0, 10)" />
+			</gradientWrapper>
+			<PageShortDesc :value="data.body.short_desc" />
 			<div class="main_container">
 				<TwoContentContainer>
 					<template v-slot:left>
@@ -100,6 +99,20 @@
 				<TabContent :value="tabContent" />
 			</div>
 		</section>
+		<div
+			class="container z-index-3"
+			v-if="(data.body.pros && data.body.pros.length) || (data.body.cons && data.body.cons.length)"
+		>
+			<div class="sub_gap">
+				<h2 class="text_color_cairo m-0" v-if="data.body.pros_cons_title">{{ data.body.pros_cons_title }}</h2>
+				<ProsCons
+					:prosList="data.body.pros"
+					:consList="data.body.cons"
+					:prosTitle="data.body.pros_title"
+					:consTitle="data.body.cons_title"
+				/>
+			</div>
+		</div>
 		<div class="container" v-if="author">
 			<AuthorSummary
 				:social="author.social"
@@ -160,6 +173,7 @@ import date from '~/components/date'
 import AsideBonuses from '~/components/aside_bonuses'
 import Faq from '~/components/faq'
 import AuthorSummary from '~/components/author_summary'
+import ProsCons from '~/components/pros_cons'
 import SlotScreenshots from '~/components/slot_screenshots'
 import { resolveAuthorEntity } from '~/helpers/jsonLdSchema'
 import config from '~/config'
@@ -185,6 +199,7 @@ export default {
 		AsideBonuses,
 		Faq,
 		AuthorSummary,
+		ProsCons,
 		SlotScreenshots
 	},
 	layout: 'default',

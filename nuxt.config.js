@@ -3,6 +3,7 @@ import config from './config'
 export default {
 	telemetry: false,
 	mode: 'universal',
+	modern: 'client',
 	// Global page headers: https://go.nuxtjs.dev/config-head
 	head: {
 		title: 'nuxt-slot',
@@ -19,14 +20,15 @@ export default {
 		],
 		link: [
 			{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-			{ rel: 'preconnect', href: 'https://fonts.googleapis.com' },
-			{ rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: 'true' }
+			{ rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: 'anonymous' },
+			{
+				rel: 'preload',
+				href: 'https://fonts.gstatic.com/s/unbounded/v8/Yq6W-LOTXCb04q32xlpwu8Zf.woff2',
+				as: 'font',
+				type: 'font/woff2',
+				crossorigin: 'anonymous'
+			}
 			/*{ href: 'https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;800&display=swap', rel: 'stylesheet' }*/
-		],
-		script: [
-			{ hid: 'gtag', src: 'https://www.googletagmanager.com/gtag/js?id=G-XK5GKT3P8' },
-			{ hid: 'analytics', src: 'https://analytics.ahrefs.com/analytics.js', 'data-key': '4Janzt1ko61kpMRlF1OaXw' },
-			{ hid: 'gtm', src: '/js/gtm.js' }
 		]
 	},
 	serverMiddleware: ['~/serverMiddleware/redirects'],
@@ -52,7 +54,7 @@ export default {
 		middleware: ['stripTrailingSlash']
 	},
 	// Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-	plugins: ['~/plugins/analytics.client.js'],
+	plugins: ['~/plugins/analytics.client.js', '~/plugins/third-party-scripts.client.js'],
 
 	// Auto import components: https://go.nuxtjs.dev/config-components
 	components: true,
@@ -66,14 +68,23 @@ export default {
 	// Build Configuration: https://go.nuxtjs.dev/config-build
 	build: {
 		babel: {
-			presets: [
-				[
-					require.resolve('@nuxt/babel-preset-app'),
-					{
-						browsers: ['IE 11', 'last 2 version']
-					}
+			presets({ isModern }) {
+				return [
+					[
+						require.resolve('@nuxt/babel-preset-app'),
+						isModern
+							? {
+									targets: { esmodules: true },
+									useBuiltIns: false
+								}
+							: {
+									targets: {
+										browsers: ['> 0.5%', 'last 2 versions', 'not dead', 'not ie 11']
+									}
+								}
+					]
 				]
-			]
+			}
 		}
 	},
 	sitemap: {
@@ -85,7 +96,8 @@ export default {
 			'/technologies',
 			'/type-bonuses',
 			'/type-payments',
-			'/go/**'
+			'/go/**',
+			'/front'
 		],
 		routes: async () => {
 			const request = new DAL_Builder()

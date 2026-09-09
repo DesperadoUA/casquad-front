@@ -17,7 +17,6 @@ Disallow: /redirect
 Disallow: /redirect/
 Disallow: /exit
 Disallow: /exit/
-Disallow: /front/
 
 User-agent: CCBot
 Disallow: /

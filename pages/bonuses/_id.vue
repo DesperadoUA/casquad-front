@@ -2,29 +2,28 @@
 	<div>
 		<main class="category_page">
 			<Gradient />
-			<div class="container z-index-3 main_gap">
-				<div class="h1_wrapper">
-					<gradientWrapper>
-						<Breadcrumbs
-							:value="[
-								{
-									title: t('BREADCRUMB_MAIN_PAGE'),
-									permalink: '/'
-								},
-								{
-									title: t('BREADCRUMB_BONUS_TITLE_PAGE'),
-									permalink: `/${bonusesRootSlug}`
-								},
-								{
-									title: data.body.title,
-									permalink: ''
-								}
-							]"
-						/>
-						<AText tag="h1" :attributes="titleSettings">{{ data.body.h1 }}</AText>
-						<date :value="data.body.update_at.slice(0, 10)" />
-					</gradientWrapper>
-				</div>
+			<div class="container z-index-3 landing_sections">
+				<gradientWrapper>
+					<Breadcrumbs
+						:value="[
+							{
+								title: t('BREADCRUMB_MAIN_PAGE'),
+								permalink: '/'
+							},
+							{
+								title: t('BREADCRUMB_BONUS_TITLE_PAGE'),
+								permalink: `/${bonusesRootSlug}`
+							},
+							{
+								title: data.body.title,
+								permalink: ''
+							}
+						]"
+					/>
+					<AText tag="h1" :attributes="titleSettings">{{ data.body.h1 }}</AText>
+					<date :value="data.body.update_at.slice(0, 10)" />
+				</gradientWrapper>
+				<PageShortDesc :value="data.body.short_desc" />
 				<BonusLoop :value="posts" schema :schemaName="data.body.h1" />
 			</div>
 			<div class="container content_container">

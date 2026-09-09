@@ -230,7 +230,7 @@
 				<SlotScreenshots
 					:posts="data.body.screenshots"
 					:title="data.body.title"
-					:sectionTitle="t('SCREENSHOTS')"
+					:sectionTitle="data.body.screenshots_title || t('SCREENSHOTS')"
 				/>
 			</div>
 			<div

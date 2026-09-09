@@ -290,8 +290,8 @@ export default {
 <style scoped>
 .item {
 	width: 820px;
-	height: 206px;
-	overflow: hidden;
+	min-height: 206px;
+	height: auto;
 	padding: var(--xs);
 	border-radius: var(--m);
 }
@@ -309,14 +309,15 @@ export default {
 }
 .wrapper {
 	display: flex;
-	height: 100%;
+	min-height: 198px;
+	height: auto;
 }
 .left {
 	width: 210px;
 	min-width: 210px;
 	display: flex;
-	height: 100%;
 	align-items: center;
+	align-self: stretch;
 	position: relative;
 }
 .right {
@@ -406,8 +407,8 @@ export default {
 	border-radius: var(--s);
 }
 .advantages_wrapper {
-	height: 123px;
-	overflow: hidden;
+	min-height: 123px;
+	height: auto;
 	padding-bottom: 5px;
 }
 .rating {

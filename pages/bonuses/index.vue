@@ -2,25 +2,24 @@
 	<div>
 		<main class="bonuses_page">
 			<Gradient />
-			<div class="container z-index-3 main_gap">
-				<div class="h1_wrapper">
-					<gradientWrapper>
-						<Breadcrumbs
-							:value="[
-								{
-									title: t('BREADCRUMB_MAIN_PAGE'),
-									permalink: '/'
-								},
-								{
-									title: data.body.title,
-									permalink: ''
-								}
-							]"
-						/>
-						<AText tag="h1" :attributes="titleSettings">{{ data.body.h1 }}</AText>
-						<date :value="data.body.update_at.slice(0, 10)" />
-					</gradientWrapper>
-				</div>
+			<div class="container z-index-3 landing_sections">
+				<gradientWrapper>
+					<Breadcrumbs
+						:value="[
+							{
+								title: t('BREADCRUMB_MAIN_PAGE'),
+								permalink: '/'
+							},
+							{
+								title: data.body.title,
+								permalink: ''
+							}
+						]"
+					/>
+					<AText tag="h1" :attributes="titleSettings">{{ data.body.h1 }}</AText>
+					<date :value="data.body.update_at.slice(0, 10)" />
+				</gradientWrapper>
+				<PageShortDesc :value="data.body.short_desc" />
 				<div class="bonus_category_container">
 					<div class="bonus_category_item" v-for="(item, index) in bonus_category" :key="index">
 						<BonusCategory :title="item.title" :link="item.permalink" :posts="item.posts" />

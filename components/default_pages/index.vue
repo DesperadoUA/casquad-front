@@ -1,17 +1,14 @@
 <template>
 	<main class="main_wrapper">
 		<Gradient modifier="large" />
-		<div class="container z-index-3">
-			<div class="h1_wrapper">
-				<gradientWrapper>
-					<Breadcrumbs :value="breadcrumbs" />
-					<AText tag="h1" :attributes="titleSettings">{{ h1 }}</AText>
-					<date :value="update_at ? update_at.slice(0, 10) : ''" />
-				</gradientWrapper>
-			</div>
-		</div>
-		<div class="container z-index-3 casino_cards_block" v-if="casino.length">
-			<CasinoLoop :value="casino" :schema="schema" :schemaName="h1" />
+		<div class="container z-index-3 landing_sections">
+			<gradientWrapper>
+				<Breadcrumbs :value="breadcrumbs" />
+				<AText tag="h1" :attributes="titleSettings">{{ h1 }}</AText>
+				<date :value="update_at ? update_at.slice(0, 10) : ''" />
+			</gradientWrapper>
+			<PageShortDesc :value="short_desc" />
+			<CasinoLoop v-if="casino.length" :value="casino" :schema="schema" :schemaName="h1" />
 		</div>
 		<div class="container z-index-3" v-if="screenshots.length">
 			<SlotScreenshots
@@ -96,6 +93,10 @@ export default {
 			type: String,
 			default: ''
 		},
+		short_desc: {
+			type: String,
+			default: ''
+		},
 		content: {
 			type: String,
 			default: ''
@@ -176,9 +177,3 @@ export default {
 	}
 }
 </script>
-
-<style scoped>
-.casino_cards_block {
-	margin-top: 24px;
-}
-</style>

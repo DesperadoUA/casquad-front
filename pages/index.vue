@@ -1,6 +1,5 @@
 <template>
 	<main class="main_page">
-		{{ data.body.geo }}
 		<Gradient modifier="large" v-if="device !== 'MOB'" />
 		<div class="container banner_wrapper">
 			<div class="ttl_container">

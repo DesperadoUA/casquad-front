@@ -164,6 +164,9 @@ export default {
 	background-repeat: no-repeat;
 	padding-top: 165px;
 }
+.news_page .h1_wrapper {
+	margin-bottom: 40px;
+}
 .sub_title {
 	margin-bottom: 16px;
 }
