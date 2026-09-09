@@ -88,6 +88,7 @@ export default {
 		}
 	},
 	sitemap: {
+		hostname: config.BASE_URL[config.LANG],
 		exclude: [
 			'/countries',
 			'/currencies',

@@ -52,7 +52,7 @@ module.exports = async function(req, res, next) {
 	let urlParams = null
 
 	if (host.startsWith('www.')) {
-		const to = 'https://' + 'casquad.lenddev.com.ua' + req.url
+		const to = 'https://casquad.org' + req.url
 		res.writeHead(301, { Location: to })
 		res.end()
 		return
