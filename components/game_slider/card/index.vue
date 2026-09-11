@@ -1,7 +1,7 @@
 <template>
 	<article class="game_card">
 		<div class="img_wrapper">
-			<img :src="thumbnail" :alt="`logo ${title}`" class="thumbnail" />
+			<img :src="thumbnail" :alt="`logo ${title}`" class="thumbnail" width="300" height="300" />
 			<div class="mask">
 				<div class="game_title">{{ title }}</div>
 				<NuxtLink :to="permalink" class="linkButton">{{ t('PLAY_FOR_FREE') }}</NuxtLink>
@@ -76,7 +76,7 @@ export default {
 }
 .img_wrapper {
 	position: relative;
-	aspect-ratio: 300 / 325;
+	aspect-ratio: 1 / 1;
 	overflow: hidden;
 }
 .mask {

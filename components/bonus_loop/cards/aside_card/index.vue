@@ -46,7 +46,7 @@ export default {
 	data: () => {
 		return {
 			imgSettings: {
-				class: 'object_fit_cover border_radius_50'
+				class: 'border_radius_50'
 			},
 			arrowSettings: {
 			},
@@ -144,6 +144,7 @@ export default {
 .img_wrapper {
 	width: 62px;
 	height: 62px;
+	overflow: hidden;
 }
 .left {
 	width: 90px;
@@ -205,7 +206,7 @@ export default {
 .img_wrapper img {
 	width: 62px;
 	height: 62px;
-	object-fit: cover;
+	object-fit: contain;
 }
 .action img {
 	width: 26px;

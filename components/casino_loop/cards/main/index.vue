@@ -126,7 +126,9 @@ export default {
 	data: () => {
 		return {
 			imgSettings: {
-				class: 'object_fit_cover'
+				class: 'object_fit_cover',
+				width: '210',
+				height: '92'
 			},
 			starSettings: {
 				class: ' m_r_xs'

@@ -28,12 +28,24 @@ export default {
 @font-face {
 	font-family: 'Unbounded';
 	font-style: normal;
-	font-weight: 400 800;
+	font-weight: 400;
 	font-display: optional;
-	src: url(https://fonts.gstatic.com/s/unbounded/v8/Yq6W-LOTXCb04q32xlpwu8Zf.woff2) format('woff2');
-	unicode-range:
-		U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC,
-		U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+	src: url('/fonts/Unbounded-Latin-400.woff2') format('woff2');
+	size-adjust: 100%;
+	ascent-override: 95%;
+	descent-override: 20%;
+	line-gap-override: 0%;
+}
+@font-face {
+	font-family: 'Unbounded';
+	font-style: normal;
+	font-weight: 600;
+	font-display: optional;
+	src: url('/fonts/Unbounded-Latin-600.woff2') format('woff2');
+	size-adjust: 100%;
+	ascent-override: 95%;
+	descent-override: 20%;
+	line-gap-override: 0%;
 }
 :root {
 	/* container width */
@@ -74,6 +86,7 @@ export default {
 	--scroll-margin-top: 100px;
 
 	/* Fonts */
+	--base-font-family: 'Unbounded', system-ui, sans-serif;
 	--base-line-height: 1.7;
 
 	@media (max-width: 767px) {
@@ -99,7 +112,7 @@ body {
 	color: var(--theme-cr-txt);
 	background-color: var(--theme-bg-4);
 	position: relative;
-	font-family: 'Unbounded', 'Unbounded Fallback', Arial, sans-serif;
+	font-family: var(--base-font-family), 'Unbounded Fallback', Arial, sans-serif;
 	overflow-x: hidden;
 	max-width: 100%;
 	background: var(--colombo);
@@ -466,6 +479,57 @@ h6 {
 	width: 100%;
 	height: 100%;
 	object-fit: cover;
+}
+.site-header,
+.header {
+	min-height: 64px;
+}
+.site-header__logo img,
+.header .header_logo img,
+.header_logo img {
+	width: 160px;
+	height: 36px;
+	object-fit: contain;
+	display: block;
+}
+.casino-card__logo,
+.casino-card .logo,
+.casino_loop .item .img_wrapper .object_fit_cover:not(.border_radius_50):not(.thumbnail),
+.casino_card .img_wrapper .object_fit_cover:not(.border_radius_50):not(.thumbnail) {
+	width: 210px;
+	max-width: 100%;
+	aspect-ratio: 210 / 92;
+	height: auto;
+	object-fit: cover;
+}
+.img_wrapper .object_fit_cover.border_radius_50 {
+	width: 100%;
+	height: 100%;
+	max-width: 100%;
+	max-height: 100%;
+	aspect-ratio: unset;
+	object-fit: contain;
+}
+.vendor_page .thumbnail,
+.provider-banner {
+	width: 100%;
+	max-width: 822px;
+	aspect-ratio: 822 / 333;
+	height: auto;
+	object-fit: cover;
+	display: block;
+}
+.game-card img,
+.game_card img {
+	width: 100%;
+	aspect-ratio: 1 / 1;
+	object-fit: cover;
+	display: block;
+}
+.geo-selector,
+.lang_selector {
+	min-width: 72px;
+	min-height: 32px;
 }
 .border_radius_xxs {
 	border-radius: var(--xxs);

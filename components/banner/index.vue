@@ -28,7 +28,7 @@ export default {
 	data: () => {
 		return {
 			thumbnailSettings: {
-				class: 'thumbnail'
+				class: 'thumbnail provider-banner'
 			}
 		}
 	}

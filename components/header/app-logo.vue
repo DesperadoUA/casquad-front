@@ -22,4 +22,11 @@ export default {
 }
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+.header_logo img {
+	width: 160px;
+	height: 36px;
+	object-fit: contain;
+	display: block;
+}
+</style>

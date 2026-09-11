@@ -20,15 +20,13 @@ export default {
 		],
 		link: [
 			{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-			{ rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: 'anonymous' },
 			{
 				rel: 'preload',
-				href: 'https://fonts.gstatic.com/s/unbounded/v8/Yq6W-LOTXCb04q32xlpwu8Zf.woff2',
+				href: '/fonts/Unbounded-Latin-600.woff2',
 				as: 'font',
 				type: 'font/woff2',
-				crossorigin: 'anonymous'
+				crossorigin: true
 			}
-			/*{ href: 'https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;800&display=swap', rel: 'stylesheet' }*/
 		]
 	},
 	serverMiddleware: ['~/serverMiddleware/redirects'],

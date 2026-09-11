@@ -4,7 +4,7 @@
 		<div class="top-label" v-else-if="counter === 0">#1 {{ t('TOP_RATED_CASINO') }}</div>
 		<div class="badge badge-purple" v-else>№3</div>
 		<div class="logo-container">
-			<img :src="item.thumbnail" :alt="`logo ${item.title}`" class="logo" />
+			<img :src="item.thumbnail" :alt="`logo ${item.title}`" class="logo" width="210" height="92" />
 		</div>
 		<div class="content_wrapper">
 			<div class="bonus-section">
