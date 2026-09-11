@@ -46,13 +46,9 @@ export default {
 	data: () => {
 		return {
 			imgSettings: {
-				width: '62px',
-				height: '62px',
 				class: 'object_fit_cover border_radius_50'
 			},
 			arrowSettings: {
-				width: '26px',
-				height: '26px'
 			},
 			titleSettings: {
 				color: 'cairo',
@@ -205,5 +201,14 @@ export default {
 	.item {
 		width: 48%;
 	}
+}
+.img_wrapper img {
+	width: 62px;
+	height: 62px;
+	object-fit: cover;
+}
+.action img {
+	width: 26px;
+	height: 26px;
 }
 </style>

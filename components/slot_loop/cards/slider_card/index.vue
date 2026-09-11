@@ -15,8 +15,6 @@ export default {
 	data: () => {
 		return {
 			imgSettings: {
-				width: '100px',
-				height: '100px',
 				class: 'object_fit_cover border_radius_s'
 			}
 		}
@@ -54,5 +52,9 @@ export default {
 	border: 1px solid #886dff;
 	border-radius: 14px;
 	overflow: hidden;
+}
+.wrapper img {
+	width: 100%;
+	height: 100%;
 }
 </style>

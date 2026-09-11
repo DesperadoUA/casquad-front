@@ -25,8 +25,6 @@ export default {
 	data: () => {
 		return {
 			imgSettings: {
-				width: '280px',
-				height: '170px',
 				class: 'img'
 			},
 			src: '',
@@ -78,5 +76,10 @@ export default {
 	.right {
 		width: 100%;
 	}
+}
+.img {
+	display: block;
+	width: 100%;
+	height: auto;
 }
 </style>

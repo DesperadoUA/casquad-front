@@ -362,8 +362,6 @@ export default {
 				size: 'medium'
 			},
 			arrowSettings: {
-				width: '18px',
-				height: '18px',
 				class: 'arrow',
 				alt: 'Green Arrow'
 			}
@@ -459,6 +457,8 @@ export default {
 	line-height: 62px;
 }
 .arrow {
+	width: 18px;
+	height: 18px;
 	transform: rotate(90deg);
 	margin-left: 10px;
 }

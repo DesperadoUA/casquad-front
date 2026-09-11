@@ -98,20 +98,12 @@ export default {
 	data() {
 		return {
 			imgSettings: {
-				width: '100px',
-				height: '100px'
 			},
 			imgPostsSettings: {
-				width: '16px',
-				height: '16px'
 			},
 			imgSocialSettings: {
-				width: '24px',
-				height: '24px'
 			},
 			imgShareSettings: {
-				width: '18px',
-				height: '18px',
 				class: 'border-radius-50'
 			}
 		}
@@ -249,5 +241,22 @@ export default {
 	.user_name {
 		flex-wrap: wrap;
 	}
+}
+.img_wrapper img {
+	width: 100px;
+	height: 100px;
+	object-fit: cover;
+}
+.counter_posts img {
+	width: 16px;
+	height: 16px;
+}
+.social img {
+	width: 24px;
+	height: 24px;
+}
+.share_arrow img {
+	width: 18px;
+	height: 18px;
 }
 </style>

@@ -28,8 +28,6 @@ export default {
 	data: () => {
 		return {
 			thumbnailSettings: {
-				width: '822px',
-				height: '333px',
 				class: 'thumbnail'
 			}
 		}

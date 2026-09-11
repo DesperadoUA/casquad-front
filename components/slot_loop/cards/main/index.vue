@@ -20,8 +20,6 @@ export default {
 	data: () => {
 		return {
 			imgSettings: {
-				width: '159px',
-				height: '172px',
 				class: 'object_fit_cover thumbnail'
 			},
 			linkSettings: {
@@ -119,5 +117,9 @@ export default {
 		width: 48%;
 		height: auto;
 	}
+}
+.thumbnail {
+	width: 100%;
+	height: 100%;
 }
 </style>

@@ -19,8 +19,6 @@ export default {
 	data() {
 		return {
 			imgSettings: {
-				width: '40px',
-				height: '40px'
 			}
 		}
 	},
@@ -60,5 +58,9 @@ export default {
 .card {
 	display: flex;
 	flex: 1;
+}
+.card__icon img {
+	width: 40px;
+	height: 40px;
 }
 </style>

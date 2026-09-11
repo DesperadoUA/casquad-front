@@ -27,8 +27,6 @@ export default {
 	data: () => {
 		return {
 			imgSettings: {
-				width: '44px',
-				height: '44px',
 				class: 'object_fit_cover'
 			},
 			titleSettings: {
@@ -149,5 +147,10 @@ export default {
 	.item {
 		padding-right: 0px;
 	}
+}
+.img_wrapper img {
+	width: 44px;
+	height: 44px;
+	object-fit: cover;
 }
 </style>

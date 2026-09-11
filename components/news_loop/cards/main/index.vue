@@ -28,8 +28,6 @@ export default {
 	data: () => {
 		return {
 			imgSettings: {
-				width: '276px',
-				height: '160px',
 				class: 'object_fit_cover thumbnail'
 			},
 			descTextSettings: {
@@ -163,5 +161,10 @@ export default {
 	.item {
 		flex-shrink: 0;
 	}
+}
+.thumbnail {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
 }
 </style>

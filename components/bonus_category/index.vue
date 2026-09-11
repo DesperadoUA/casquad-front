@@ -51,8 +51,6 @@ export default {
 				decoration: 'none'
 			},
 			arrowSettings: {
-				width: '18px',
-				height: '18px',
 				class: 'arrow',
 				alt: 'Green arrow'
 			}
@@ -77,6 +75,8 @@ export default {
 	width: 272px;
 }
 .arrow {
+	width: 18px;
+	height: 18px;
 	transform: rotate(90deg);
 	margin-left: 10px;
 }

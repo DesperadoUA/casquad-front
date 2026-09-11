@@ -52,8 +52,6 @@ export default {
 	data: () => {
 		return {
 			imgSettings: {
-				width: '377px',
-				height: '380px',
 				class: 'thumbnail'
 			},
 			btnSettings: {

@@ -114,8 +114,6 @@ export default {
 				class: 'show_more_button'
 			},
 			starSettings: {
-				width: '14px',
-				height: '14px',
 				class: ' m_r_xs'
 			},
 			textSettings: {
@@ -267,5 +265,9 @@ export default {
 	}
 }
 @media (min-width: 768px) and (max-width: 1200px) {
+}
+.rating img {
+	width: 14px;
+	height: 14px;
 }
 </style>

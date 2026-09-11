@@ -12,8 +12,6 @@ export default {
 	data() {
 		return {
 			imgSettings: {
-				width: '280px',
-				height: '170px',
 				class: 'img'
 			},
             titleSettings: {

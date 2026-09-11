@@ -85,8 +85,6 @@ export default {
 				size: 'medium'
 			},
 			arrowSettings: {
-				width: '18px',
-				height: '18px',
 				class: 'arrow'
 			}
 		}
@@ -106,6 +104,8 @@ export default {
 	max-width: 100%;
 }
 .arrow {
+	width: 18px;
+	height: 18px;
 	transform: rotate(90deg);
 	margin-left: 10px;
 }

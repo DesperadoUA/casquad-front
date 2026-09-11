@@ -20,13 +20,9 @@ export default {
 	data: () => {
 		return {
 			imgSettings: {
-				width: '80px',
-				height: '80px',
 				class: 'border_radius_s'
 			},
 			starSettings: {
-				width: '14px',
-				height: '14px',
 				class: ' m_r_xs'
 			},
 			textSettings: {
@@ -123,5 +119,14 @@ export default {
 	.wrapper {
 		padding-top: 5px;
 	}
+}
+.rating img {
+	width: 14px;
+	height: 14px;
+}
+.wrapper > a img {
+	width: 80px;
+	height: 80px;
+	object-fit: cover;
 }
 </style>

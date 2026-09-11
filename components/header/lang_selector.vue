@@ -34,8 +34,6 @@ export default {
 			options: null,
 			isShowLangSelector: false,
 			imgSettings: {
-				width: '18px',
-				height: '18px'
 			},
 			textSettings: {
 				color: 'cairo',
@@ -125,5 +123,13 @@ export default {
 	.lang_item {
 		background: var(--cancun);
 	}
+}
+.flag img {
+	width: 18px;
+	height: 18px;
+}
+.arrow img {
+	width: 18px;
+	height: 18px;
 }
 </style>

@@ -52,8 +52,6 @@ export default {
 	data() {
 		return {
 			imgSettings: {
-				width: '210px',
-				height: '92px',
 				class: 'object_fit_cover'
 			},
 			titleSettings: {
@@ -89,8 +87,6 @@ export default {
 				text_transform: 'uppercase'
 			},
 			starSettings: {
-				width: '14px',
-				height: '14px',
 				class: ' m_r_xs'
 			},
 			textSettings: {
@@ -184,6 +180,11 @@ export default {
 .img_wrapper {
 	width: 210px;
 	height: 92px;
+}
+.img_wrapper img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
 }
 .left {
 	width: 210px;
@@ -334,5 +335,9 @@ export default {
 	.characters_right {
 		width: 100%;
 	}
+}
+.rating img {
+	width: 14px;
+	height: 14px;
 }
 </style>

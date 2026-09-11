@@ -68,8 +68,6 @@ export default {
 				class: 'close_button'
 			},
 			whiteCrossSettings: {
-				width: '10px',
-				height: '10px'
 			},
 			btnCancel: {
 				color: 'cairo',
@@ -230,5 +228,9 @@ export default {
 	.input_wrapper {
 		width: 100%;
 	}
+}
+.close_button img {
+	width: 10px;
+	height: 10px;
 }
 </style>

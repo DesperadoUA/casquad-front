@@ -36,8 +36,6 @@ export default {
 	data: () => {
 		return {
 			imgSettings: {
-				width: '62px',
-				height: '62px',
 				class: 'object_fit_cover border_radius_50'
 			},
 			titleSettings: {
@@ -54,8 +52,6 @@ export default {
 				class: 'desc'
 			},
 			starSettings: {
-				width: '14px',
-				height: '14px',
 				class: ' m_r_xs'
 			},
 			textSettings: {
@@ -71,8 +67,6 @@ export default {
 				class: 'rating_total_value'
 			},
 			imgVerifiedSettings: {
-				width: '13px',
-				height: '16px'
 			}
 		}
 	},
@@ -210,5 +204,18 @@ export default {
 	}
 }
 @media (min-width: 768px) and (max-width: 1200px) {
+}
+.rating img {
+	width: 14px;
+	height: 14px;
+}
+.verified img {
+	width: 13px;
+	height: 16px;
+}
+.img_wrapper img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
 }
 </style>

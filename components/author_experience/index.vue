@@ -33,8 +33,6 @@ export default {
 				size: 'medium'
 			},
 			arrowSettings: {
-				width: '18px',
-				height: '18px',
 				class: 'arrow',
 				alt: 'Green Arrow'
 			}
@@ -80,6 +78,8 @@ export default {
 	margin: 0 auto;
 }
 .arrow {
+	width: 18px;
+	height: 18px;
 	margin-left: 10px;
 	transform: rotate(90deg);
 }

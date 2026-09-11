@@ -19,8 +19,6 @@ export default {
     data: () => {
 		return {
 			imgSettings: {
-				width: '35px',
-				height: '35px',
                 alt: 'Gif'
 			},
             btnSettings: {
@@ -76,5 +74,9 @@ export default {
         left: -90px;
         transition: 0.7s;
     }
+}
+.bonus img {
+	width: 35px;
+	height: 35px;
 }
 </style>

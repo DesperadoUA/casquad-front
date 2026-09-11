@@ -18,7 +18,6 @@ export default {
 				editor_writer: '/img/editor_writer.svg'
 			},
 			imgSettings: {
-				width: '16px'
 			}
 		}
 	},
@@ -62,5 +61,9 @@ export default {
 	border: 1px solid var(--cardiff);
 	background: var(--cuzco);
 	color: var(--colombo);
+}
+.badge img {
+	width: 16px;
+	height: 16px;
 }
 </style>

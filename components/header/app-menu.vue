@@ -79,8 +79,6 @@ export default {
 				decoration: 'none'
 			},
 			arrowImgSettings: {
-				width: '12px',
-				height: '12px',
 				alt: 'arrow'
 			},
 			settings: [],
@@ -324,5 +322,10 @@ export default {
 		width: 100%;
 		justify-content: space-between;
 	}
+}
+.header_menu_arrow_btn img {
+	width: 12px;
+	height: 12px;
+	display: block;
 }
 </style>

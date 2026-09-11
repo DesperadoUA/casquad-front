@@ -81,8 +81,6 @@ export default {
 				class: 'show_more_button'
 			},
 			arrowSettings: {
-				width: '18px',
-				height: '18px',
 				class: 'arrow',
 				alt: 'Green arrow'
 			}
@@ -128,6 +126,8 @@ export default {
 	width: 272px;
 }
 .arrow {
+	width: 18px;
+	height: 18px;
 	transform: rotate(90deg);
 }
 @media (max-width: 576px) {

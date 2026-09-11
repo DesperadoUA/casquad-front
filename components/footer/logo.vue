@@ -30,8 +30,6 @@ export default {
 				class: 'footer_logo_img'
 			},
 			imgSocialSettings: {
-				width: '24px',
-				height: '24px'
 			}
 		}
 	}
@@ -55,5 +53,9 @@ export default {
 		flex-grow: 1;
 		justify-content: end;
 	}
+}
+.footer_social img {
+	width: 24px;
+	height: 24px;
 }
 </style>

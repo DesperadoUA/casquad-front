@@ -20,7 +20,6 @@ export default {
 	data() {
 		return {
 			imgSettings: {
-				width: '140px'
 			}
 		}
 	},
@@ -69,5 +68,10 @@ export default {
 	.card__content {
 		gap: 5px;
 	}
+}
+.card__icon img {
+	width: 140px;
+	height: auto;
+	max-width: 100%;
 }
 </style>

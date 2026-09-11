@@ -25,7 +25,6 @@ export default {
 	data: () => {
 		return {
 			imgSettings: {
-				height: '40px'
 			}
 		}
 	},
@@ -47,5 +46,9 @@ export default {
 		padding: 0 20px;
 		flex-wrap: wrap;
 	}
+}
+.partners img {
+	height: 40px;
+	width: auto;
 }
 </style>

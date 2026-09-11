@@ -27,8 +27,6 @@ export default {
 			posts: [],
 			searchWord: '',
 			imgSettings: {
-				width: '20px',
-				height: '20px',
 				class: 'click_permitted_area'
 			},
 			isShow: true

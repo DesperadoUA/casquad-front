@@ -126,13 +126,9 @@ export default {
 	data: () => {
 		return {
 			imgSettings: {
-				width: '210px',
-				height: '92px',
 				class: 'object_fit_cover'
 			},
 			starSettings: {
-				width: '14px',
-				height: '14px',
 				class: ' m_r_xs'
 			},
 			textSettings: {
@@ -148,8 +144,6 @@ export default {
 				class: 'rating_total_value'
 			},
 			searchSettings: {
-				width: '20px',
-				height: '20px'
 			},
 			titleLinkSettings: {
 				color: 'cairo',
@@ -200,8 +194,8 @@ export default {
 			},
 			providerSettings: {
 				class: 'provider_img',
-				width: '54px',
-				height: '34px'
+
+
 			},
 			detailActive: false
 		}
@@ -298,6 +292,11 @@ export default {
 .img_wrapper {
 	width: 210px;
 	height: 92px;
+}
+.img_wrapper img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
 }
 .desc {
 	font-size: 10px;
@@ -627,5 +626,13 @@ export default {
 		width: 100%;
 		justify-content: center;
 	}
+}
+.rating img {
+	width: 14px;
+	height: 14px;
+}
+.read_more img {
+	width: 20px;
+	height: 20px;
 }
 </style>

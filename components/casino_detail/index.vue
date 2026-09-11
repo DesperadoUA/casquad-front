@@ -180,18 +180,12 @@ export default {
 				class: 'lang'
 			},
 			imgSettings: {
-				width: '26px',
-				height: '26px',
 				class: 'logo'
 			},
 			imgSettingsFlag: {
-				width: '19px',
-				height: '18px',
 				class: 'flag_icon'
 			},
 			imgSettingsArrow: {
-				width: '24px',
-				height: '24px',
 				class: 'arrow',
 				alt: 'Green arrow'
 			},
@@ -285,6 +279,10 @@ export default {
 .flag_icon {
 	margin-right: 5px;
 	display: block;
+	width: 19px;
+	height: 18px;
+	object-fit: contain;
+	flex-shrink: 0;
 }
 .row {
 	display: flex;
@@ -350,6 +348,10 @@ export default {
 .logo {
 	display: block;
 	margin-right: 5px;
+	width: 26px;
+	height: 26px;
+	object-fit: contain;
+	flex-shrink: 0;
 }
 .item_payout {
 	font-size: 10px;
@@ -407,5 +409,9 @@ export default {
 	.right {
 		width: 100%;
 	}
+}
+.arrow {
+	width: 24px;
+	height: 24px;
 }
 </style>

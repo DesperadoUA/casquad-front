@@ -42,8 +42,6 @@ export default {
 			isShowFilters: false,
 			currentFilter: '',
 			filterSettings: {
-				width: '15px',
-				height: '16px'
 			},
 			btnSettings: {
 				color: 'cairo',
@@ -54,8 +52,6 @@ export default {
 				class: 'filter_button'
 			},
 			arrowSettings: {
-				width: '18px',
-				height: '18px',
 				class: 'arrow'
 			}
 		}
@@ -98,7 +94,13 @@ export default {
 	justify-content: center;
 	white-space: nowrap;
 }
+.filter_button > img:first-child {
+	width: 15px;
+	height: 16px;
+}
 .arrow {
+	width: 18px;
+	height: 18px;
 	transform: rotate(90deg);
 }
 

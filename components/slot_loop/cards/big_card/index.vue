@@ -5,8 +5,7 @@
 		</div>
 		<div class="wrapper">
 			<ALink :href="link" :title="`Goes to ${title} page`">
-				<!-- <AImg :attributes="{ ...imgSettings, alt: `${title} Logo` }" :src="src" />-->
-				<img :alt="`${title} Logo`" :src="src" width="329px" height="355px" class="object_fit_cover thumbnail"/>
+				<AImg :attributes="{ ...imgSettings, alt: `${title} Logo` }" :src="src" />
 			</ALink>
 		</div>
 	</article>
@@ -19,8 +18,6 @@ export default {
 	data: () => {
 		return {
 			imgSettings: {
-				width: '329px',
-				height: '355px',
 				class: 'object_fit_cover thumbnail'
 			},
 			textSettings: {
@@ -86,5 +83,9 @@ export default {
 	.item {
 		width: 100%;
 	}
+}
+.thumbnail {
+	width: 100%;
+	height: 100%;
 }
 </style>

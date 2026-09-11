@@ -21,8 +21,6 @@ export default {
 	data() {
 		return {
 			imgSettings: {
-				width: '120px',
-				height: '98px'
 			},
 			textSettings: {
 				size: 'large',
@@ -83,5 +81,10 @@ export default {
 	.item_text {
 		font-size: 12px;
 	}
+}
+.left img {
+	width: 120px;
+	height: 98px;
+	object-fit: contain;
 }
 </style>

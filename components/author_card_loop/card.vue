@@ -77,17 +77,11 @@ export default {
 	data() {
 		return {
 			imgSettings: {
-				width: '64px',
-				height: '64px',
 				class: 'icon'
 			},
 			imgSocialSettings: {
-				width: '24px',
-				height: '24px'
 			},
 			imgShareSettings: {
-				width: '18px',
-				height: '18px',
 				class: 'border-radius-50'
 			}
 		}
@@ -137,6 +131,8 @@ export default {
 }
 .social img {
 	display: block;
+	width: 24px;
+	height: 24px;
 }
 @media (max-width: 568px) {
 	.author_loop_card {
@@ -164,5 +160,14 @@ export default {
 	.card_bottom {
 		justify-content: center;
 	}
+}
+.img_wrapper img {
+	width: 64px;
+	height: 64px;
+	object-fit: cover;
+}
+.share_arrow img {
+	width: 18px;
+	height: 18px;
 }
 </style>
