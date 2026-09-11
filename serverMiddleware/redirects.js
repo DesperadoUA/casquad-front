@@ -46,14 +46,26 @@ async function ensureRedirects() {
 	return store.loading
 }
 
+const CANONICAL_ORIGIN = 'https://casquad.org'
+
+function getHostname(host) {
+	return (host || '').split(':')[0].toLowerCase()
+}
+
 module.exports = async function(req, res, next) {
 	const host = req.headers.host
+	const hostname = getHostname(host)
 	let url = req.url.split('?')[0]
 	let urlParams = null
 
-	if (host.startsWith('www.')) {
-		const to = 'https://casquad.org' + req.url
-		res.writeHead(301, { Location: to })
+	if (hostname === 'casquad.com' || hostname === 'www.casquad.com') {
+		res.writeHead(301, { Location: CANONICAL_ORIGIN + req.url })
+		res.end()
+		return
+	}
+
+	if (hostname.startsWith('www.')) {
+		res.writeHead(301, { Location: CANONICAL_ORIGIN + req.url })
 		res.end()
 		return
 	}
