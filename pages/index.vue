@@ -110,6 +110,9 @@
 				</TwoContentContainer>
 			</div>
 		</div>
+		<div class="container desktop_game_slider" v-if="device === 'DC' && data.body.games && data.body.games.length">
+			<GameSlider :posts="data.body.games" />
+		</div>
 		<div class="news_loop">
 			<div class="container">
 				<div class="section_title_wrapper">
@@ -163,6 +166,7 @@ import NewsMainCard from '~/components/news_loop/cards/main'
 import CasinoLoop from '~/components/casino_loop'
 import Faq from '~/components/faq'
 import Gradient from '~/components/gradient'
+import GameSlider from '~/components/game_slider'
 import pageTemplate from '~/mixins/pageTemplate'
 import device from '~/mixins/device'
 import helper from '~/helpers/helpers'
@@ -188,6 +192,7 @@ export default {
 		CasinoLoop,
 		Faq,
 		Gradient,
+		GameSlider,
 		gradientWrapper,
 		AsideBonuses
 	},
@@ -434,6 +439,13 @@ export default {
 .slider_wrapper {
 	padding-top: 50px;
 	padding-bottom: 50px;
+}
+.desktop_game_slider {
+	padding-top: 50px;
+	padding-bottom: 20px;
+}
+.desktop_game_slider ::v-deep .sliderContainer--placeholder {
+	max-height: 420px;
 }
 .category_filter_wrapper {
 	padding-top: var(--m);
